@@ -8,30 +8,30 @@
         <script src="/chart/dist/js/pages/morris-data.js"></script>
         
     <!-- Donute Chart open-->
-    <div class="col-lg-6">
+
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Donute Chart</h4>
                 <div id="morris-donut-chart"></div>
             </div>
         </div>
-    </div>
+
     <!-- Donute Chart close-->  
 
     <!-- Bar Chart open-->
-    <div class="col-lg-12">
+
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Bar Chart</h4>
                 <div id="morris-bar-chart"></div>
             </div>
         </div>
-    </div>
+
      <!-- Bar Chart close-->
 
 
     <!-- Line Bar chart -->
-    <div class="col-lg-6">
+
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Product line Chart</h4>
@@ -49,25 +49,25 @@
                 <div id="morris-area-chart"></div>
             </div>
         </div>
-    </div>
+
     <!-- Line Bar chart close-->
 
     <!-- Monthly Report Chart open-->
-    <div class="col-lg-12">
+
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Monthly Report</h4>
                 <div id="bar-chart" style="width:100%; height:400px;"></div>
             </div>
         </div>
-    </div>
+
             <!-- Chart JS -->
             <script src="/chart/node_modules/echarts/echarts-all.js"></script>
             <script src="/chart/node_modules/echarts/echarts-init.js"></script>
     <!-- Monthly Report Chart close-->
 
     <!-- Moving Line Chart open-->
-    <div class="col-lg-6">
+
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Moving Line Chart Example</h4>
@@ -76,7 +76,7 @@
                 </div>
             </div>
         </div>
-    </div>
+
             <!-- Flot Charts JavaScript -->
             <script src="/chart/node_modules/flot/excanvas.js"></script>
             <script src="/chart/node_modules/flot/jquery.flot.js"></script>

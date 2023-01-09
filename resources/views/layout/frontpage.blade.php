@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="description" content="@yield('page_description', $page_description ?? '')" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     {{ Metronic::getGoogleFontsInclude() }}
     @foreach(config('layout.resources.css') as $style)
