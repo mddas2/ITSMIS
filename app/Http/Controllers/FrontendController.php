@@ -42,6 +42,8 @@ class FrontendController extends Controller
 
     public function index()
     {
+        // return $this->_page;
+        
         return view($this->_page . 'index', $this->_data);
     }
 
@@ -61,8 +63,9 @@ class FrontendController extends Controller
                 "verify_peer_name" => false,
             ),
         );
-
-        $data = json_decode(file_get_contents('https://monitoring.doc.gov.np/Api/External/MonitoringReport/MOICS/007$@g@r255it9999xyzko893498hdjfyenx25846737982luvB/' . $this->_data['from_date'] . '/' . $this->_data['to_date'], false, stream_context_create($arrContextOptions)));
+        return "Api Link broken error";
+        // $data = json_decode(file_get_contents('https://monitoring.doc.gov.np/Api/External/MonitoringReport/MOICS/007$@g@r255it9999xyzko893498hdjfyenx25846737982luvB/' . $this->_data['from_date'] . '/' . $this->_data['to_date'], false, stream_context_create($arrContextOptions)));
+        
         $this->_data['data'] = $data;
 
         $frimTypeCount = [];

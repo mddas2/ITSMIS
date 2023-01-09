@@ -15,6 +15,7 @@
             @include('pages.partials.report_front_tiles')
         </div>
     </div>
+    @include('pages.partials.graph.analysis_graph_dashboard')
 @endsection
 @section('scripts')
     <script src="{{asset('js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>
