@@ -280,7 +280,7 @@
 
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Moving Line Chart Example</h4>
+                <h4 class="card-title">Real Time Consumption</h4>
                 <div class="flot-chart">
                     <div class="flot-chart-content" id="flot-line-chart-moving" style="padding: 0px; position: relative;"><canvas class="flot-base" width="500" height="800" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 250px; height: 400px;"></canvas><div class="flot-text" style="position: absolute; inset: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; inset: 0px;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 362px; left: 31px; text-align: right;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 298px; left: 24px; text-align: right;">20</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 234px; left: 23px; text-align: right;">40</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 171px; left: 23px; text-align: right;">60</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 107px; left: 23px; text-align: right;">80</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 43px; left: 20px; text-align: right;">100</div></div></div><canvas class="flot-overlay" width="500" height="800" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 250px; height: 400px;"></canvas></div>
                 </div>
@@ -318,13 +318,13 @@
                 <h4 class="card-title">Product line Chart</h4>
                 <ul class="list-inline text-end">
                     <li>
-                        <h5><i class="fa fa-circle m-r-5 text-inverse"></i>iPhone</h5>
+                        <h5><i class="fa fa-circle m-r-5 text-inverse"></i>Import/Export</h5>
                     </li>
                     <li>
-                        <h5><i class="fa fa-circle m-r-5 text-info"></i>iPad</h5>
+                        <h5><i class="fa fa-circle m-r-5 text-info"></i>Consumption</h5>
                     </li>
                     <li>
-                        <h5><i class="fa fa-circle m-r-5 text-success"></i>iPod</h5>
+                        <h5><i class="fa fa-circle m-r-5 text-success"></i>Production</h5>
                     </li>
                 </ul>
                 <div id="morris-area-chart"></div>
