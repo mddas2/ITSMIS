@@ -5,20 +5,33 @@ $(function () {
         
  Morris.Donut({
     element: 'morris-donut-chart',
-    data: [{
-        label: "Download Sales",
-        value: 12,
-
+    data: [ {
+        label: "Production",
+        value: 3000
     }, {
-        label: "In-Store Sales",
-        value: 30
-    }, {
-        label: "Mail-Order Sales",
-        value: 20
+        label: "Consumption",
+        value: 2000
     }],
     resize: true,
-    colors:['#009efb', '#55ce63', '#2f3d4a']
+    colors:['#55ce63', '#2f3d4a']
 });
+
+// Morris.Donut({
+//     element: 'morris-donut-chart',
+//     data: [{
+//         label: "positive",
+//         value: 100,
+
+//     }, {
+//         label: "Production",
+//         value: 3000
+//     }, {
+//         label: "Consumption",
+//         value: 2000
+//     }],
+//     resize: true,
+//     colors:['#009efb', '#55ce63', '#2f3d4a']
+// });
 
 // Morris bar chart
 Morris.Bar({
