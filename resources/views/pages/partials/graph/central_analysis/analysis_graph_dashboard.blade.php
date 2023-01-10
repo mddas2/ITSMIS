@@ -37,7 +37,6 @@
                         <th>Quantity Unit</th>
                         <th>Stock Quantity</th>
                         <th>Sales Quantity</th>
-
                     </tr>
 
                     </thead>

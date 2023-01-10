@@ -15,7 +15,26 @@
             @include('pages.partials.graph.report_front_tiles')
         </div>
     </div>
-    @include('pages.partials.graph.analysis_graph_dashboard')
+
+    @if($page_type == "central_analysis")
+        @include('pages.partials.graph.central_analysis.analysis_graph_dashboard')
+    @elseif($page_type == "province_analysis")
+        @include('pages.partials.graph.province_analysis.analysis_graph_dashboard')
+    @elseif($page_type == "district_analysis")
+        @include('pages.partials.graph.district_analysis.analysis_graph_dashboard')
+    @elseif($page_type == "production_analysis")
+        @include('pages.partials.graph.production_analysis.analysis_graph_dashboard')
+    @elseif($page_type == "consumption_analysis")
+        @include('pages.partials.graph.consumption_analysis.analysis_graph_dashboard')
+    @elseif($page_type == "export_analysis")
+        @include('pages.partials.graph.export_analysis.analysis_graph_dashboard')
+    @elseif($page_type == "import_analysis")
+        @include('pages.partials.graph.import_analysis.analysis_graph_dashboard')
+    @elseif($page_type == "future_analysis")
+        @include('pages.partials.graph.future_analysis.analysis_graph_dashboard')
+    @endif
+
+
 @endsection
 @section('scripts')
     <script src="{{asset('js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>
