@@ -383,3 +383,5 @@ Route::get('report/doc/{type}', 'FrontendController@doc')->name('front_report_do
 Route::get('/change-languange/{lang}', 'UtilController@changeLanguage')->name('change-lang');
 Route::get('/current-fiscal-year', 'UtilController@getCurrentFiscalYear')->name('current-fiscal-year');
 
+//**********************forecast***************************************************************************
+Route::get('/forecast', 'ForeCastController@index')->name('ForecastIndex');
