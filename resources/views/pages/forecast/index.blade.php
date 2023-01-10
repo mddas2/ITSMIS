@@ -1,4 +1,4 @@
-@extends('layout.frontpage')
+@extends('layout.forecast')
 
 @section('styles')
     <link href="{{asset('plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="card-body">
-            @include('pages.partials.report_front_tiles')
+            @include('pages.partials.graph.report_front_tiles')
         </div>
     </div>
     @include('pages.partials.graph.analysis_graph_dashboard')
