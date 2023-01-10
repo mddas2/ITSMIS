@@ -107,159 +107,238 @@
         <div class="card-body">
             <h4 class="card-title">Donute Chart</h4>
             <div class="row">
-                <div class="col-6">
+                <div class="col-4">
                     <div id="morris-donut-chart"></div>
-                </div>
-            
-                <div class="col-6">
-                <div class="card-body">
-                                <h4 class="card-title">Provience data Table of Wheat</h4>
-                                <!-- <h6 class="card-subtitle">Add<code>.table-striped</code>for borders on all sides of the table and cells.</h6> -->
+                </div>            
+                <div class="col-md-4">
+                        <div class="card border-info">
+                            <div class="card-header bg-info">
+                                <h4 class="m-b-0 text-white">Current year 2079</h4></div>
+                            <div class="card-body">
+                                <li class="text-danger">Stock level upto next 5 months</li>
+                                <li class="text-success">10mt is required to fulfill this year</li>
                                 <div class="table-responsive">
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Provience Name</th>
-                                                <th>produce</th>
-                                                <th>consume</th>
-                                                <th>Progress</th>
-                                                <th>Consumption</th>
-                                            
-                                               
+                                                <th>Production</th>
+                                                <th>Consumption</th>  
+                                                <th>Surplus/Deficit</th>                                             
+                                                
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>Provience 1</td>
-                                                <td>500mt</td>
-                                                <td>400mt</td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                               
-                                            </tr>
-                                            <tr>
-                                                <td>Provience 2 </td>
-                                                <td>500mt</td>
-                                                <td>400mt</td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-warning" style="width: 50%; height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>Provience 3 </td>
-                                                <td>500mt</td>
-                                                <td>400mt</td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-success" style="width: 100%; height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>Provience 4 </td>
-                                                <td>500mt</td>
-                                                <td>400mt</td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-primary" style="width: 70%; height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>Provience 5 </td>
-                                                <td>500mt</td>
-                                                <td>400mt</td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-info" style="width: 85%; height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>Provience 6</td>
-                                                <td>500mt</td>
-                                                <td>400mt</td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-success" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-inverse" style="width: 50%; height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                               
-                                            </tr>
+                                                <td>230 mt</td>
+                                                <td>500 mt</td>
+                                                <td>400 mt</td>                                                                                            
+                                            </tr>                                     
+                                            
                                         </tbody>
                                     </table>
                                 </div>
+                                <!-- <a href="javascript:void(0)" class="btn btn-dark">Go somewhere</a> -->
                             </div>
+                        </div>
+                        <ul class="list-inline m-t-30 text-center mb-1 d-flex">
+                                <li class="list-inline-item p-r-20">
+                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #fb9678;"></i>Production</h5>
+                                    <h4 class="m-b-0">8500</h4>
+                                </li>
+                                <li class="list-inline-item p-r-20">
+                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #01c0c8;"></i>Consumption</h5>
+                                    <h4 class="m-b-0">3630</h4>
+                                </li>
+                                <li class="list-inline-item">
+                                    <h5 class="text-muted"> <i class="fa fa-circle" style="color: #4F5467;"></i>Deficit/surplus</h5>
+                                    <h4 class="m-b-0">4870</h4>
+                                </li>
+                        </ul>
                 </div>
+                <div class="col-md-4">
+                    <div class="card border-info">
+                        <div class="card-header bg-info">
+                            <h4 class="m-b-0 text-white">Previous year 2078</h4>
+                        </div>
+                        <div class="card-body">
+                        <li class="text-danger">Stock level upto next 5 months</li>
+                        <li class="text-success">10mt imported to fulfill this year</li>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Production</th>
+                                        <th>Consumption</th>  
+                                        <th>Surplus/Deficit</th>                                             
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>230 mt</td>
+                                        <td>500 mt</td>
+                                        <td>400 mt</td>                                                                                            
+                                    </tr>                                     
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                            <!-- <a href="javascript:void(0)" class="btn btn-dark">Go somewhere</a> -->
+                    </div>
+                    <ul class="list-inline m-t-30 text-center mb-1 d-flex">
+                                <li class="list-inline-item p-r-20">
+                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #fb9678;"></i>Production</h5>
+                                    <h4 class="m-b-0">8500</h4>
+                                </li>
+                                <li class="list-inline-item p-r-20">
+                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #01c0c8;"></i>Consumption</h5>
+                                    <h4 class="m-b-0">3630</h4>
+                                </li>
+                                <li class="list-inline-item">
+                                    <h5 class="text-muted"> <i class="fa fa-circle" style="color: #4F5467;"></i>Deficit/surplus</h5>
+                                    <h4 class="m-b-0">4870</h4>
+                                </li>
+                        </ul>
+                </div>
+            </div>
             </div>
         </div>
     </div>
-    
+    <div class="card-body">
+    <h4 class="card-title">Provience data Table of Wheat</h4>
+    <!-- <h6 class="card-subtitle">Add<code>.table-striped</code>for borders on all sides of the table and cells.</h6> -->
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Months</th>
+                    <th>Production</th>
+                    <th>Consumption</th>
+                    <th>Surplus/Deficit Progress</th>
+                    <!-- <th>Consumption</th> -->
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Jun</td>
+                    <td>500mt</td>
+                    <td>400mt</td>                                                                                            
+                </tr>
+                <tr>
+                    <td>Feb </td>
+                    <td>500mt</td>
+                    <td>400mt</td>
+                    <td>
+                        <div class="progress progress-xs margin-vertical-10 ">
+                            <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
+                        </div>
+                    </td>                                                
+                </tr>
+                <tr>
+                    <td>Mar </td>
+                    <td>500mt</td>
+                    <td>400mt</td>
+                    <td>
+                        <div class="progress progress-xs margin-vertical-10 ">
+                            <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Apr</td>
+                    <td>500mt</td>
+                    <td>400mt</td>
+                    <td>
+                        <div class="progress progress-xs margin-vertical-10 ">
+                            <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
+                        </div>
+                    </td>                                                
+                </tr>
+                <tr>
+                    <td>May</td>
+                    <td>500mt</td>
+                    <td>400mt</td>
+                    <td>
+                        <div class="progress progress-xs margin-vertical-10 ">
+                            <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jun</td>
+                    <td>500mt</td>
+                    <td>400mt</td>
+                    <td>
+                        <div class="progress progress-xs margin-vertical-10 ">
+                            <div class="progress-bar bg-success" style="width: 35% ;height:6px;"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>July</td>
+                    <td>500mt</td>
+                    <td>400mt</td>
+                    <td>
+                        <div class="progress progress-xs margin-vertical-10 ">
+                            <div class="progress-bar bg-success" style="width: 35% ;height:6px;"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Aug</td>
+                    <td>500mt</td>
+                    <td>400mt</td>
+                    <td>
+                        <div class="progress progress-xs margin-vertical-10 ">
+                            <div class="progress-bar bg-success" style="width: 35% ;height:6px;"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sept</td>
+                    <td>500mt</td>
+                    <td>400mt</td>
+                    <td>
+                        <div class="progress progress-xs margin-vertical-10 ">
+                            <div class="progress-bar bg-success" style="width: 35% ;height:6px;"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Oct</td>
+                    <td>500mt</td>
+                    <td>400mt</td>
+                    <td>
+                        <div class="progress progress-xs margin-vertical-10 ">
+                            <div class="progress-bar bg-success" style="width: 35% ;height:6px;"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nov</td>
+                    <td>500mt</td>
+                    <td>400mt</td>
+                    <td>
+                        <div class="progress progress-xs margin-vertical-10 ">
+                            <div class="progress-bar bg-success" style="width: 35% ;height:6px;"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Dec</td>
+                    <td>500mt</td>
+                    <td>400mt</td>
+                    <td>
+                        <div class="progress progress-xs margin-vertical-10 ">
+                            <div class="progress-bar bg-success" style="width: 35% ;height:6px;"></div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
     <!-- Donute Chart close-->  
      <!-- Monthly Report Chart open-->
