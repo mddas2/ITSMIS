@@ -389,7 +389,7 @@ Route::get('/forecast-province', 'ForeCastController@ProvinceAnalysis')->name('P
 Route::get('/forecast-district', 'ForeCastController@DistrictAnalysis')->name('DistrictAnalysis'); // DistrictAnalysis
 Route::get('/forecast-production', 'ForeCastController@ProductionAnalysis')->name('ProductionAnalysis'); // ProductionAnalysis
 Route::get('/forecast-consumption', 'ForeCastController@ConsumptionAnalysis')->name('ConsumptionAnalysis'); // ConsumptionAnalysis
-Route::get('/forecast-consumption', 'ForeCastController@ImportAnalysis')->name('ImportAnalysis'); // ImportAnalysis
+Route::get('/forecast-import', 'ForeCastController@ImportAnalysis')->name('ImportAnalysis'); // ImportAnalysis
 Route::get('/forecast-export', 'ForeCastController@ExportAnalysis')->name('ExportAnalysis'); // ExportAnalysis
 Route::get('/forecast-future-predict', 'ForeCastController@FutureAnalysis')->name('FutureAnalysis'); // FutureAnalysis
 
