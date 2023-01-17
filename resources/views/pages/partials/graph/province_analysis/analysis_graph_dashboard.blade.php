@@ -274,6 +274,40 @@
                 <!-- Chart JS -->
                 <script src="/chart/node_modules/echarts/echarts-all.js"></script>
                 <script src="/chart/node_modules/echarts/echarts-init.js"></script>
+                <script>
+                    Morris.Donut({
+                        element: 'morris-donut-chart',
+                        data: [ {
+                            label: "Provience 1",
+                            value: 3000
+                        }, {
+                            label: "Provience 2",
+                            value: 2000
+                        },
+                        {
+                            label: "Provience 3",
+                            value: 2000
+                        },
+                        {
+                            label: "Provience 4",
+                            value: 2000
+                        },
+                        {
+                            label: "Provience 5",
+                            value: 2000
+                        },
+                        {
+                            label: "Provience 6",
+                            value: 2000
+                        },
+                        {
+                            label: "Provience 7",
+                            value: 2000
+                        }],
+                        resize: true,
+                        colors:['#55ce63', '#2f3d4a','red','yellow','blue','orange','gray']
+                    });
+                </script>
             <!-- Monthly Report Chart close-->
 
              <!-- Moving Line Chart open-->

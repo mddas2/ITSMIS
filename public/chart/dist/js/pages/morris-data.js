@@ -3,18 +3,18 @@ $(function () {
     "use strict";
  // Morris donut chart
         
- Morris.Donut({
-    element: 'morris-donut-chart',
-    data: [ {
-        label: "Production",
-        value: 3000
-    }, {
-        label: "Consumption",
-        value: 2000
-    }],
-    resize: true,
-    colors:['#55ce63', '#2f3d4a']
-});
+//  Morris.Donut({
+//     element: 'morris-donut-chart',
+//     data: [ {
+//         label: "Production",
+//         value: 3000
+//     }, {
+//         label: "Consumption",
+//         value: 2000
+//     }],
+//     resize: true,
+//     colors:['#55ce63', '#2f3d4a']
+// });
 
 // Morris.Donut({
 //     element: 'morris-donut-chart',

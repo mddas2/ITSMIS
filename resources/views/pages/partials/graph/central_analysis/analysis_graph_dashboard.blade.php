@@ -109,7 +109,21 @@
             <div class="row">
                 <div class="col-4">
                     <div id="morris-donut-chart"></div>
-                </div>            
+                </div>  
+                <script>
+                     Morris.Donut({
+                        element: 'morris-donut-chart',
+                        data: [ {
+                            label: "Production",
+                            value: 3000
+                        }, {
+                            label: "Consumption",
+                            value: 2000
+                        }],
+                        resize: true,
+                        colors:['#55ce63', '#2f3d4a']
+                    });
+                </script>          
                 <div class="col-md-4">
                         <div class="card border-info">
                             <div class="card-header bg-info">
