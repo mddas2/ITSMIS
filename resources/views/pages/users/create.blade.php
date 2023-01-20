@@ -17,6 +17,20 @@
 			</div>
 			<div class="form-group row">
 				<div class="col-lg-6">
+					<label>Provience<span style="color: #e9594d;">*</span></label>
+					{{Form::select('hierarchy_id',$list,$hierarchy_id,['class'=>'form-control form-control-solid hierarchyList','required'=>true])}}
+				</div>
+				<div class="col-lg-6">
+					<label>District:</label>
+					{{Form::select('office_id',["0" => "Select Office"],$office_id,['class'=>'form-control form-control-solid officeList'])}}
+				</div>
+				<div class="col-lg-6">
+					<label>Municipality:</label>
+					{{Form::select('office_id',["0" => "Select Office"],$office_id,['class'=>'form-control form-control-solid officeList'])}}
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-lg-6">
 					<label>Name:<span style="color: #e9594d;">*</span></label>
 					<input name="name" type="text" class="form-control form-control-solid name" placeholder="Enter name" required autocomplete="off" />
 				</div>
