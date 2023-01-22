@@ -14,6 +14,6 @@ class Province extends Model
     
     public function getDistrictWithProvienceId()
     {
-        return $this->hasMany(District::class,'province_id','id');
+        return $this->hasMany(District::class,'province_id','province_id');
     }
 }

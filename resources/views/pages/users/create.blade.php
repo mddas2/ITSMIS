@@ -19,25 +19,25 @@
 				<div class="col-lg-4">
 					<label>Provience<span style="color: #e9594d;">*</span></label>
 					<select id="provience_id" class="form-control form-control-solid">
-						<option value="option1">Option 1</option>
-						<option value="option2" selected>Option 2</option>
-						<option value="option3">Option 3</option>
+						<option value="1">Provience 1</option>
+						<option value="2">Provience 2</option>
+						<option value="3">Provience 3</option>
+						<option value="4">Provience 4</option>
+						<option value="5">Provience 5</option>
+						<option value="6">Provience 6</option>
+						<option value="7">Provience 7</option>
 					</select>
 				</div>
 				<div class="col-lg-4">
 					<label>District:</label>
 					<select id="district_id" class="form-control form-control-solid">
-						<option value="option1">Option 1</option>
-						<option value="option2" selected>Option 2</option>
-						<option value="option3">Option 3</option>
+						
 					</select>
 				</div>
 				<div class="col-lg-4">
 					<label>Municipalitys:</label>
 					<select id = "muncipality_id" class="form-control form-control-solid">
-						<option value="option1">Option 1</option>
-						<option value="option2" selected>Option 2</option>
-						<option value="option3">Option 3</option>
+	
 					</select>
 				</div>
 			</div>
@@ -147,24 +147,55 @@
 	
 $("#provience_id").change(function() {
     var selectedValue = $(this).val();
-	alert(selectedValue)
+			$.ajax({
+				type: "GET",
+				url: "{{route('getDistrict')}}",
+				data: { provience_id: selectedValue },
+				success: function(data) {
+					$("#district_id").empty()
+					// console.log(data)
+					for(da in data){
+						var district = data[da]['name']
+						var district_id = data[da]['id']
+						$("#district_id").append('<option value="'+district_id+'">'+district+'</option>')
+					}
+					// Do something with the data returned by the server
+				}
+		});
+	
     // if (selectedValue == "option1") {
-    //     $("#div1").show();
-    //     $("#div2").hide();
-    // } else {
-    //     $("#div1").hide();
-    //     $("#div2").show();
+    //     $("#district_id").show();
+    //     // $("#div2").hide();
+    // }
+});
+//provinces
+//municipalities
+//districts
+
+$("#district_id").change(function() {
+    var selectedValue = $(this).val();
+			$.ajax({
+				type: "GET",
+				url: "{{route('getMuncipality')}}",
+				data: { district_id: selectedValue },
+				success: function(data) {
+					$("#muncipality_id").empty()
+					console.log(data)
+					for(da in data){
+						console.log(da)
+						var muncipality = data[da]['name']
+						var id = data[da]['municipality_id']
+						$("#muncipality_id").append('<option value="option1">'+muncipality+'</option>')
+					}
+					// Do something with the data returned by the server
+				}
+		});
+	
+    // if (selectedValue == "option1") {
+    //     $("#district_id").show();
+    //     // $("#div2").hide();
     // }
 });
 
-// $.ajax({
-//   type: "POST",
-//   url: "{{route('getDistrict')}}",
-//   data: { name: "disctict" },
-//   success: function(data) {
-// 	alert("provience data")
-//     // Do something with the data returned by the server
-//   }
-// });
 
 </script>

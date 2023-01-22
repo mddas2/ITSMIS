@@ -16,8 +16,7 @@ class ajaxget extends Controller
         // return District::where('province_id',$request['provience'])->get();
     }
     public function getMuncipality(request $request){
-        $munci = District::find($request['district_id']);
-        // return $munci;
+        $munci = District::where('id',$request['district_id'])->first();
         return $munci->getMuncipalityWithDistrictId;
     }    
 }
