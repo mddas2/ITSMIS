@@ -16,17 +16,29 @@
 				</div>
 			</div>
 			<div class="form-group row">
-				<div class="col-lg-6">
+				<div class="col-lg-4">
 					<label>Provience<span style="color: #e9594d;">*</span></label>
-					{{Form::select('hierarchy_id',$list,$hierarchy_id,['class'=>'form-control form-control-solid hierarchyList','required'=>true])}}
+					<select id="provience_id" class="form-control form-control-solid">
+						<option value="option1">Option 1</option>
+						<option value="option2" selected>Option 2</option>
+						<option value="option3">Option 3</option>
+					</select>
 				</div>
-				<div class="col-lg-6">
+				<div class="col-lg-4">
 					<label>District:</label>
-					{{Form::select('office_id',["0" => "Select Office"],$office_id,['class'=>'form-control form-control-solid officeList'])}}
+					<select id="district_id" class="form-control form-control-solid">
+						<option value="option1">Option 1</option>
+						<option value="option2" selected>Option 2</option>
+						<option value="option3">Option 3</option>
+					</select>
 				</div>
-				<div class="col-lg-6">
-					<label>Municipality:</label>
-					{{Form::select('office_id',["0" => "Select Office"],$office_id,['class'=>'form-control form-control-solid officeList'])}}
+				<div class="col-lg-4">
+					<label>Municipalitys:</label>
+					<select id = "muncipality_id" class="form-control form-control-solid">
+						<option value="option1">Option 1</option>
+						<option value="option2" selected>Option 2</option>
+						<option value="option3">Option 3</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group row">
@@ -132,4 +144,27 @@
 		});
 	});
 	$('.hierarchyList').trigger('change');
+	
+$("#provience_id").change(function() {
+    var selectedValue = $(this).val();
+	alert(selectedValue)
+    // if (selectedValue == "option1") {
+    //     $("#div1").show();
+    //     $("#div2").hide();
+    // } else {
+    //     $("#div1").hide();
+    //     $("#div2").show();
+    // }
+});
+
+// $.ajax({
+//   type: "POST",
+//   url: "{{route('getDistrict')}}",
+//   data: { name: "disctict" },
+//   success: function(data) {
+// 	alert("provience data")
+//     // Do something with the data returned by the server
+//   }
+// });
+
 </script>
