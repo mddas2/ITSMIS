@@ -7,7 +7,7 @@ use App\Exports\LocalLevelProductionExport;
 use App\Imports\LocalLevelImport;
 use App\Models\ItemCategory;
 use App\Models\LocalLevelTraining;
-use App\Models\LocalProduction;
+use App\Models\Consumption;
 use App\Models\TrainingType;
 use Illuminate\Http\Request;
 use App\Models\MeasurementUnit;
@@ -37,7 +37,7 @@ class ConsumptionController extends Controller
     {
 
 
-        $query = LocalProduction::query();
+        $query = Consumption::query();
 
         $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
 
@@ -114,14 +114,14 @@ class ConsumptionController extends Controller
             //$data['locked'] = 1;
             if (!empty($data['date'])) {
                 // dd($data);
-                LocalProduction::updateOrCreate(
+                Consumption::updateOrCreate(
                     ['id' => $data['id']],
                     $data
                 );
             }
         }
 
-        return redirect()->route('local_level_add')->with('success', 'Your Information has been Added .');
+        return redirect()->route('local_level_consumption_add')->with('success', 'Your Information has been Added .');
     }
 
     public function productionExcel(Request $request)
