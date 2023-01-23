@@ -281,6 +281,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('local_level_production_excel', 'LocalLevelController@productionExcelAction');
     Route::get('local_level_production_excel_sample/{type}', 'LocalLevelController@getProductionSample')->name('local_level_production_excel_sample');
 
+    //Local Level Consumption Entry
+    Route::get('local_level_consumption_add', 'ConsumptionController@add')->name('local_level_consumption_add');
+    Route::post('local_level_consumption_add', 'ConsumptionController@addAction');
+    Route::get('local_level_consumption_excel', 'ConsumptionController@productionExcel')->name('local_level_consumption_excel');
+    Route::post('local_level_consumption_excel', 'ConsumptionController@productionExcelAction');
+    Route::get('local_level_consumption_excel_sample/{type}', 'ConsumptionController@getProductionSample')->name('local_level_consumption_excel_sample');
+
 
     Route::get('local_level_addTraining', 'LocalLevelController@addTraining')->name('local_level_addTraining');
     Route::post('local_level_addTraining', 'LocalLevelController@addTrainingAction');
