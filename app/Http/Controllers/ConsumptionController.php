@@ -102,7 +102,7 @@ class ConsumptionController extends Controller
             }
         }
         
-        return view($this->_page . 'create', $this->_data);
+        return view($this->_page . 'consumption', $this->_data);
     }
 
 

@@ -17,7 +17,7 @@
             <ul class="dashboard-tabs nav nav-pills nav-primary row row-paddingless m-0 p-0 flex-column flex-sm-row"
                 role="tablist">
                 <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-                        <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center productEntry "
+                        <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center  "
                         href="{{route('local_level_add')}}">
                     <span class="nav-icon py-3 w-auto">
                         <span class="svg-icon svg-icon-3x">
@@ -28,8 +28,8 @@
                         </a>
                 </li>
                 <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-                        <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center productEntry "
-                        href="{{route('local_level_add')}}">
+                        <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center active "
+                        href="{{route('local_level_consumption_add')}}">
                     <span class="nav-icon py-3 w-auto">
                         <span class="svg-icon svg-icon-3x">
                             <i class="fab fa-bitbucket icon-2x"></i>
@@ -94,11 +94,12 @@
                     <tr>
                         <th rowspan="1">SN</th>
                         <th rowspan="1">Date</th>
-                        <th rowspan="1">Produced Product</th>
+                        <th rowspan="1">Consume Product</th>
                         <th rowspan="1">Category</th>
                         <th rowspan="1">Quantity</th>
                         <th rowspan="1">Quantity Unit</th>
-                        <th colspan="1">Produced By</th>
+                        <th colspan="1">Muncipality</th>
+                      
                         <th rowspan="1">Actions</th>
                     </tr>
 
@@ -125,7 +126,9 @@
                                 {{Form::select('',$units,$row->quantity_unit,['class' => 'form-control','disabled'=> 'disabled'])}}
                             </td>
                             <td>
-                                <input type="text" name="" class="form-control " autocomplete="off" value="{{$row->produced_by}}" disabled>
+                                @if($row->getUser->getUserMunicipality)
+                                    {{$row->getUser->getUserMunicipality->alt_name}}
+                                @endif
                             </td>
                             <td></td>
                         </tr>
@@ -151,8 +154,13 @@
                             {{Form::select('data['.$key.'][quantity_unit]',$units,null,['class' => 'form-control'])}}
                         </td>
                         <td>
-                            <input type="text" name="data[{{$key}}][produced_by]" class="form-control " autocomplete="off">
+                            @if(Auth::user()->getUserMunicipality)
+                                {{Auth::user()->getUserMunicipality->alt_name}}
+                            @else
+                                Unknown(error)
+                            @endif
                         </td>
+                        
                         <td id='remRow'></td>
                     </tr>
                     </tbody>
