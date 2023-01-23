@@ -17,15 +17,26 @@
             <ul class="dashboard-tabs nav nav-pills nav-primary row row-paddingless m-0 p-0 flex-column flex-sm-row"
                 role="tablist">
                 <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-                    <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center productEntry "
-                       href="{{route('local_level_add')}}">
-				<span class="nav-icon py-3 w-auto">
-					<span class="svg-icon svg-icon-3x">
-						<i class="fab fa-bitbucket icon-2x"></i>
-					</span>
-				</span>
-                        <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Product Entry</span>
-                    </a>
+                        <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center productEntry "
+                        href="{{route('local_level_add')}}">
+                    <span class="nav-icon py-3 w-auto">
+                        <span class="svg-icon svg-icon-3x">
+                            <i class="fab fa-bitbucket icon-2x"></i>
+                        </span>
+                    </span>
+                            <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Product Entry</span>
+                        </a>
+                </li>
+                <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
+                        <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center productEntry "
+                        href="{{route('local_level_add')}}">
+                    <span class="nav-icon py-3 w-auto">
+                        <span class="svg-icon svg-icon-3x">
+                            <i class="fab fa-bitbucket icon-2x"></i>
+                        </span>
+                    </span>
+                            <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Consumption Entry</span>
+                        </a>
                 </li>
                 <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
                     <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center SalesStockPage"
