@@ -98,7 +98,6 @@
                         <th rowspan="1">Category</th>
                         <th rowspan="1">Quantity</th>
                         <th rowspan="1">Quantity Unit</th>
-                        <th colspan="1">Muncipality</th>
                         <th colspan="1">Produced By</th>
                         <th rowspan="1">Actions</th>
                     </tr>
@@ -124,9 +123,6 @@
                             </td>
                             <td>
                                 {{Form::select('',$units,$row->quantity_unit,['class' => 'form-control','disabled'=> 'disabled'])}}
-                            </td>
-                            <td>
-                                {{Auth::user()->getUserMunicipality->alt_name}}
                             </td>
                             <td>
                                 <input type="text" name="" class="form-control " autocomplete="off" value="{{$row->produced_by}}" disabled>

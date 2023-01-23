@@ -101,7 +101,7 @@ class LocalLevelController extends Controller
                 }
             }
         }
-
+        
         return view($this->_page . 'create', $this->_data);
     }
 

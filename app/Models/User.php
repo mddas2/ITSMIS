@@ -69,6 +69,19 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\Upload','upload_id','id');
     }
+    
+    public function getUserProvience()
+    {
+        return $this->belongsTo('App\Models\Province','provience_id','id');
+    }
+    public function getUserDistrict()
+    {
+        return $this->belongsTo('App\Models\District','district_id','id');
+    }
+    public function getUserMunicipality()
+    {
+        return $this->belongsTo('App\Models\Municipality','municipality_id','municipality_id');
+    }
 
     // public function role()
     // {
