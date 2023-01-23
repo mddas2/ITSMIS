@@ -126,7 +126,9 @@
                                 {{Form::select('',$units,$row->quantity_unit,['class' => 'form-control','disabled'=> 'disabled'])}}
                             </td>
                             <td>
-                                {{Auth::user()->getUserMunicipality->alt_name}}
+                                @if($row->getUser->getUserMunicipality)
+                                    {{$row->getUser->getUserMunicipality->alt_name}}
+                                @endif
                             </td>
                             <td>
                                 <input type="text" name="" class="form-control " autocomplete="off" value="{{$row->produced_by}}" disabled>
@@ -153,6 +155,13 @@
                         </td>
                         <td>
                             {{Form::select('data['.$key.'][quantity_unit]',$units,null,['class' => 'form-control'])}}
+                        </td>
+                        <td>
+                            @if(Auth::user()->getUserMunicipality)
+                                {{Auth::user()->getUserMunicipality->alt_name}}
+                            @else
+                                Unknown(error)
+                            @endif
                         </td>
                         <td>
                             <input type="text" name="data[{{$key}}][produced_by]" class="form-control " autocomplete="off">

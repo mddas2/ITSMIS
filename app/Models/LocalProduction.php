@@ -21,4 +21,10 @@ class LocalProduction extends Model
     {
         return $this->belongsTo('App\Models\MeasurementUnit', 'quantity_unit', 'id');
     }
+
+    public function getUser()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
+    }
+
 }
