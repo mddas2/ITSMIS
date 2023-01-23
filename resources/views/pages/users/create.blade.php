@@ -18,7 +18,7 @@
 			<div class="form-group row">
 				<div class="col-lg-4">
 					<label>Provience<span style="color: #e9594d;">*</span></label>
-					<select id="provience_id" class="form-control form-control-solid">
+					<select name="provience_id" id="provience_id" class="form-control form-control-solid">
 						<option value="1">Provience 1</option>
 						<option value="2">Provience 2</option>
 						<option value="3">Provience 3</option>
@@ -30,13 +30,13 @@
 				</div>
 				<div class="col-lg-4">
 					<label>District:</label>
-					<select id="district_id" class="form-control form-control-solid">
+					<select name="district_id" id="district_id" class="form-control form-control-solid">
 						
 					</select>
 				</div>
 				<div class="col-lg-4">
 					<label>Municipalitys:</label>
-					<select id = "muncipality_id" class="form-control form-control-solid">
+					<select name="municipality_id" id = "muncipality_id" class="form-control form-control-solid">
 	
 					</select>
 				</div>
@@ -155,7 +155,7 @@ $("#provience_id").change(function() {
 					$("#district_id").empty()
 					// console.log(data)
 					for(da in data){
-						var district = data[da]['name']
+						var district = data[da]['alt_name']
 						var district_id = data[da]['id']
 						$("#district_id").append('<option value="'+district_id+'">'+district+'</option>')
 					}
@@ -183,9 +183,9 @@ $("#district_id").change(function() {
 					console.log(data)
 					for(da in data){
 						console.log(da)
-						var muncipality = data[da]['name']
+						var muncipality = data[da]['alt_name']
 						var id = data[da]['municipality_id']
-						$("#muncipality_id").append('<option value="option1">'+muncipality+'</option>')
+						$("#muncipality_id").append('<option value="'+id+'">'+muncipality+'</option>')
 					}
 					// Do something with the data returned by the server
 				}

@@ -128,6 +128,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        // return $request;
         $data = $request->except('_token');
         $user = new User();
         $user->name = $data['name'];
@@ -139,6 +140,9 @@ class UserController extends Controller
         $user->email = $data['email'];    
         $user->contact = $data['contact'];    
         $user->role_id = $data['role_id']; // CHANGE LATER
+        $user->provience_id = $data['provience_id'];
+        $user->district_id = $data['district_id'];
+        $user->municipality_id = $data['municipality_id'];
 
         if (!empty($data['document'])) {
             $upload = new Upload();
