@@ -17,4 +17,12 @@ class DepartmentOfCustom extends Model
     {
         return $this->belongsTo('App\Models\User','user_id','id');
     }
+    public function getCategory()
+    {
+        return $this->belongsTo('App\Models\ItemCategory','category','id');
+    }
+    public function getItem()
+    {
+        return $this->belongsTo('App\Models\Item','item','id');
+    }
 }

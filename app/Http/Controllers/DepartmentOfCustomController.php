@@ -113,24 +113,23 @@ class DepartmentOfCustomController extends Controller
 
     public function exportAction(Request $request, $type)
     {
-        return $request;
 
         foreach ($request->data as $key => $data) {
-
+            // return $data;
             $data['user_id'] = Auth::user()->id;
             $data['type'] = $type;
 
             $date = str_replace('/', '-', $data['asmt_date']);
             $data['asmt_date'] = date('Y-m-d', strtotime($date));
-
-
-            if (!empty($data['date'])) {
+            if (!empty($data['asmt_date'])) {
+            //    return $data['hscode'];
                 DepartmentOfCustom::updateOrCreate(
                     ['id' => $data['id']],
                     $data
                 );
 
             }
+          
 
 
         }

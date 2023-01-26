@@ -94,8 +94,8 @@
                         <th>Quantity</th>
                         <th>Customs</th>
                         <th>CIF Value</th>
-                        <th>hs4</th>
-                        <th>ch</th>
+                        <!-- <th>hs4</th>
+                        <th>ch</th> -->
 
                         <?php
                         for ($i = 11; $i < count($columns); $i++) {
@@ -132,10 +132,10 @@
                                        autocomplete="off" value="{{$row->hscode}}" {{$disabled}}>
                             </td>
                             <td>
-                                {{Form::select('data['.$key.'][item_category_id]',$category,null,['class' => 'form-control select_category'])}}
+                                <input type="text" name="data[{{$key}}][category]" value="{{$row->getCategory->name_np ?? ''}}" class="form-control" disabled autocomplete="off">
                             </td>
                             <td>
-                                {{Form::select('data['.$key.'][item_id]',$items,null,['class' => 'form-control select_item'])}}
+                                <input type="text" name="data[{{$key}}][category]" value="{{$row->getItem->name_np ?? ''}}" class="form-control" autocomplete="off">
                             </td>
                          
                             <!-- <td>
@@ -147,9 +147,7 @@
                                        autocomplete="off" value="{{$row->description}}" {{$disabled}}>
                             </td> -->
                             <td>
-
-                                <input type="text" name="data[{{$key}}][unit_id]" class="form-control"
-                                       autocomplete="off" value="{{$row->unit_id}}" {{$disabled}}>
+                                {{Form::select('data['.$key.'][unit_id]',$measurementUnit,null,['class' => 'form-control select_item item_md'])}}                           
                             </td>
                             <td>
                                 <input type="text" name="data[{{$key}}][quantity]" class="form-control"
@@ -163,14 +161,14 @@
                                 <input type="text" name="data[{{$key}}][cif_value]" class="form-control" autocomplete="off"
                                        value="{{$row->cif_value}}" {{$disabled}}>
                             </td>
-                            <td>
+                            <!-- <td>
                                 <input type="text" name="data[{{$key}}][hs4]" class="form-control" autocomplete="off"
                                        value="{{$row->hs4}}" {{$disabled}}>
                             </td>
                             <td>
                                 <input type="text" name="data[{{$key}}][ch]" class="form-control" autocomplete="off"
                                        value="{{$row->ch}}" {{$disabled}}>
-                            </td>
+                            </td> -->
                             <?php
                             for ($i = 11; $i < count($columns); $i++) {
                                 $value = $row[$columns[$i]];
@@ -197,10 +195,10 @@
                             <input type="text" name="data[{{$key}}][hscode]" class="form-control" autocomplete="off">
                         </td>
                         <td>
-                            {{Form::select('data['.$key.'][item_category_id]',$category,null,['class' => 'form-control select_category'])}}
+                            {{Form::select('data['.$key.'][category]',$category,null,['class' => 'form-control select_category'])}}
                         </td>
                         <td>
-                        {{Form::select('data['.$key.'][item_id]',$items,null,['class' => 'form-control select_item item_md'])}}                           
+                            {{Form::select('data['.$key.'][item]',$items,null,['class' => 'form-control select_item item_md'])}}                           
                         </td>
                         <!-- <td>
                             <input type="text" name="data[{{$key}}][item]" class="form-control" autocomplete="off">
@@ -209,7 +207,7 @@
                             <input type="text" name="data[{{$key}}][description]" class="form-control" autocomplete="off">
                         </td> -->
                         <td>
-                            <input type="text" name="data[{{$key}}][unit_id]" class="form-control" autocomplete="off">
+                            {{Form::select('data['.$key.'][unit_id]',$measurementUnit,null,['class' => 'form-control select_item item_md'])}}                           
                         </td>
                         <td>
                             <input type="text" name="data[{{$key}}][quantity]" class="form-control" autocomplete="off">
@@ -220,12 +218,12 @@
                         <td>
                             <input type="text" name="data[{{$key}}][cif_value]" class="form-control" autocomplete="off">
                         </td>
-                        <td>
+                        <!-- <td>
                             <input type="text" name="data[{{$key}}][hs4]" class="form-control" autocomplete="off">
                         </td>
                         <td>
                             <input type="text" name="data[{{$key}}][ch]" class="form-control" autocomplete="off">
-                        </td>
+                        </td> -->
                         <?php
                         for ($i = 11; $i < count($columns); $i++) {
                             echo '<td><input type="text" name="data[' . $key . '][' . $columns[$i] . ']" class="form-control" autocomplete="off"></td>';
@@ -298,8 +296,8 @@
             $("[name='data[" + key + "][asmt_date]']", rowClone).attr('name', 'data[' + tableCnt + '][date]');
             $("[name='data[" + key + "][hscode]']", rowClone).attr('name', 'data[' + tableCnt + '][hscode]');
             $("[name='data[" + key + "][item]']", rowClone).attr('name', 'data[' + tableCnt + '][item_id]');
-            $("[name='data[" + key + "][description]']", rowClone).attr('name', 'data[' + tableCnt + '][item_id]');
-            $("[name='data[" + key + "][unit_id]']", rowClone).attr('name', 'data[' + tableCnt + '][unit_id]');
+            $("[name='data[" + key + "][description]']", rowClone).attr('name', 'data[' + tableCnt + '][item]');
+            $("[name='data[" + key + "][unit_id]']", rowClone).attr('name', 'data[' + tableCnt + '][unit]');
             $("[name='data[" + key + "][quantity]']", rowClone).attr('name', 'data[' + tableCnt + '][quantity]');
             $("[name='data[" + key + "][customs]']", rowClone).attr('name', 'data[' + tableCnt + '][cost]');
             $("[name='data[" + key + "][cif_value]']", rowClone).attr('name', 'data[' + tableCnt + '][revenue]');
