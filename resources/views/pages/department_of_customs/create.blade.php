@@ -84,10 +84,12 @@
                     <thead>
                     <tr>
                         <th>SN</th>
-                        <th>Asm Date</th>
+                        <th>Date</th>
                         <th>hscode</th>
+                        <th>Category</th>
                         <th>Item</th>
-                        <th>Description</th>
+                        
+                        <!-- <th>Description</th> -->
                         <th>Unit</th>
                         <th>Quantity</th>
                         <th>Customs</th>
@@ -130,13 +132,20 @@
                                        autocomplete="off" value="{{$row->hscode}}" {{$disabled}}>
                             </td>
                             <td>
-                                <input type="text" name="data[{{$key}}][item]" class="form-control"
-                                       autocomplete="off" value="{{$row->item}}" {{$disabled}}>
+                                {{Form::select('data['.$key.'][item_category_id]',$category,null,['class' => 'form-control select_category'])}}
                             </td>
                             <td>
+                                {{Form::select('data['.$key.'][item_id]',$items,null,['class' => 'form-control select_item'])}}
+                            </td>
+                         
+                            <!-- <td>
+                                <input type="text" name="data[{{$key}}][item]" class="form-control"
+                                       autocomplete="off" value="{{$row->item}}" {{$disabled}}>
+                            </td> -->
+                            <!-- <td>
                                 <input type="text" name="data[{{$key}}][description]" class="form-control"
                                        autocomplete="off" value="{{$row->description}}" {{$disabled}}>
-                            </td>
+                            </td> -->
                             <td>
 
                                 <input type="text" name="data[{{$key}}][unit_id]" class="form-control"
@@ -188,11 +197,17 @@
                             <input type="text" name="data[{{$key}}][hscode]" class="form-control" autocomplete="off">
                         </td>
                         <td>
-                            <input type="text" name="data[{{$key}}][item]" class="form-control" autocomplete="off">
+                            {{Form::select('data['.$key.'][item_category_id]',$category,null,['class' => 'form-control select_category'])}}
                         </td>
                         <td>
-                            <input type="text" name="data[{{$key}}][description]" class="form-control" autocomplete="off">
+                        {{Form::select('data['.$key.'][item_id]',$items,null,['class' => 'form-control select_item item_md'])}}                           
                         </td>
+                        <!-- <td>
+                            <input type="text" name="data[{{$key}}][item]" class="form-control" autocomplete="off">
+                        </td> -->
+                        <!-- <td>
+                            <input type="text" name="data[{{$key}}][description]" class="form-control" autocomplete="off">
+                        </td> -->
                         <td>
                             <input type="text" name="data[{{$key}}][unit_id]" class="form-control" autocomplete="off">
                         </td>
@@ -240,6 +255,11 @@
             </form>
         </div>
     </div>
+    <style>
+        .item_md{
+            width:110px;
+        }
+    </style>
 @endsection
 @section('scripts')
     <script src="{{asset('js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>

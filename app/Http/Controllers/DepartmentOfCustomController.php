@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DepartmentOfCustom;
 use App\Models\Item;
+use App\Models\ItemCategory;
 use App\Models\MeasurementUnit;
 use App\Exports\DOCExport;
 use App\Imports\DOCImport;
@@ -34,6 +35,11 @@ class DepartmentOfCustomController extends Controller
 
     public function export(Request $request, $type)
     {
+        
+
+        $this->_data['units'] = MeasurementUnit::pluck('name_np', 'id')->toArray();
+        $this->_data['category'] = ItemCategory::pluck('name_np', 'id')->toArray();
+ 
         $query = DepartmentOfCustom::query();
         $this->_data['from_date'] = $this->_data['to_date'] = $this->_data['today'] = date('Y-m-d');
 
@@ -75,7 +81,8 @@ class DepartmentOfCustomController extends Controller
         }
 
         // dd($data);
-        $items = Item::pluck('name', 'id')->skip(0)->take(10)->toArray();
+        // $items = Item::pluck('name', 'id')->skip(0)->take(10)->toArray();
+        $items = Item::pluck('name_np', 'id')->toArray();
         $measurementUnit = MeasurementUnit::pluck('name', 'id')->toArray();
         $this->_data['columns'] = Schema::getColumnListing('dcsc_market_monitorings');
         $this->_data['data'] = $data;
@@ -106,6 +113,7 @@ class DepartmentOfCustomController extends Controller
 
     public function exportAction(Request $request, $type)
     {
+        return $request;
 
         foreach ($request->data as $key => $data) {
 
