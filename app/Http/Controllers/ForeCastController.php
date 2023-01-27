@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Imports\IpRegistraionImport;
 use App\Models\DepartmentOfCustom;
+use App\Models\LocalProduction;
+use App\Models\Consumption;
 use App\Models\DepartmentOfIndustry;
 use App\Models\FacilityRecommendation;
 use App\Models\FDIApporval;
@@ -26,6 +28,19 @@ use NitishRajUprety\NepaliDateConverter\NepaliDateConverter;
 class ForeCastController extends Controller
 {
     public function index(Request $request){
+
+        $monthly_data = $this->putMonthlyData($request);
+        
+        $total_production = $this->getTotalProduction($request);
+        // return $production;
+        $total_consumption = $this->getTotalConsumption($request);
+
+        $this->_data['total_production'] = $total_production;
+        $this->_data['total_consumption'] = $total_consumption;
+
+
+        // return $consumption;
+
         $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
 
         if ($request->has('from_date')) {
@@ -79,7 +94,7 @@ class ForeCastController extends Controller
         }
 
 
-        $this->_data['items'] = Item::pluck('name', 'id')->toArray();
+        $this->_data['items'] = Item::pluck('name_np', 'id')->toArray();
         $this->_data['units'] = MeasurementUnit::pluck('name', 'id')->toArray();
         $this->_data['data'] = $data;
         $this->_data['page_type'] = "central_analysis";
@@ -506,6 +521,40 @@ class ForeCastController extends Controller
         $this->_data['page_type'] = "export_analysis";
         return view('pages.forecast.index', $this->_data);
     }
-    
+
+    public function getTotalProduction($request){
+        $from_date = $request['from_date'];
+        $to_date = $request['to_date'];
+        $item_id = $request['item_id'];
+        $item_obj = LocalProduction::all()->where("item_id",$item_id)->whereBetween('date', [$from_date, $to_date])->sum("quantity"); 
+   
+        return $item_obj;
+    }
+    public function getTotalConsumption($request){
+        $item_id = $request['item_id'];
+        $from_date = $request['from_date'];
+        $to_date = $request['to_date'];
+        $item_obj = Consumption::all()->where("item_id",$item_id)->whereBetween('date', [$from_date, $to_date])->sum("quantity"); 
+        return $item_obj;
+    }
+    public function putMonthlyData($request){
+        $from_date = $request['from_date'];
+        $to_date = $request['to_date'];
+        $year = explode("-", $to_date)[0];
+
+        $item_id = $request['item_id'];
+        $item_obj = Consumption::all()->where("item_id",$item_id)->sum("quantity"); 
+
+        $year_obj = Consumption::where("item_id",$item_id)->whereYear('date', '=', $year);
+
+        $monthly_data = [];
+        $month
+        for($month = 1; $month<=12; $month++){
+            $variable = "month_".$month;
+            $monthly_data[$variable] = Consumption::where("item_id",$item_id)->whereYear('date', '=', $year)->whereMonth('date','=',$month)->get()->sum("quantity");
+        }
+
+        return $item_obj;
+    }
     
 }

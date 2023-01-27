@@ -2,30 +2,39 @@
             <form>
                 <div class="form-group row">
                     <div class="col-lg-3">
-                        <label>From Date:</label>
-                        <input name="from_date" class="form-control form-control-solid nepdatepicker" data-single="true"
+                        <label class="text_good_header">From Date:</label>
+                        <input name="from_date" class="form-control form-control-solid nepdatepicker text_good" data-single="true"
                                required
                                value="{{$from_date}}">
                     </div>
                     <div class="col-lg-3">
-                        <label>To Date:</label>
-                        <input name="to_date" class="form-control form-control-solid nepdatepicker" data-single="true"
+                        <label class="text_good_header">To Date:</label>
+                        <input name="to_date" class="form-control form-control-solid nepdatepicker text_good" data-single="true"
                                required
                                value="{{$to_date}}">
                     </div>
                     <div class="col-lg-3">
-                        <label>Items:</label>
+                        <label class="text_good_header" >Items:</label>
                         <?php
                         $itemList = ["" => "Select Items"];
                         $itemList = $itemList + $items;
                         ?>
-                        {{Form::select('item_id',$itemList,$item_id,['class' => 'form-control'])}}
+                        {{Form::select('item_id',$itemList,$item_id,['class' => 'form-control text_good'])}}
                     </div>
                     <div class="col-lg-2" style="margin-top: 24px;">
-                        <button type="submit" class="btn btn-secondary">Filter</button>
+                        <button type="submit" class="btn btn-secondary text_good_header ">Filter</button>
                     </div>
                 </div>
             </form>
+            <style>
+                .text_good_header{
+                    font-size:15px !important;
+                }
+                .text_good{
+                    font-size:13px !important;
+                    weight:100 !important;
+                }
+            </style>
             @if($data->count()>0)
                 <table class="table table-bordered table-hover table-checkable mt-10 table-striped" id="kt_datatable">
                     <thead>
@@ -115,10 +124,10 @@
                         element: 'morris-donut-chart',
                         data: [ {
                             label: "Production",
-                            value: 3000
+                            value: {{$total_production}}
                         }, {
                             label: "Consumption",
-                            value: 2000
+                            value: {{$total_consumption}}
                         }],
                         resize: true,
                         colors:['#55ce63', '#2f3d4a']
@@ -143,9 +152,9 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>230 mt</td>
-                                                <td>500 mt</td>
-                                                <td>400 mt</td>                                                                                            
+                                                <td>{{$total_production}} mt</td>
+                                                <td>{{$total_consumption}} mt</td>
+                                                <td>{{$total_production-$total_consumption}} mt</td>                                                                                            
                                             </tr>                                     
                                             
                                         </tbody>
@@ -157,15 +166,15 @@
                         <ul class="list-inline m-t-30 text-center mb-1 d-flex">
                                 <li class="list-inline-item p-r-20">
                                     <h5 class="text-muted"><i class="fa fa-circle" style="color: #fb9678;"></i>Production</h5>
-                                    <h4 class="m-b-0">8500</h4>
+                                    <h4 class="m-b-0">{{$total_production}}</h4>
                                 </li>
                                 <li class="list-inline-item p-r-20">
                                     <h5 class="text-muted"><i class="fa fa-circle" style="color: #01c0c8;"></i>Consumption</h5>
-                                    <h4 class="m-b-0">3630</h4>
+                                    <h4 class="m-b-0">{{$total_consumption}}</h4>
                                 </li>
                                 <li class="list-inline-item">
                                     <h5 class="text-muted"> <i class="fa fa-circle" style="color: #4F5467;"></i>Deficit/surplus</h5>
-                                    <h4 class="m-b-0">4870</h4>
+                                    <h4 class="m-b-0">{{$total_production-$total_consumption}}</h4>
                                 </li>
                         </ul>
                 </div>
@@ -176,7 +185,7 @@
                         </div>
                         <div class="card-body">
                         <li class="text-danger">Stock level upto next 5 months</li>
-                        <li class="text-success">10mt imported to fulfill this year</li>
+                        <li class="text-success">0mt imported to fulfill this year</li>
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
@@ -189,9 +198,9 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>230 mt</td>
-                                        <td>500 mt</td>
-                                        <td>400 mt</td>                                                                                            
+                                        <td>0 mt</td>
+                                        <td>0 mt</td>
+                                        <td>0 mt</td>                                                                                            
                                     </tr>                                     
                                     
                                 </tbody>
@@ -202,15 +211,15 @@
                     <ul class="list-inline m-t-30 text-center mb-1 d-flex">
                                 <li class="list-inline-item p-r-20">
                                     <h5 class="text-muted"><i class="fa fa-circle" style="color: #fb9678;"></i>Production</h5>
-                                    <h4 class="m-b-0">8500</h4>
+                                    <h4 class="m-b-0">0</h4>
                                 </li>
                                 <li class="list-inline-item p-r-20">
                                     <h5 class="text-muted"><i class="fa fa-circle" style="color: #01c0c8;"></i>Consumption</h5>
-                                    <h4 class="m-b-0">3630</h4>
+                                    <h4 class="m-b-0">0</h4>
                                 </li>
                                 <li class="list-inline-item">
                                     <h5 class="text-muted"> <i class="fa fa-circle" style="color: #4F5467;"></i>Deficit/surplus</h5>
-                                    <h4 class="m-b-0">4870</h4>
+                                    <h4 class="m-b-0">0</h4>
                                 </li>
                         </ul>
                 </div>
@@ -235,11 +244,6 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Jun</td>
-                    <td>500mt</td>
-                    <td>400mt</td>                                                                                            
-                </tr>
-                <tr>
                     <td>Feb </td>
                     <td>500mt</td>
                     <td>400mt</td>
@@ -248,106 +252,6 @@
                             <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
                         </div>
                     </td>                                                
-                </tr>
-                <tr>
-                    <td>Mar </td>
-                    <td>500mt</td>
-                    <td>400mt</td>
-                    <td>
-                        <div class="progress progress-xs margin-vertical-10 ">
-                            <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Apr</td>
-                    <td>500mt</td>
-                    <td>400mt</td>
-                    <td>
-                        <div class="progress progress-xs margin-vertical-10 ">
-                            <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                        </div>
-                    </td>                                                
-                </tr>
-                <tr>
-                    <td>May</td>
-                    <td>500mt</td>
-                    <td>400mt</td>
-                    <td>
-                        <div class="progress progress-xs margin-vertical-10 ">
-                            <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Jun</td>
-                    <td>500mt</td>
-                    <td>400mt</td>
-                    <td>
-                        <div class="progress progress-xs margin-vertical-10 ">
-                            <div class="progress-bar bg-success" style="width: 35% ;height:6px;"></div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>July</td>
-                    <td>500mt</td>
-                    <td>400mt</td>
-                    <td>
-                        <div class="progress progress-xs margin-vertical-10 ">
-                            <div class="progress-bar bg-success" style="width: 35% ;height:6px;"></div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Aug</td>
-                    <td>500mt</td>
-                    <td>400mt</td>
-                    <td>
-                        <div class="progress progress-xs margin-vertical-10 ">
-                            <div class="progress-bar bg-success" style="width: 35% ;height:6px;"></div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Sept</td>
-                    <td>500mt</td>
-                    <td>400mt</td>
-                    <td>
-                        <div class="progress progress-xs margin-vertical-10 ">
-                            <div class="progress-bar bg-success" style="width: 35% ;height:6px;"></div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Oct</td>
-                    <td>500mt</td>
-                    <td>400mt</td>
-                    <td>
-                        <div class="progress progress-xs margin-vertical-10 ">
-                            <div class="progress-bar bg-success" style="width: 35% ;height:6px;"></div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Nov</td>
-                    <td>500mt</td>
-                    <td>400mt</td>
-                    <td>
-                        <div class="progress progress-xs margin-vertical-10 ">
-                            <div class="progress-bar bg-success" style="width: 35% ;height:6px;"></div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Dec</td>
-                    <td>500mt</td>
-                    <td>400mt</td>
-                    <td>
-                        <div class="progress progress-xs margin-vertical-10 ">
-                            <div class="progress-bar bg-success" style="width: 35% ;height:6px;"></div>
-                        </div>
-                    </td>
                 </tr>
             </tbody>
         </table>
