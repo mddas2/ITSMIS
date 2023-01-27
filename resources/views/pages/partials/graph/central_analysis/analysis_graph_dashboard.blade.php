@@ -136,7 +136,7 @@
                 <div class="col-md-4">
                         <div class="card border-info">
                             <div class="card-header bg-info">
-                                <h4 class="m-b-0 text-white">Current year 2079</h4></div>
+                                <h4 class="m-b-0 text-white">Current year {{$monthly_year}}</h4></div>
                             <div class="card-body">
                                 <li class="text-danger">Stock level upto next 5 months</li>
                                 <li class="text-success">10mt is required to fulfill this year</li>
@@ -181,7 +181,7 @@
                 <div class="col-md-4">
                     <div class="card border-info">
                         <div class="card-header bg-info">
-                            <h4 class="m-b-0 text-white">Previous year 2078</h4>
+                            <h4 class="m-b-0 text-white">Previous year {{$monthly_year-1}}</h4>
                         </div>
                         <div class="card-body">
                         <li class="text-danger">Stock level upto next 5 months</li>
@@ -228,7 +228,7 @@
         </div>
     </div>
     <div class="card-body">
-    <h4 class="card-title">Provience data Table of Wheat</h4>
+    <h4 class="card-title">{{$monthly_year}} Monthly data of {{$item_name->name_np}}</h4>
     <!-- <h6 class="card-subtitle">Add<code>.table-striped</code>for borders on all sides of the table and cells.</h6> -->
     <div class="table-responsive">
         <table class="table table-striped">
@@ -243,16 +243,40 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Feb </td>
-                    <td>500mt</td>
-                    <td>400mt</td>
-                    <td>
-                        <div class="progress progress-xs margin-vertical-10 ">
-                            <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                        </div>
-                    </td>                                                
-                </tr>
+               
+                @foreach($monthly_data as $key=>$data)
+                    <tr>
+                        <td>{{$key}}</td>
+                        <td>{{$data}} mt</td>
+                        <td>{{round($total_consumption/12)}} mt</td>
+                        @php
+                            $surplus_deficit = $data-round($total_consumption/12);
+                            if($surplus_deficit>0){
+                                $success_danger = "success";
+                                $title = "Surplus ";
+                            }
+                            else{
+                                $success_danger = "danger";
+                                $title = "Deficit ";
+                            }
+                            if($data > 0 && $surplus_deficit > 0){
+                                $perc = $surplus_deficit/$data * 100; 
+                                
+                            }
+                            else{
+                                $perc = 100; 
+                            }
+                            $title = $title.$surplus_deficit;
+                            
+                            
+                        @endphp
+                        <td>
+                            <div class="progress progress-xs margin-vertical-10 ">
+                                <div class="progress-bar bg-{{$success_danger}}" data-toggle="tooltip" data-placement="top" title="{{$title}}" style="width: {{$perc ?? 1}}% ;height:6px;"></div>
+                            </div>
+                        </td>                                                
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

@@ -30,7 +30,17 @@ class ForeCastController extends Controller
     public function index(Request $request){
 
         $monthly_data = $this->putMonthlyData($request);
+        $this->_data['monthly_data'] = $monthly_data;
+
+        $to_date = $request['to_date'];
+        $year = explode("-", $to_date)[0];
+        $this->_data['monthly_year'] = $year;
+        $this->_data["item_name"] = Item::find($request['item_id']);
         
+        
+
+        
+
         $total_production = $this->getTotalProduction($request);
         // return $production;
         $total_consumption = $this->getTotalConsumption($request);
@@ -548,13 +558,27 @@ class ForeCastController extends Controller
         $year_obj = Consumption::where("item_id",$item_id)->whereYear('date', '=', $year);
 
         $monthly_data = [];
-        $month
-        for($month = 1; $month<=12; $month++){
-            $variable = "month_".$month;
-            $monthly_data[$variable] = Consumption::where("item_id",$item_id)->whereYear('date', '=', $year)->whereMonth('date','=',$month)->get()->sum("quantity");
-        }
+        $month_name = [
+            1=>"Baisakh",
+            2=>"Jestha",
+            3=>"Ashad",
+            4=>"Shrawan",
+            5=>"Bhadra",
+            6=>"Ashoj",
+            7=>"Kartik",
+            8=>"Mangsir",
+            9=>"Poush",
+            10=>"Magh",
+            11=>"Falgun",
+            12=>"Chaitra",
+        ];
 
-        return $item_obj;
+        for($month = 1; $month<=12; $month++){
+            // $variable = "month_".$month;
+            $monthly_data[$month_name[$month]] = Consumption::where("item_id",$item_id)->whereYear('date', '=', $year)->whereMonth('date','=',$month)->get()->sum("quantity");
+        }
+        
+        return $monthly_data;
     }
     
 }
