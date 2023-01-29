@@ -1,3 +1,12 @@
+<script>
+    ajax_production_item_fetch_id = "{{$item_name->id}}"
+    ajax_production_url = "{{route('AjaxgetMonthlyData')}}"
+    ajax_production_year = "{{$monthly_year}}"
+    pmc_v = "{{round($total_consumption/12)}}" //per_month_consumption
+    pmc = []
+    pmc.length = 12
+    pmc.fill(pmc_v)
+</script>
 <div class="card-body">
             <form>
                 <div class="form-group row">

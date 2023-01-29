@@ -584,7 +584,35 @@ class ForeCastController extends Controller
         return $monthly_data;
     }
     public function AjaxgetMonthlyData(Request $request){
-        return [1,2,3,4,5,6,7,8,9,10,11,12];
+
+        $year = $request['year'];
+
+        $item_id = $request['item_id'];
+        $item_obj = Consumption::all()->where("item_id",$item_id)->sum("quantity"); 
+
+        $year_obj = Consumption::where("item_id",$item_id)->whereYear('date', '=', $year);
+
+        $monthly_data = [];
+        $month_name = [
+            1=>"Baisakh",
+            2=>"Jestha",
+            3=>"Ashad",
+            4=>"Shrawan",
+            5=>"Bhadra",
+            6=>"Ashoj",
+            7=>"Kartik",
+            8=>"Mangsir",
+            9=>"Poush",
+            10=>"Magh",
+            11=>"Falgun",
+            12=>"Chaitra",
+        ];
+
+        for($month = 1; $month<=12; $month++){
+            // $variable = "month_".$month;
+            $monthly_data[$month] = Consumption::where("item_id",$item_id)->whereYear('date', '=', $year)->whereMonth('date','=',$month)->get()->sum("quantity");
+        }
+        return $monthly_data;
     }
     
 }
