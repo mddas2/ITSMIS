@@ -61,43 +61,43 @@ Morris.Area({
         element: 'morris-area-chart',
         data: [{
             period: '2010',
-            iphone: 50,
-            ipad: 80,
-            itouch: 20
+            Production: 50,
+            Consumption: 80,
+            import_export: 20
         }, {
             period: '2011',
-            iphone: 130,
-            ipad: 100,
-            itouch: 80
+            Production: 130,
+            Consumption: 100,
+            import_export: 80
         }, {
             period: '2012',
-            iphone: 80,
-            ipad: 60,
-            itouch: 70
+            Production: 80,
+            Consumption: 60,
+            import_export: 70
         }, {
             period: '2013',
-            iphone: 70,
-            ipad: 200,
-            itouch: 140
+            Production: 70,
+            Consumption: 200,
+            import_export: 140
         }, {
             period: '2014',
-            iphone: 180,
-            ipad: 150,
-            itouch: 140
+            Production: 180,
+            Consumption: 150,
+            import_export: 140
         }, {
             period: '2015',
-            iphone: 105,
-            ipad: 100,
-            itouch: 80
+            Production: 105,
+            Consumption: 100,
+            import_export: 80
         },
          {
             period: '2016',
-            iphone: 250,
-            ipad: 150,
-            itouch: 200
+            Production: 250,
+            Consumption: 150,
+            import_export: 200
         }],
         xkey: 'period',
-        ykeys: ['iphone', 'ipad', 'itouch'],
+        ykeys: ['Production', 'Consumption', 'import_export'],
         labels: ['Production', 'Consumption','Import/Export'],
         pointSize: 3,
         fillOpacity: 0,
