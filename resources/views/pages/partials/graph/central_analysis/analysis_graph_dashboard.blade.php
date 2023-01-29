@@ -10,6 +10,7 @@
 
     //Yearly comparision data
     yearly_url = "{{route('AjaxGetYearlyData')}}"
+    line_chart = "{{route('AjaxGetYearlyLineChartData')}}" 
 
 
 </script>
@@ -329,7 +330,7 @@
 
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Product line Chart</h4>
+                <h4 class="card-title">Production Consumption Export/Import line Chart</h4>
                 <ul class="list-inline text-end">
                     <li>
                         <h5><i class="fa fa-circle m-r-5 text-inverse"></i>Import/Export</h5>

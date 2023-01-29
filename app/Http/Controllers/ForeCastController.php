@@ -543,7 +543,7 @@ class ForeCastController extends Controller
    
         return $item_obj;
     }
-    public function getTotalConsumption($request){
+    public function getTotalConsumption($request){ //Monthly Report table
         $item_id = $request['item_id'];
         $from_date = $request['from_date'];
         $to_date = $request['to_date'];
@@ -583,7 +583,7 @@ class ForeCastController extends Controller
         
         return $monthly_data;
     }
-    public function AjaxgetMonthlyData(Request $request){
+    public function AjaxgetMonthlyData(Request $request){ //Monthly Report
 
         $year = $request['year'];
 
@@ -614,7 +614,7 @@ class ForeCastController extends Controller
         }
         return $monthly_data;
     }
-    public function AjaxGetYearlyData(Request $request){
+    public function AjaxGetYearlyLineChartData(Request $request){ // Production Consumption Export/Import line Chart
 
         $current_year = $request['year'];
 
@@ -627,7 +627,7 @@ class ForeCastController extends Controller
         $data = [];
         for($year = 0; $year<=6; $year++){
             $year_sum = Consumption::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
-            $data[$year] = array("y"=>$current_year-$year,"a"=>$year_sum,"b"=>90,"c"=>60);
+            $data[$year] = array("period"=>strval($current_year-$year),"Production"=>$year_sum,"Consumption"=>90,"import_export"=>60);
         }
         return $data;
     }
