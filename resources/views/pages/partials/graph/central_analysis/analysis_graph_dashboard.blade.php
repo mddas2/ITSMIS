@@ -330,17 +330,7 @@
             </div>
         </div>
 
-<script>
-    $.ajax({
-        url: "{{route('AjaxgetMonthlyData')}}",
-        type: "GET",
-        data: {'id':"{{$item_name->id}}"},
-        success: function(data) {
-           
-           console.log(data) // this is for monthly data graph
-        }
-    });
-</script>
+
 
 
 
