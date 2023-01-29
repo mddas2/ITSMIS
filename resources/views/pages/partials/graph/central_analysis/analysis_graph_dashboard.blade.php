@@ -34,6 +34,9 @@
                     font-size:13px !important;
                     weight:100 !important;
                 }
+                .item_red{
+                    color:red
+                }
             </style>
             @if($data->count()>0)
                 <table class="table table-bordered table-hover table-checkable mt-10 table-striped" id="kt_datatable">
@@ -114,7 +117,7 @@
 
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Donute Chart</h4>
+            <h4 class="card-title"><span class="item_red">{{$item_name->name_np}}<span> वर्ष {{$monthly_year}} </h4>
             <div class="row">
                 <div class="col-4">
                     <div id="morris-donut-chart"></div>
@@ -136,7 +139,7 @@
                 <div class="col-md-4">
                         <div class="card border-info">
                             <div class="card-header bg-info">
-                                <h4 class="m-b-0 text-white">Current year {{$monthly_year}}</h4></div>
+                                <h4 class="m-b-0 text-white">{{$item_name->name_np}} वर्ष {{$monthly_year}}</h4></div>
                             <div class="card-body">
                                 <li class="text-danger">Stock level upto next 5 months</li>
                                 <li class="text-success">10mt is required to fulfill this year</li>
@@ -181,7 +184,7 @@
                 <div class="col-md-4">
                     <div class="card border-info">
                         <div class="card-header bg-info">
-                            <h4 class="m-b-0 text-white">Previous year {{$monthly_year-1}}</h4>
+                            <h4 class="m-b-0 text-white">{{$item_name->name_np}} वर्ष {{$monthly_year-1}}</h4>
                         </div>
                         <div class="card-body">
                         <li class="text-danger">Stock level upto next 5 months</li>
@@ -266,8 +269,7 @@
                             else{
                                 $perc = 100; 
                             }
-                            $title = $title.$surplus_deficit;
-                            
+                            $title = $title.$surplus_deficit;                            
                             
                         @endphp
                         <td>
@@ -350,6 +352,18 @@
                 <div id="morris-area-chart"></div>
             </div>
         </div>
+
+<script>
+    alert("Asd")
+    $.ajax({
+        url: "{{route('AjaxgetMonthlyData')}}",
+        type: "GET",
+        data: {'id':{{$item_name->id}}}
+        success: function(data) {
+           alert("success")
+        }
+    });
+</script>
 
     <!-- Line Bar chart close-->
 

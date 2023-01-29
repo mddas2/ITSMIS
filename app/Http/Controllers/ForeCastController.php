@@ -29,6 +29,12 @@ class ForeCastController extends Controller
 {
     public function index(Request $request){
 
+        
+        if (!isset($request['item_id'])){
+            $request['item_id'] = LocalProduction::all()->first()->item_id;
+            $request['from_date'] = "2079-1-1";
+            $request['to_date'] = "2079-12-32";
+        }
         $monthly_data = $this->putMonthlyData($request);
         $this->_data['monthly_data'] = $monthly_data;
 
@@ -36,10 +42,7 @@ class ForeCastController extends Controller
         $year = explode("-", $to_date)[0];
         $this->_data['monthly_year'] = $year;
         $this->_data["item_name"] = Item::find($request['item_id']);
-        
-        
-
-        
+                
 
         $total_production = $this->getTotalProduction($request);
         // return $production;
@@ -579,6 +582,10 @@ class ForeCastController extends Controller
         }
         
         return $monthly_data;
+    }
+    public function AjaxgetMonthlyData(Request $request){
+        return $request['id'];
+        return [1,2,3,4,5,6,7,8,9,10,11,12];
     }
     
 }
