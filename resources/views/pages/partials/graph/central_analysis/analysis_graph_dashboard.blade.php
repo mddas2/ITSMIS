@@ -1,4 +1,5 @@
 <script>
+    //Monthly report
     ajax_production_item_fetch_id = "{{$item_name->id}}"
     ajax_production_url = "{{route('AjaxgetMonthlyData')}}"
     ajax_production_year = "{{$monthly_year}}"
@@ -6,6 +7,11 @@
     pmc = []
     pmc.length = 12
     pmc.fill(pmc_v)
+
+    //Yearly comparision data
+    yearly_url = "{{route('AjaxGetYearlyData')}}"
+
+
 </script>
 <div class="card-body">
             <form>
@@ -311,7 +317,7 @@
 
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Bar Chart</h4>
+                <h4 class="card-title">Yearly comparision Chart</h4>
                 <div id="morris-bar-chart"></div>
             </div>
         </div>

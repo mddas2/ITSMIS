@@ -403,5 +403,6 @@ Route::get('/forecast-consumption', 'ForeCastController@ConsumptionAnalysis')->n
 Route::get('/forecast-import', 'ForeCastController@ImportAnalysis')->name('ImportAnalysis'); // ImportAnalysis
 Route::get('/forecast-export', 'ForeCastController@ExportAnalysis')->name('ExportAnalysis'); // ExportAnalysis
 Route::get('/forecast-future-predict', 'ForeCastController@FutureAnalysis')->name('FutureAnalysis'); // FutureAnalysis
-Route::get('/ajax-get-monthly-data', 'ForeCastController@AjaxgetMonthlyData')->name('AjaxgetMonthlyData'); // FutureAnalysis
 
+Route::get('/ajax-get-monthly-data', 'ForeCastController@AjaxgetMonthlyData')->name('AjaxgetMonthlyData'); // FutureAnalysis
+Route::get('/ajax-get-comparision-yearly-data', 'ForeCastController@AjaxGetYearlyData')->name('AjaxGetYearlyData'); // comparision yearly based data

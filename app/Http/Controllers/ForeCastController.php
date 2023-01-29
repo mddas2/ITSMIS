@@ -614,5 +614,29 @@ class ForeCastController extends Controller
         }
         return $monthly_data;
     }
+    public function AjaxGetYearlyData(Request $request){
+
+        $year = $request['year'];
+
+        $item_id = $request['item_id'];
+        $item_obj = Consumption::all()->where("item_id",$item_id)->sum("quantity"); 
+
+        $year_obj = Consumption::where("item_id",$item_id)->whereYear('date', '=', $year);
+
+        // $monthly_data = [];
+      
+
+        // for($month = 1; $month<=12; $month++){
+        //     // $variable = "month_".$month;
+        //     $monthly_data[$month] = Consumption::where("item_id",$item_id)->whereYear('date', '=', $year)->whereMonth('date','=',$month)->get()->sum("quantity");
+        // }
+        $data = [];
+        $data[0] = array("y"=>2006,"a"=>100,"b"=>90,"c"=>60);
+        $data[1] = array("y"=>2006,"a"=>100,"b"=>90,"c"=>60);
+        $data[2] = array("y"=>2006,"a"=>100,"b"=>90,"c"=>60);
+        $data[3] = array("y"=>2006,"a"=>100,"b"=>90,"c"=>60);
+        $data[4] = array("y"=>2006,"a"=>100,"b"=>90,"c"=>60);
+        return $data;
+    }
     
 }

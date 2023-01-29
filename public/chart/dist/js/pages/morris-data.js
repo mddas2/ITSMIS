@@ -34,6 +34,17 @@ $(function () {
 // });
 
 // Morris bar chart
+
+$.ajax({
+    url: yearly_url ,
+    type: "GET",
+    data: {'item_id':ajax_production_item_fetch_id,'year':ajax_production_year},
+    success: function(data) {
+        console.log(data)
+       alert(data)
+    }
+});
+
 Morris.Bar({
     element: 'morris-bar-chart',
     data: [{
