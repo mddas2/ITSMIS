@@ -330,18 +330,18 @@
             </div>
         </div>
 
-<!-- <script>
+<script>
     $.ajax({
         url: "{{route('AjaxgetMonthlyData')}}",
         type: "GET",
-        data: {'id':{{$item_name->id}}}
+        data: {'id':"{{$item_name->id}}"},
         success: function(data) {
-           alert("success")
+           
+           console.log(data) // this is for monthly data graph
         }
     });
-</script> -->
+</script>
 
-    <!-- Line Bar chart close-->
 
 
 
