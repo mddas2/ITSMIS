@@ -195,10 +195,13 @@
                             <input type="text" name="data[{{$key}}][hscode]" class="form-control" autocomplete="off">
                         </td>
                         <td>
-                            {{Form::select('data['.$key.'][category]',$category,null,['class' => 'form-control select_category'])}}
+                            <!-- {{Form::select('data['.$key.'][category]',$category,null,['class' => 'form-control select_category'])}} -->
+                            {{Form::select('data['.$key.'][category]',$category,null,['class' => 'form-control select_category'])}}    
                         </td>
                         <td>
-                            {{Form::select('data['.$key.'][item]',$items,null,['class' => 'form-control select_item item_md'])}}                           
+                            <!-- {{Form::select('data['.$key.'][item]',$items,null,['class' => 'form-control select_item item_md'])}}  -->
+                            {{Form::select('data['.$key.'][item]',$items,null,['class' => 'form-control select_item item_md'])}}
+                                                  
                         </td>
                         <!-- <td>
                             <input type="text" name="data[{{$key}}][item]" class="form-control" autocomplete="off">
@@ -271,15 +274,16 @@
         }
 
         var table = $('#kt_datatable');
-        table.DataTable({
-            responsive: true,
-            paging: true
-        });
+        // table.DataTable({
+        //     responsive: true,
+        //     paging: true
+        // });
 
         var key = {!! $key !!};
         var tableCnt = $('#tb_id tr').length;
         var tb_id = $('#tb_id');
         $('.add').click(function (e) {
+            
             var rowClone = $("#firstRow").clone();
             $("[name='data[" + key + "][asmt_date]']", rowClone).val("");
             $("[name='data[" + key + "][hscode]']", rowClone).val("");
@@ -307,9 +311,12 @@
             $('.sn', rowClone).html(tableCnt + 1);
             tb_id.append(rowClone);
             tableCnt++;
+            $(".select_item" + updatedTblCount).on("change", function (e) {
+            alert("asad")
+            e.preventDefault();
+            var itemID = $(this).val();
 
-
-
+       
         });
 
         $(document).on('click', '#remRow', function () {
@@ -326,6 +333,28 @@
             $(this).parents('tr').find('select').attr('disabled', false);
         });
 
-
+        $(".select_item").on("change", function (e) {
+            var itemID = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "{{route('getCategoryByItem')}}",
+                data: {itemID: itemID},
+                success: function (response) {
+                    $(".select_category").val(response.catId);
+                }
+            });
+        });
+        $(".select_category").on("change", function (e) {
+            var catId = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "{{route('getItemByCategory')}}",
+                data: {catId: catId},
+                success: function (response) {
+                    $(".select_item").find('option').remove().end().append(response.html);
+                }
+            });
+        });
+        
     </script>
 @endsection

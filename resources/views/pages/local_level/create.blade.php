@@ -314,10 +314,10 @@
         $('.productEntry').addClass("active");
         var table = $('#kt_datatable');
 
-        table.DataTable({
-            responsive: true,
-            paging: false
-        });
+        // table.DataTable({
+        //     responsive: true,
+        //     paging: false
+        // });
 
         var key = {!! $key !!};
 
