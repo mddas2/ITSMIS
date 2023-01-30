@@ -187,10 +187,10 @@
                             {{Form::select('data['.$key.'][quantity_unit]',$units,null,['class' => 'form-control'])}}
                         </td>
                         <td>
-                            @if(Auth::user()->getUserMunicipality)
-                                {{Auth::user()->getUserMunicipality->alt_name}}
+                            @if(auth()->user()->role_id == 1)
+                                "{{session('municipality_id')}}"
                             @else
-                                Unknown(error)
+                                {{Auth::user()->getUserMunicipality->alt_name}}
                             @endif
                         </td>
                         <td>
