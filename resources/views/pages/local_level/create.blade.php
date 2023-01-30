@@ -156,8 +156,8 @@
                                 {{Form::select('',$units,$row->quantity_unit,['class' => 'form-control','disabled'=> 'disabled'])}}
                             </td>
                             <td>
-                                @if($row->getUser->getUserMunicipality)
-                                    {{$row->getUser->getUserMunicipality->alt_name}}
+                                @if($row->getMunicipality)
+                                    {{$row->getMunicipality->alt_name}}
                                 @endif
                             </td>
                             <td>
@@ -187,8 +187,8 @@
                             {{Form::select('data['.$key.'][quantity_unit]',$units,null,['class' => 'form-control'])}}
                         </td>
                         <td>
-                            @if(auth()->user()->role_id == 1)
-                                "{{session('municipality_id')}}"
+                            @if(auth()->user()->role_id == 2)
+                                {{session('municipality_name')}}
                             @else
                                 {{Auth::user()->getUserMunicipality->alt_name}}
                             @endif

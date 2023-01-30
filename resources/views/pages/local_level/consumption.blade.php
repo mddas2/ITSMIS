@@ -62,7 +62,37 @@
                 <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_production_excel','production')}}" ><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
             </div>
         </div>
-
+        <form action='{{route("SetLocalLocationSession")}}' method = "post">
+            {{csrf_field()}}
+            <div class="form-group card-body row">
+                <div class="col-lg-3">
+                    <label>Provience<span style="color: #e9594d;">*</span></label>
+                    <select name="provience_id" id="provience_id" class="form-control form-control-solid">
+                        <option value="1">Provience 1</option>
+                        <option value="2">Provience 2</option>
+                        <option value="3">Provience 3</option>
+                        <option value="4">Provience 4</option>
+                        <option value="5">Provience 5</option>
+                        <option value="6">Provience 6</option>
+                        <option value="7">Provience 7</option>
+                    </select>
+                </div>
+                <div class="col-lg-3">
+                    <label>District:</label>
+                    <select name="district_id" id="district_id" class="form-control form-control-solid">						
+                    </select>
+                </div>
+                <div class="col-lg-3">
+                    <label>Municipalitys:</label>
+                    <select name="municipality_id" id = "muncipality_id" class="form-control form-control-solid">	
+                    </select>
+                </div>
+                <div class="col-lg-2" style="margin-top: 24px;">
+                    <button type="submit" class="btn btn-secondary">SET</button>
+                </div>
+        
+            </div>
+        </form>
         <div class="card-body">
             <form>
                 <div class="form-group row">
@@ -126,8 +156,8 @@
                                 {{Form::select('',$units,$row->quantity_unit,['class' => 'form-control','disabled'=> 'disabled'])}}
                             </td>
                             <td>
-                                @if($row->getUser->getUserMunicipality)
-                                    {{$row->getUser->getUserMunicipality->alt_name}}
+                                @if($row->getMunicipality)
+                                    {{$row->getMunicipality->alt_name}}
                                 @endif
                             </td>
                             <td></td>
@@ -154,10 +184,10 @@
                             {{Form::select('data['.$key.'][quantity_unit]',$units,null,['class' => 'form-control'])}}
                         </td>
                         <td>
-                            @if(Auth::user()->getUserMunicipality)
-                                {{Auth::user()->getUserMunicipality->alt_name}}
+                            @if(auth()->user()->role_id == 2)
+                                {{session('municipality_name')}}
                             @else
-                                Unknown(error)
+                                {{Auth::user()->getUserMunicipality->alt_name}}
                             @endif
                         </td>
                         
@@ -188,6 +218,92 @@
     <script src="{{asset('js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('plugins/custom/datatables/datatables.bundle.js')}}"></script>
     <script type="text/javascript">
+                $("#provience_id option[value='{{session('provience_id')}}']").prop("selected", true);
+        var selectedValue = $("#provience_id").val();
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('getDistrict')}}",
+                    data: { provience_id: selectedValue },
+                    success: function(data) {
+                        $("#district_id").empty()
+                        // console.log(data)
+                        var session_district_id = "{{session('district_id')}}"
+                        for(da in data){
+                            var district = data[da]['alt_name']
+                            var district_id = data[da]['id']
+                            if(district_id == session_district_id){
+                                var is_select = "selected"
+                            }
+                            else{
+                                var is_select = ""
+                            }
+                            $("#district_id").append('<option value="'+district_id+'" '+ is_select + '>'+district+'</option>')
+                        }
+                                var district_selected = $("#district_id").val();
+                                $.ajax({
+                                    type: "GET",
+                                    url: "{{route('getMuncipality')}}",
+                                    data: { district_id: district_selected },
+                                    success: function(data) {
+                                        $("#muncipality_id").empty()
+                                        var session_municipality_id = "{{session('municipality_id')}}"
+                                        for(da in data){
+                                            console.log(da)
+                                            var muncipality = data[da]['alt_name']
+                                            var id = data[da]['municipality_id']
+                                            if(id == session_municipality_id){
+                                                var is_select = "selected"
+                                            }
+                                            else{
+                                                var is_select = ""
+                                            }
+                                            $("#muncipality_id").append('<option value="'+id+'"'+is_select+'>'+muncipality+'</option>')
+                                        }
+                                    
+                                    }
+                                });
+
+                        
+                    }
+            });
+        $("#provience_id").change(function() {
+            var selectedValue = $(this).val();
+                    $.ajax({
+                        type: "GET",
+                        url: "{{route('getDistrict')}}",
+                        data: { provience_id: selectedValue },
+                        success: function(data) {
+                            $("#district_id").empty()
+                            // console.log(data)
+                            for(da in data){
+                                var district = data[da]['alt_name']
+                                var district_id = data[da]['id']
+                                $("#district_id").append('<option value="'+district_id+'">'+district+'</option>')
+                            }
+                            
+                        }
+                });
+        });
+
+    $("#district_id").change(function() {
+        var selectedValue = $(this).val();
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('getMuncipality')}}",
+                    data: { district_id: selectedValue },
+                    success: function(data) {
+                        $("#muncipality_id").empty()
+                        console.log(data)
+                        for(da in data){
+                            console.log(da)
+                            var muncipality = data[da]['alt_name']
+                            var id = data[da]['municipality_id']
+                            $("#muncipality_id").append('<option value="'+id+'">'+muncipality+'</option>')
+                        }
+                    
+                    }
+            });
+    });
         $('.productEntry').addClass("active");
         var table = $('#kt_datatable');
 

@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 use App\Models\MeasurementUnit;
 use App\Models\User;
 use App\Models\Item;
+
+use App\Models\Municipality;
+
 use Auth;
 use App\Models\Hierarchy;
 use Maatwebsite\Excel\Facades\Excel;
@@ -108,14 +111,28 @@ class LocalLevelController extends Controller
 
     public function addAction(Request $request)
     {
-        $muncipality_id = $request;
-        return $muncipality_id;
+ 
+        if(auth()->user()->role_id == 2 && $request->session()->has('provience_id') && $request->session()->has('district_id') && $request->session()->has('municipality_id')){  //admin        
+            $provience_id = $request->session()->get('provience_id');
+            $district_id = $request->session()->get('district_id');
+            $municipality_id = $request->session()->get('municipality_id');
+        }
+        else{
+            $provience_id = $request->user()->provience_id;
+            $district_id = $request->user()->district_id;
+            $municipality_id = $request->user()->municipality_id;
+        }
+
         foreach ($request->data as $key => $data) {
+
+            $data['provience_id'] = $provience_id;
+            $data['district_id'] = $district_id;
+            $data['municipality_id'] = $municipality_id;
+
             $data['user_id'] = Auth::user()->id;
 
             //$data['locked'] = 1;
             if (!empty($data['date'])) {
-                // dd($data);
                 LocalProduction::updateOrCreate(
                     ['id' => $data['id']],
                     $data
@@ -331,7 +348,10 @@ class LocalLevelController extends Controller
         $provience_id = $request['provience_id'];
         $district_id = $request['district_id'];
         $municipality_id = $request['municipality_id'];
+        // return $municipality_id;
+        $municipality_name = Municipality::where('municipality_id',$municipality_id)->first()->alt_name;
 
+        $request->session()->put('municipality_name', $municipality_name);
         $request->session()->put('provience_id', $provience_id);
         $request->session()->put('district_id', $district_id);
         $request->session()->put('municipality_id', $municipality_id);

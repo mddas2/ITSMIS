@@ -26,5 +26,10 @@ class LocalProduction extends Model
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
+    
+    public function getMunicipality()
+    {
+        return $this->belongsTo('App\Models\Municipality', 'municipality_id', 'municipality_id');
+    }
 
 }
