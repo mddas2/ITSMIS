@@ -614,6 +614,23 @@ class ForeCastController extends Controller
         }
         return $monthly_data;
     }
+    public function AjaxGetYearlyData(Request $request){
+
+        $current_year = $request['year'];
+
+        $item_id = $request['item_id'];
+        $item_obj = Consumption::all()->where("item_id",$item_id)->sum("quantity"); 
+
+
+        // $monthly_data = [];
+      
+        $data = [];
+        for($year = 0; $year<=6; $year++){
+            $year_sum = Consumption::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
+            $data[$year] = array("y"=>$current_year-$year,"a"=>$year_sum,"b"=>90,"c"=>60);
+        }
+        return $data;
+    }
     public function AjaxGetYearlyLineChartData(Request $request){ // Production Consumption Export/Import line Chart
 
         $current_year = $request['year'];
