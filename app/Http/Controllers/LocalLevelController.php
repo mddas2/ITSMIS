@@ -108,6 +108,8 @@ class LocalLevelController extends Controller
 
     public function addAction(Request $request)
     {
+        $muncipality_id = $request;
+        return $muncipality_id;
         foreach ($request->data as $key => $data) {
             $data['user_id'] = Auth::user()->id;
 
@@ -324,5 +326,16 @@ class LocalLevelController extends Controller
         $this->_data['formatData'] = $formatData;
 
         return view($this->_page . 'verify_training_registration', $this->_data);
+    }
+    public function SetLocalLocationSession(Request $request){
+        $provience_id = $request['provience_id'];
+        $district_id = $request['district_id'];
+        $municipality_id = $request['municipality_id'];
+
+        $request->session()->put('provience_id', $provience_id);
+        $request->session()->put('district_id', $district_id);
+        $request->session()->put('municipality_id', $municipality_id);
+        return redirect(route('local_level_add'));
+
     }
 }

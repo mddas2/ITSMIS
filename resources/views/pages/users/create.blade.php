@@ -159,18 +159,10 @@ $("#provience_id").change(function() {
 						var district_id = data[da]['id']
 						$("#district_id").append('<option value="'+district_id+'">'+district+'</option>')
 					}
-					// Do something with the data returned by the server
+					
 				}
 		});
-	
-    // if (selectedValue == "option1") {
-    //     $("#district_id").show();
-    //     // $("#div2").hide();
-    // }
 });
-//provinces
-//municipalities
-//districts
 
 $("#district_id").change(function() {
     var selectedValue = $(this).val();
@@ -187,14 +179,9 @@ $("#district_id").change(function() {
 						var id = data[da]['municipality_id']
 						$("#muncipality_id").append('<option value="'+id+'">'+muncipality+'</option>')
 					}
-					// Do something with the data returned by the server
+				
 				}
 		});
-	
-    // if (selectedValue == "option1") {
-    //     $("#district_id").show();
-    //     // $("#div2").hide();
-    // }
 });
 
 

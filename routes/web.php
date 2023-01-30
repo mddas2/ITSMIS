@@ -273,7 +273,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('salt_excel_insert/{type}', 'SaltTradingLimitedController@excelDataInsertAction');
     Route::get('salt_excel_sample/{type}', 'SaltTradingLimitedController@getSample')->name('salt-trading-excel-sample');
 
-
     //Local Level Product Entry
     Route::get('local_level_add', 'LocalLevelController@add')->name('local_level_add');
     Route::post('local_level_add', 'LocalLevelController@addAction');
@@ -294,6 +293,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('local_level_training_excel', 'LocalLevelController@trainingExcel')->name('local_level_training_excel');
     Route::post('local_level_training_excel', 'LocalLevelController@trainingExcelAction');
     Route::get('local_level_training_excel_sample/{type}', 'LocalLevelController@getTrainingSample')->name('local_level_training_excel_sample');
+
+    Route::post('set-session-local-location', 'LocalLevelController@SetLocalLocationSession')->name('SetLocalLocationSession');
 
     //District Administration office
     Route::get('dao_market_monitoring', 'DistrictAdministrationOffice@marketMonitoring')->name('dao_market_monitoring');
