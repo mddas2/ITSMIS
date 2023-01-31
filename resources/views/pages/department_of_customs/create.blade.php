@@ -133,11 +133,11 @@
                             </td>
                             <td>
                                 <!-- <input type="text" name="data[{{$key}}][category]" value="{{$row->getCategory->name_np ?? ''}}" class="form-control" disabled autocomplete="off"> -->
-                                {{Form::select('',$category,$row->item_category_id,['class' => 'form-control  ','disabled'=> 'disabled'])}}
+                                {{Form::select('',$category,$row->category,['class' => 'form-control item_md ','disabled'=> 'disabled'])}}
                             </td>
                             <td>
                                 <!-- <input type="text" name="data[{{$key}}][category]" value="{{$row->getItem->name_np ?? ''}}" class="form-control" autocomplete="off"> -->
-                                {{Form::select('',$items,$row->item_id,['class' => 'form-control  ','disabled'=> 'disabled'])}}
+                                {{Form::select('',$items,$row->item,['class' => 'form-control  ','disabled'=> 'disabled'])}}
                             </td>
                          
                             <!-- <td>
@@ -150,7 +150,7 @@
                             </td> -->
                             <td>
                                 <!-- {{Form::select('data['.$key.'][unit_id]',$measurementUnit,null,['class' => 'form-control select_item item_md'])}}   -->
-                                {{Form::select('',$units,$row->quantity_unit,['class' => 'form-control item_md ','disabled'=> 'disabled'])}}                         
+                                {{Form::select('',$measurementUnit,$row->unit_id,['class' => 'form-control item_md ','disabled'=> 'disabled'])}}                         
                             </td>
                             <td>
                                 <input type="text" name="data[{{$key}}][quantity]" class="form-control"
