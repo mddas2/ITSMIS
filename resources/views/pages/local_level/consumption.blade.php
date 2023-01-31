@@ -351,7 +351,6 @@
                 ndpYearCount: 10
             }*/);
             $(".select_item" + updatedTblCount).on("change", function (e) {
-
                 e.preventDefault();
                 var itemID = $(this).val();
 
@@ -393,7 +392,6 @@
             ndpYearCount: 10
         }*/);
         $(".select_item").on("change", function (e) {
-            alert("hello")
             var itemID = $(this).val();
             $.ajax({
                 type: "GET",
@@ -406,7 +404,6 @@
             });
         });
         $(".select_category").on("change", function (e) {
-            alert("hello")
             var catId = $(this).val();
             $.ajax({
                 type: "GET",

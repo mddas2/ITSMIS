@@ -132,10 +132,12 @@
                                        autocomplete="off" value="{{$row->hscode}}" {{$disabled}}>
                             </td>
                             <td>
-                                <input type="text" name="data[{{$key}}][category]" value="{{$row->getCategory->name_np ?? ''}}" class="form-control" disabled autocomplete="off">
+                                <!-- <input type="text" name="data[{{$key}}][category]" value="{{$row->getCategory->name_np ?? ''}}" class="form-control" disabled autocomplete="off"> -->
+                                {{Form::select('',$category,$row->item_category_id,['class' => 'form-control  ','disabled'=> 'disabled'])}}
                             </td>
                             <td>
-                                <input type="text" name="data[{{$key}}][category]" value="{{$row->getItem->name_np ?? ''}}" class="form-control" autocomplete="off">
+                                <!-- <input type="text" name="data[{{$key}}][category]" value="{{$row->getItem->name_np ?? ''}}" class="form-control" autocomplete="off"> -->
+                                {{Form::select('',$items,$row->item_id,['class' => 'form-control  ','disabled'=> 'disabled'])}}
                             </td>
                          
                             <!-- <td>
@@ -147,7 +149,8 @@
                                        autocomplete="off" value="{{$row->description}}" {{$disabled}}>
                             </td> -->
                             <td>
-                                {{Form::select('data['.$key.'][unit_id]',$measurementUnit,null,['class' => 'form-control select_item item_md'])}}                           
+                                <!-- {{Form::select('data['.$key.'][unit_id]',$measurementUnit,null,['class' => 'form-control select_item item_md'])}}   -->
+                                {{Form::select('',$units,$row->quantity_unit,['class' => 'form-control item_md ','disabled'=> 'disabled'])}}                         
                             </td>
                             <td>
                                 <input type="text" name="data[{{$key}}][quantity]" class="form-control"
@@ -210,7 +213,8 @@
                             <input type="text" name="data[{{$key}}][description]" class="form-control" autocomplete="off">
                         </td> -->
                         <td>
-                            {{Form::select('data['.$key.'][unit_id]',$measurementUnit,null,['class' => 'form-control select_item item_md'])}}                           
+                            <!-- {{Form::select('data['.$key.'][unit_id]',$measurementUnit,null,['class' => 'form-control select_item item_md'])}}     -->
+                            {{Form::select('',$units,$row->quantity_unit,['class' => 'form-control','disabled'=> 'disabled'])}}                          
                         </td>
                         <td>
                             <input type="text" name="data[{{$key}}][quantity]" class="form-control" autocomplete="off">
@@ -283,7 +287,6 @@
         var tableCnt = $('#tb_id tr').length;
         var tb_id = $('#tb_id');
         $('.add').click(function (e) {
-            
             var rowClone = $("#firstRow").clone();
             $("[name='data[" + key + "][asmt_date]']", rowClone).val("");
             $("[name='data[" + key + "][hscode]']", rowClone).val("");
@@ -311,11 +314,6 @@
             $('.sn', rowClone).html(tableCnt + 1);
             tb_id.append(rowClone);
             tableCnt++;
-            $(".select_item" + updatedTblCount).on("change", function (e) {
-            alert("asad")
-            e.preventDefault();
-            var itemID = $(this).val();
-
        
         });
 
@@ -345,6 +343,7 @@
             });
         });
         $(".select_category").on("change", function (e) {
+            alert("adadd")
             var catId = $(this).val();
             $.ajax({
                 type: "GET",
