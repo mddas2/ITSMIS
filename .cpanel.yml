@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/radijmdg/itsmis.radiatnserversite.com/
+    - /bin/cp -r * $DEPLOYPATH
