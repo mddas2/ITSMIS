@@ -29,12 +29,17 @@ class ForeCastController extends Controller
 {
     public function index(Request $request){
 
-        
         if (!isset($request['item_id'])){
-            $request['item_id'] = LocalProduction::all()->first()->item_id;
-            $request['from_date'] = "2079-1-1";
-            $request['to_date'] = "2079-12-32";
+            $itm_obj = LocalProduction::all()->first();
+            $request['item_id'] = $itm_obj->item_id;
+
+            $date_c =  $itm_obj->date;
+            $date_split = explode("-",$date_c);
+      
+            $request['from_date'] = $date_split[0]."-"."01"."-"."33";
+            $request['to_date'] = $date_split[0]."-"."12"."-"."33";
         }
+
         $monthly_data = $this->putMonthlyData($request);
         $this->_data['monthly_data'] = $monthly_data;
 
@@ -45,8 +50,11 @@ class ForeCastController extends Controller
                 
 
         $total_production = $this->getTotalProduction($request);
-        // return $production;
         $total_consumption = $this->getTotalConsumption($request);
+
+        $total_privious_year_production = $this->getTotalProductionPreviousYear($request);
+        $total_privious_year_consumption = $this->getTotalConsumptionPreviousYear($request);
+ 
 
         $this->_data['total_production'] = $total_production;
         $this->_data['total_consumption'] = $total_consumption;
@@ -550,6 +558,25 @@ class ForeCastController extends Controller
         $item_obj = Consumption::all()->where("item_id",$item_id)->whereBetween('date', [$from_date, $to_date])->sum("quantity"); 
         return $item_obj;
     }
+
+    public function getTotalProductionPreviousYear($request){
+        $from_date = $request['from_date'];
+        $from_date = explode("-",$from_date);
+        // $from_date = $from_date[0]-1."-".$from_date[1]."-".$from_date[2];
+        // dd($from_date);
+        $to_date = $request['to_date'];
+        $item_id = $request['item_id'];
+        $item_obj = LocalProduction::all()->where("item_id",$item_id)->whereBetween('date', [$from_date, $to_date])->sum("quantity"); 
+        return $item_obj;
+    }
+    public function getTotalConsumptionPreviousYear($request){ //Monthly Report table
+        $item_id = $request['item_id'];
+        $from_date = $request['from_date'];
+        $to_date = $request['to_date'];
+        $item_obj = Consumption::all()->where("item_id",$item_id)->whereBetween('date', [$from_date, $to_date])->sum("quantity"); 
+        return $item_obj;
+    }
+
     public function putMonthlyData($request){
         $from_date = $request['from_date'];
         $to_date = $request['to_date'];

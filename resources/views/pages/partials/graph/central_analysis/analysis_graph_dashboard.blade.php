@@ -133,7 +133,7 @@
 
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title"><span class="item_red">{{$item_name->name_np}}<span> वर्ष {{$monthly_year}} </h4>
+            <h4 class="card-title"><span class="item_red">Item name {{$item_name->name_np}}<span> (वर्ष {{$monthly_year}}) </h4>
             <div class="row">
                 <div class="col-4">
                     <div id="morris-donut-chart"></div>
@@ -155,7 +155,7 @@
                 <div class="col-md-4">
                         <div class="card border-info">
                             <div class="card-header bg-info">
-                                <h4 class="m-b-0 text-white">{{$item_name->name_np}} वर्ष {{$monthly_year}}</h4></div>
+                                <h4 class="m-b-0 text-white">Item name {{$item_name->name_np}} (वर्ष {{$monthly_year}})</h4></div>
                             <div class="card-body">
                                 <li class="text-danger">Stock level upto next 5 months</li>
                                 <li class="text-success">10mt is required to fulfill this year</li>
@@ -200,7 +200,7 @@
                 <div class="col-md-4">
                     <div class="card border-info">
                         <div class="card-header bg-info">
-                            <h4 class="m-b-0 text-white">{{$item_name->name_np}} वर्ष {{$monthly_year-1}}</h4>
+                            <h4 class="m-b-0 text-white">Item name {{$item_name->name_np}} (वर्ष {{$monthly_year-1}})</h4>
                         </div>
                         <div class="card-body">
                         <li class="text-danger">Stock level upto next 5 months</li>
