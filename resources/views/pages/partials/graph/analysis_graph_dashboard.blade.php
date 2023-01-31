@@ -1,31 +1,59 @@
+<script>
+    //Monthly report
+    ajax_production_item_fetch_id = "{{$item_name->id}}"
+    ajax_production_url = "{{route('AjaxgetMonthlyData')}}"
+    ajax_production_year = "{{$monthly_year}}"
+    pmc_v = "{{round($total_consumption/12)}}" //per_month_consumption
+    pmc = []
+    pmc.length = 12
+    pmc.fill(pmc_v)
+
+    //Yearly comparision data
+    yearly_url = "{{route('AjaxGetYearlyData')}}"
+    line_chart = "{{route('AjaxGetYearlyLineChartData')}}" 
+
+
+</script>
 <div class="card-body">
             <form>
                 <div class="form-group row">
                     <div class="col-lg-3">
-                        <label>From Date:</label>
-                        <input name="from_date" class="form-control form-control-solid nepdatepicker" data-single="true"
+                        <label class="text_good_header">From Date:</label>
+                        <input name="from_date" class="form-control form-control-solid nepdatepicker text_good" data-single="true"
                                required
                                value="{{$from_date}}">
                     </div>
                     <div class="col-lg-3">
-                        <label>To Date:</label>
-                        <input name="to_date" class="form-control form-control-solid nepdatepicker" data-single="true"
+                        <label class="text_good_header">To Date:</label>
+                        <input name="to_date" class="form-control form-control-solid nepdatepicker text_good" data-single="true"
                                required
                                value="{{$to_date}}">
                     </div>
                     <div class="col-lg-3">
-                        <label>Items:</label>
+                        <label class="text_good_header" >Items:</label>
                         <?php
                         $itemList = ["" => "Select Items"];
                         $itemList = $itemList + $items;
                         ?>
-                        {{Form::select('item_id',$itemList,$item_id,['class' => 'form-control'])}}
+                        {{Form::select('item_id',$itemList,$item_id,['class' => 'form-control text_good'])}}
                     </div>
                     <div class="col-lg-2" style="margin-top: 24px;">
-                        <button type="submit" class="btn btn-secondary">Filter</button>
+                        <button type="submit" class="btn btn-secondary text_good_header ">Filter</button>
                     </div>
                 </div>
             </form>
+            <style>
+                .text_good_header{
+                    font-size:15px !important;
+                }
+                .text_good{
+                    font-size:13px !important;
+                    weight:100 !important;
+                }
+                .item_red{
+                    color:red
+                }
+            </style>
             @if($data->count()>0)
                 <table class="table table-bordered table-hover table-checkable mt-10 table-striped" id="kt_datatable">
                     <thead>
@@ -37,7 +65,6 @@
                         <th>Quantity Unit</th>
                         <th>Stock Quantity</th>
                         <th>Sales Quantity</th>
-
                     </tr>
 
                     </thead>
@@ -106,161 +133,172 @@
 
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Donute Chart</h4>
+            <h4 class="card-title"><span class="item_red">Item name {{$item_name->name_np}}<span> (वर्ष {{$monthly_year}}) </h4>
             <div class="row">
-                <div class="col-6">
+                <div class="col-4">
                     <div id="morris-donut-chart"></div>
-                </div>
-            
-                <div class="col-6">
-                <div class="card-body">
-                                <h4 class="card-title">Provience data Table of Wheat</h4>
-                                <!-- <h6 class="card-subtitle">Add<code>.table-striped</code>for borders on all sides of the table and cells.</h6> -->
+                </div>  
+                <script>
+                     Morris.Donut({
+                        element: 'morris-donut-chart',
+                        data: [ {
+                            label: "Production",
+                            value: {{$total_production}}
+                        }, {
+                            label: "Consumption",
+                            value: {{$total_consumption}}
+                        }],
+                        resize: true,
+                        colors:['#55ce63', '#2f3d4a']
+                    });
+                </script>          
+                <div class="col-md-4">
+                        <div class="card border-info">
+                            <div class="card-header bg-info">
+                                <h4 class="m-b-0 text-white">Item name {{$item_name->name_np}} (वर्ष {{$monthly_year}})</h4></div>
+                            <div class="card-body">
+                                <li class="text-danger">Stock level upto next 5 months</li>
+                                <li class="text-success">10mt is required to fulfill this year</li>
                                 <div class="table-responsive">
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Provience Name</th>
-                                                <th>produce</th>
-                                                <th>consume</th>
-                                                <th>Progress</th>
-                                                <th>Consumption</th>
-                                            
-                                               
+                                                <th>Production</th>
+                                                <th>Consumption</th>  
+                                                <th>Surplus/Deficit</th>                                             
+                                                
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>Provience 1</td>
-                                                <td>500mt</td>
-                                                <td>400mt</td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                               
-                                            </tr>
-                                            <tr>
-                                                <td>Provience 2 </td>
-                                                <td>500mt</td>
-                                                <td>400mt</td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-warning" style="width: 50%; height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>Provience 3 </td>
-                                                <td>500mt</td>
-                                                <td>400mt</td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-success" style="width: 100%; height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>Provience 4 </td>
-                                                <td>500mt</td>
-                                                <td>400mt</td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-primary" style="width: 70%; height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>Provience 5 </td>
-                                                <td>500mt</td>
-                                                <td>400mt</td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-info" style="width: 85%; height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>Provience 6</td>
-                                                <td>500mt</td>
-                                                <td>400mt</td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-success" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-inverse" style="width: 50%; height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                               
-                                            </tr>
+                                                <td>{{$total_production}} mt</td>
+                                                <td>{{$total_consumption}} mt</td>
+                                                <td>{{$total_production-$total_consumption}} mt</td>                                                                                            
+                                            </tr>                                     
+                                            
                                         </tbody>
                                     </table>
                                 </div>
+                                <!-- <a href="javascript:void(0)" class="btn btn-dark">Go somewhere</a> -->
                             </div>
+                        </div>
+                        <ul class="list-inline m-t-30 text-center mb-1 d-flex">
+                                <li class="list-inline-item p-r-20">
+                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #fb9678;"></i>Production</h5>
+                                    <h4 class="m-b-0">{{$total_production}}</h4>
+                                </li>
+                                <li class="list-inline-item p-r-20">
+                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #01c0c8;"></i>Consumption</h5>
+                                    <h4 class="m-b-0">{{$total_consumption}}</h4>
+                                </li>
+                                <li class="list-inline-item">
+                                    <h5 class="text-muted"> <i class="fa fa-circle" style="color: #4F5467;"></i>Deficit/surplus</h5>
+                                    <h4 class="m-b-0">{{$total_production-$total_consumption}}</h4>
+                                </li>
+                        </ul>
                 </div>
+                <div class="col-md-4">
+                    <div class="card border-info">
+                        <div class="card-header bg-info">
+                            <h4 class="m-b-0 text-white">Item name {{$item_name->name_np}} (वर्ष {{$monthly_year-1}})</h4>
+                        </div>
+                        <div class="card-body">
+                        <li class="text-danger">Stock level upto next 5 months</li>
+                        <li class="text-success">0mt imported to fulfill this year</li>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Production</th>
+                                        <th>Consumption</th>  
+                                        <th>Surplus/Deficit</th>                                             
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>0 mt</td>
+                                        <td>0 mt</td>
+                                        <td>0 mt</td>                                                                                            
+                                    </tr>                                     
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                            <!-- <a href="javascript:void(0)" class="btn btn-dark">Go somewhere</a> -->
+                    </div>
+                    <ul class="list-inline m-t-30 text-center mb-1 d-flex">
+                                <li class="list-inline-item p-r-20">
+                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #fb9678;"></i>Production</h5>
+                                    <h4 class="m-b-0">0</h4>
+                                </li>
+                                <li class="list-inline-item p-r-20">
+                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #01c0c8;"></i>Consumption</h5>
+                                    <h4 class="m-b-0">0</h4>
+                                </li>
+                                <li class="list-inline-item">
+                                    <h5 class="text-muted"> <i class="fa fa-circle" style="color: #4F5467;"></i>Deficit/surplus</h5>
+                                    <h4 class="m-b-0">0</h4>
+                                </li>
+                        </ul>
+                </div>
+            </div>
             </div>
         </div>
     </div>
-    
+    <div class="card-body">
+    <h4 class="card-title">{{$monthly_year}} Monthly data of {{$item_name->name_np}}</h4>
+    <!-- <h6 class="card-subtitle">Add<code>.table-striped</code>for borders on all sides of the table and cells.</h6> -->
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Months</th>
+                    <th>Production</th>
+                    <th>Consumption</th>
+                    <th>Surplus/Deficit Progress</th>
+                    <!-- <th>Consumption</th> -->
+                    
+                </tr>
+            </thead>
+            <tbody>
+               
+                @foreach($monthly_data as $key=>$data)
+                    <tr>
+                        <td>{{$key}}</td>
+                        <td>{{$data}} mt</td>
+                        <td>{{round($total_consumption/12)}} mt</td>
+                        @php
+                            $surplus_deficit = $data-round($total_consumption/12);
+                            if($surplus_deficit>0){
+                                $success_danger = "success";
+                                $title = "Surplus ";
+                            }
+                            else{
+                                $success_danger = "danger";
+                                $title = "Deficit ";
+                            }
+                            if($data > 0 && $surplus_deficit > 0){
+                                $perc = $surplus_deficit/$data * 100; 
+                                
+                            }
+                            else{
+                                $perc = 100; 
+                            }
+                            $title = $title.$surplus_deficit;                            
+                            
+                        @endphp
+                        <td>
+                            <div class="progress progress-xs margin-vertical-10 ">
+                                <div class="progress-bar bg-{{$success_danger}}" data-toggle="tooltip" data-placement="top" title="{{$title}}" style="width: {{$perc ?? 1}}% ;height:6px;"></div>
+                            </div>
+                        </td>                                                
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
 
     <!-- Donute Chart close-->  
      <!-- Monthly Report Chart open-->
@@ -276,34 +314,11 @@
                 <script src="/chart/node_modules/echarts/echarts-init.js"></script>
             <!-- Monthly Report Chart close-->
 
-             <!-- Moving Line Chart open-->
-
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Real Time Consumption</h4>
-                <div class="flot-chart">
-                    <div class="flot-chart-content" id="flot-line-chart-moving" style="padding: 0px; position: relative;"><canvas class="flot-base" width="500" height="800" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 250px; height: 400px;"></canvas><div class="flot-text" style="position: absolute; inset: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; inset: 0px;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 362px; left: 31px; text-align: right;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 298px; left: 24px; text-align: right;">20</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 234px; left: 23px; text-align: right;">40</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 171px; left: 23px; text-align: right;">60</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 107px; left: 23px; text-align: right;">80</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 43px; left: 20px; text-align: right;">100</div></div></div><canvas class="flot-overlay" width="500" height="800" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 250px; height: 400px;"></canvas></div>
-                </div>
-            </div>
-        </div>
-
-            <!-- Flot Charts JavaScript -->
-            <script src="/chart/node_modules/flot/excanvas.js"></script>
-            <script src="/chart/node_modules/flot/jquery.flot.js"></script>
-            <script src="/chart/node_modules/flot/jquery.flot.pie.js"></script>
-            <script src="/chart/node_modules/flot/jquery.flot.time.js"></script>
-            <script src="/chart/node_modules/flot/jquery.flot.stack.js"></script>
-            <script src="/chart/node_modules/flot/jquery.flot.crosshair.js"></script>
-            <script src="/chart/node_modules/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
-            <script src="/chart/dist/js/pages/flot-data.js"></script>
-            <link href="/chart/dist/css/pages/float-chart.css" rel="stylesheet">
-    <!-- Moving Line Chart close-->
-
     <!-- Bar Chart open-->
 
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Bar Chart</h4>
+                <h4 class="card-title">Yearly comparision Chart</h4>
                 <div id="morris-bar-chart"></div>
             </div>
         </div>
@@ -315,7 +330,7 @@
 
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Product line Chart</h4>
+                <h4 class="card-title">Production Consumption Export/Import line Chart</h4>
                 <ul class="list-inline text-end">
                     <li>
                         <h5><i class="fa fa-circle m-r-5 text-inverse"></i>Import/Export</h5>
@@ -330,9 +345,3 @@
                 <div id="morris-area-chart"></div>
             </div>
         </div>
-
-    <!-- Line Bar chart close-->
-
-
-
-

@@ -397,6 +397,7 @@ Route::get('/get-muncipality-with-district', 'ajaxget@getMuncipality')->name('ge
 
 //**********************forecast***************************************************************************
 Route::get('/forecast', 'ForeCastController@index')->name('ForecastIndex'); // CenralAnalysis
+Route::get('/forecast-central-analysis', 'ForeCastController@central_analysis')->name('central_analysis'); // CenralAnalysis
 Route::get('/forecast-province', 'ForeCastController@ProvinceAnalysis')->name('ProvinceAnalysis'); // ProvinceAnalysis
 Route::get('/forecast-district', 'ForeCastController@DistrictAnalysis')->name('DistrictAnalysis'); // DistrictAnalysis
 Route::get('/forecast-production', 'ForeCastController@ProductionAnalysis')->name('ProductionAnalysis'); // ProductionAnalysis

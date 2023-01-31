@@ -118,6 +118,100 @@ class ForeCastController extends Controller
         $this->_data['items'] = Item::pluck('name_np', 'id')->toArray();
         $this->_data['units'] = MeasurementUnit::pluck('name', 'id')->toArray();
         $this->_data['data'] = $data;
+        $this->_data['page_type'] = "forecast_all";
+        // return print_r($this->_date)
+        return view('pages.forecast.index', $this->_data);
+    }
+    public function central_analysis(Request $request){
+
+        if (!isset($request['item_id'])){
+            $itm_obj = LocalProduction::all()->first();
+            $request['item_id'] = $itm_obj->item_id;
+
+            $date_c =  $itm_obj->date;
+            $date_split = explode("-",$date_c);
+      
+            $request['from_date'] = $date_split[0]."-"."01"."-"."33";
+            $request['to_date'] = $date_split[0]."-"."12"."-"."33";
+        }
+
+        $monthly_data = $this->putMonthlyData($request);
+        $this->_data['monthly_data'] = $monthly_data;
+
+        $to_date = $request['to_date'];
+        $year = explode("-", $to_date)[0];
+        $this->_data['monthly_year'] = $year;
+        $this->_data["item_name"] = Item::find($request['item_id']);
+                
+
+        $total_production = $this->getTotalProduction($request);
+        $total_consumption = $this->getTotalConsumption($request);
+
+        $total_privious_year_production = $this->getTotalProductionPreviousYear($request);
+        $total_privious_year_consumption = $this->getTotalConsumptionPreviousYear($request);
+ 
+
+        $this->_data['total_production'] = $total_production;
+        $this->_data['total_consumption'] = $total_consumption;
+
+
+        // return $consumption;
+
+        $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
+
+        if ($request->has('from_date')) {
+            $this->_data['from_date'] = $request->from_date;
+        }
+
+        if ($request->has('to_date')) {
+            $this->_data['to_date'] = $request->to_date;
+        }
+
+
+        $this->_data['item_id'] = '';
+
+
+        if ($request->has('item_id') && !empty($request->item_id)) {
+            $this->_data['item_id'] = $request->item_id;
+        }
+
+        if (!empty($request->has('from_date')) && !empty($request->has('to_date')) && !empty($this->_data['item_id'])) {
+            $data = FoodManagementTradingCo::join('food_mgmt_trading_sales as sales', 'sales.item_id', '=', 'food_mgmt_trading_cos.item_id')
+                ->join('food_mgmt_trading_sales as sDate', 'sDate.date', '=', 'food_mgmt_trading_cos.date')
+                ->select('food_mgmt_trading_cos.*', 'sales.date as salesDate', 'sales.stock_quantity', 'sales.sales_quantity')
+                ->where('food_mgmt_trading_cos.date', '>=', $this->_data['from_date'])
+                ->where('food_mgmt_trading_cos.date', '<=', $this->_data['to_date'])
+                ->where('food_mgmt_trading_cos.item_id', $request->item_id)
+                ->orderBy('food_mgmt_trading_cos.date', 'asc')
+                ->distinct()
+                ->get();
+
+        } elseif (!empty($request->has('from_date')) && !empty($request->has('to_date'))) {
+            $data = FoodManagementTradingCo::join('food_mgmt_trading_sales as sales', 'sales.item_id', '=', 'food_mgmt_trading_cos.item_id')
+                ->join('food_mgmt_trading_sales as sDate', 'sDate.date', '=', 'food_mgmt_trading_cos.date')
+                ->select('food_mgmt_trading_cos.*', 'sales.date as salesDate', 'sales.stock_quantity', 'sales.sales_quantity')
+                ->where('food_mgmt_trading_cos.date', '>=', $this->_data['from_date'])
+                ->where('food_mgmt_trading_cos.date', '<=', $this->_data['to_date'])
+                ->orderBy('food_mgmt_trading_cos.date', 'asc')
+                ->distinct()
+                ->get();
+
+        } else {
+            $data = FoodManagementTradingCo::join('food_mgmt_trading_sales as sales', 'sales.item_id', '=', 'food_mgmt_trading_cos.item_id')
+                ->join('food_mgmt_trading_sales as sDate', 'sDate.date', '=', 'food_mgmt_trading_cos.date')
+                ->select('food_mgmt_trading_cos.*', 'sales.date as salesDate', 'sales.stock_quantity', 'sales.sales_quantity')
+                ->orderBy('food_mgmt_trading_cos.date', 'asc')
+                ->distinct()
+                ->latest()
+                ->take(50)
+                ->get();
+
+
+        }
+
+        $this->_data['items'] = Item::pluck('name_np', 'id')->toArray();
+        $this->_data['units'] = MeasurementUnit::pluck('name', 'id')->toArray();
+        $this->_data['data'] = $data;
         $this->_data['page_type'] = "central_analysis";
         // return print_r($this->_date)
         return view('pages.forecast.index', $this->_data);

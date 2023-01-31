@@ -15,8 +15,9 @@
             @include('pages.partials.graph.report_front_tiles')
         </div>
     </div>
-
-    @if($page_type == "central_analysis")
+    @if($page_type == "forecast_all")
+        @include('pages.partials.graph.analysis_graph_dashboard')
+    @elseif($page_type == "central_analysis")
         @include('pages.partials.graph.central_analysis.analysis_graph_dashboard')
     @elseif($page_type == "province_analysis")
         @include('pages.partials.graph.province_analysis.analysis_graph_dashboard')
