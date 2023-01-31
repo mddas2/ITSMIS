@@ -213,8 +213,8 @@
                             <input type="text" name="data[{{$key}}][description]" class="form-control" autocomplete="off">
                         </td> -->
                         <td>
-                            <!-- {{Form::select('data['.$key.'][unit_id]',$measurementUnit,null,['class' => 'form-control select_item item_md'])}}     -->
-                            {{Form::select('',$units,$row->quantity_unit,['class' => 'form-control','disabled'=> 'disabled'])}}                          
+                            {{Form::select('data['.$key.'][unit_id]',$measurementUnit,null,['class' => 'form-control select_unit item_md'])}}    
+                            <!-- {{Form::select('',$units,$measurementUnit,['class' => 'form-control'])}}                           -->
                         </td>
                         <td>
                             <input type="text" name="data[{{$key}}][quantity]" class="form-control" autocomplete="off">
@@ -343,7 +343,6 @@
             });
         });
         $(".select_category").on("change", function (e) {
-            alert("adadd")
             var catId = $(this).val();
             $.ajax({
                 type: "GET",
