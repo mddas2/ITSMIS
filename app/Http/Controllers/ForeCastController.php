@@ -107,7 +107,7 @@ class ForeCastController extends Controller
 
         }
 
-
+        $this->_data['ForecastIndex'] = "active";
         $this->_data['items'] = Item::pluck('name_np', 'id')->toArray();
         $this->_data['units'] = MeasurementUnit::pluck('name', 'id')->toArray();
         $this->_data['data'] = $data;
@@ -201,7 +201,7 @@ class ForeCastController extends Controller
 
 
         }
-
+        $this->_data['central_analysis'] = "active";
         $this->_data['items'] = Item::pluck('name_np', 'id')->toArray();
         $this->_data['units'] = MeasurementUnit::pluck('name', 'id')->toArray();
         $this->_data['data'] = $data;
@@ -264,7 +264,7 @@ class ForeCastController extends Controller
 
         }
 
-
+        $this->_data['ProvinceAnalysis'] = "active";
         $this->_data['items'] = Item::pluck('name', 'id')->toArray();
         $this->_data['units'] = MeasurementUnit::pluck('name', 'id')->toArray();
         $this->_data['data'] = $data;
@@ -324,7 +324,7 @@ class ForeCastController extends Controller
 
         }
 
-
+        $this->_data['DistrictAnalysis'] = "active";
         $this->_data['items'] = Item::pluck('name', 'id')->toArray();
         $this->_data['units'] = MeasurementUnit::pluck('name', 'id')->toArray();
         $this->_data['data'] = $data;
