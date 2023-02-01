@@ -41,16 +41,14 @@ class ForeCastController extends Controller
             $request['to_date'] = $date_split[0]."-"."12"."-"."33";
         }
 
-        $all_data_p_c = $this->putAll_ItemProductionConsumption($request);
-        $this->_data['all_data_p_c'] = $all_data_p_c;
-
         $to_date = $request['to_date'];
         $year = explode("-", $to_date)[0];
         $this->_data['monthly_year'] = $year;
         $this->_data["item_name"] = Item::find($request['item_id']);
                 
 
-     
+        $all_data_p_c = $this->putAll_ItemProductionConsumption($request);
+        $this->_data['all_data_p_c'] = $all_data_p_c;
 
 
         // return $consumption;
@@ -210,6 +208,22 @@ class ForeCastController extends Controller
         return view('pages.forecast.index', $this->_data);
     }
     public function ProvinceAnalysis(Request $request){
+        if (!isset($request['item_id'])){
+            $itm_obj = LocalProduction::all()->first();
+            $request['item_id'] = $itm_obj->item_id;
+
+            $date_c =  $itm_obj->date;
+            $date_split = explode("-",$date_c);
+      
+            $request['from_date'] = $date_split[0]."-"."01"."-"."33";
+            $request['to_date'] = $date_split[0]."-"."12"."-"."33";
+        }
+
+        $to_date = $request['to_date'];
+        $year = explode("-", $to_date)[0];
+        $this->_data['monthly_year'] = $year;
+        $this->_data["item_name"] = Item::find($request['item_id']);
+
         $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
 
         if ($request->has('from_date')) {
@@ -265,7 +279,9 @@ class ForeCastController extends Controller
         }
 
         $this->_data['ProvinceAnalysis'] = "active";
-        $this->_data['items'] = Item::pluck('name', 'id')->toArray();
+        // $this->_data['items'] = Item::pluck('name', 'id')->toArray();
+        $items = $this->GetAvailableItems($request);
+        $this->_data['items'] = $items;
         $this->_data['units'] = MeasurementUnit::pluck('name', 'id')->toArray();
         $this->_data['data'] = $data;
         $this->_data['page_type'] = "province_analysis";
@@ -789,6 +805,7 @@ class ForeCastController extends Controller
     public function getAllProvienceProduction($request){
         $from_date = $request['from_date'];
         $to_date = $request['to_date'];
+      
         $item_id = $request['item_id'];
         $item_obj = LocalProduction::all()->where("item_id",$item_id)->whereBetween('date', [$from_date, $to_date])->sum("quantity"); 
     
@@ -802,6 +819,17 @@ class ForeCastController extends Controller
         }
         // dd($provience_data);
         return $provience_data;
+    }
+    public function GetAvailableItems($request){
+        $items = Item::all();
+        $items_dict = array();
+        foreach($items as $item){
+            $localproduction = LocalProduction::all()->where("item_id",$item->id);
+            if($localproduction->count()>0){
+                $items_dict[$item->id] = $item->name_np;
+            }
+        }
+        return $items_dict;
     }
     
 }
