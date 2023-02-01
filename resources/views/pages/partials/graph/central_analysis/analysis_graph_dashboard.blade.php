@@ -11,8 +11,6 @@
     //Yearly comparision data
     yearly_url = "{{route('AjaxGetYearlyData')}}"
     line_chart = "{{route('AjaxGetYearlyLineChartData')}}" 
-
-
 </script>
 <div class="card-body">
             <form>

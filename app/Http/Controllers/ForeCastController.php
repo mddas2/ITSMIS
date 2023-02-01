@@ -783,5 +783,22 @@ class ForeCastController extends Controller
         
         return $all_data_p_c;
     }
+    public function getAllProvienceProduction(Request $request){
+        $from_date = $request['from_date'];
+        $to_date = $request['to_date'];
+        $item_id = $request['item_id'];
+        $item_obj = LocalProduction::all()->where("item_id",$item_id)->whereBetween('date', [$from_date, $to_date])->sum("quantity"); 
+    
+        $proviences = Province::all();
+        $provience_data = [];
+        foreach($proviences as $provience){
+            $production = LocalProduction::all()->where("item_id",$item_id)->where("provience_id",$provience->id)->whereBetween('date', [$from_date, $to_date])->sum("quantity");
+            $consumption = Consumption::all()->where("item_id",$item_id)->where("provience_id",$provience->id)->whereBetween('date', [$from_date, $to_date])->sum("quantity");
+            $p = array("production"=>$production,"consumption"=>$consumption);
+            $provience_data["provience-".$provience->id] = $p;
+        }
+        dd($provience_data);
+        return $provience_data;
+    }
     
 }
