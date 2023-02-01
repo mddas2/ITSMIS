@@ -105,7 +105,7 @@
 
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Donute Chart</h4>
+            <h4 class="card-title">Provience chart of {{$item_name->name_np}}</h4>
             <div class="row">
                 <div class="col-6">
                     <div id="morris-donut-chart"></div>
@@ -113,7 +113,7 @@
             
                 <div class="col-6">
                 <div class="card-body">
-                                <h4 class="card-title">Provience data Table of Wheat</h4>
+                                <h4 class="card-title">Provience data Table of {{$item_name->name_np}}</h4>
                                 <!-- <h6 class="card-subtitle">Add<code>.table-striped</code>for borders on all sides of the table and cells.</h6> -->
                                 <div class="table-responsive">
                                     <table class="table table-striped">
