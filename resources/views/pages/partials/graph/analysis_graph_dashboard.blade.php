@@ -121,131 +121,8 @@
 
 <link href="/chart/dist/css/style.min.css" rel="stylesheet">
 
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
 
-        <link href="/chart/node_modules/morrisjs/morris.css" rel="stylesheet">
-
-        <script src="/chart/node_modules/raphael/raphael-min.js"></script>
-        <script src="/chart/node_modules/morrisjs/morris.js"></script>
-        <script src="/chart/dist/js/pages/morris-data.js"></script>
-        
-    <!-- Donute Chart open-->
-
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title"><span class="item_red">Item name {{$item_name->name_np}}<span> (वर्ष {{$monthly_year}}) </h4>
-            <div class="row">
-                <div class="col-4">
-                    <div id="morris-donut-chart"></div>
-                </div>  
-                <script>
-                     Morris.Donut({
-                        element: 'morris-donut-chart',
-                        data: [ {
-                            label: "Production",
-                            value: {{$total_production}}
-                        }, {
-                            label: "Consumption",
-                            value: {{$total_consumption}}
-                        }],
-                        resize: true,
-                        colors:['#55ce63', '#2f3d4a']
-                    });
-                </script>          
-                <div class="col-md-4">
-                        <div class="card border-info">
-                            <div class="card-header bg-info">
-                                <h4 class="m-b-0 text-white">Item name {{$item_name->name_np}} (वर्ष {{$monthly_year}})</h4></div>
-                            <div class="card-body">
-                                <li class="text-danger">Stock level upto next 5 months</li>
-                                <li class="text-success">10mt is required to fulfill this year</li>
-                                <div class="table-responsive">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Production</th>
-                                                <th>Consumption</th>  
-                                                <th>Surplus/Deficit</th>                                             
-                                                
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>{{$total_production}} mt</td>
-                                                <td>{{$total_consumption}} mt</td>
-                                                <td>{{$total_production-$total_consumption}} mt</td>                                                                                            
-                                            </tr>                                     
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- <a href="javascript:void(0)" class="btn btn-dark">Go somewhere</a> -->
-                            </div>
-                        </div>
-                        <ul class="list-inline m-t-30 text-center mb-1 d-flex">
-                                <li class="list-inline-item p-r-20">
-                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #fb9678;"></i>Production</h5>
-                                    <h4 class="m-b-0">{{$total_production}}</h4>
-                                </li>
-                                <li class="list-inline-item p-r-20">
-                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #01c0c8;"></i>Consumption</h5>
-                                    <h4 class="m-b-0">{{$total_consumption}}</h4>
-                                </li>
-                                <li class="list-inline-item">
-                                    <h5 class="text-muted"> <i class="fa fa-circle" style="color: #4F5467;"></i>Deficit/surplus</h5>
-                                    <h4 class="m-b-0">{{$total_production-$total_consumption}}</h4>
-                                </li>
-                        </ul>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border-info">
-                        <div class="card-header bg-info">
-                            <h4 class="m-b-0 text-white">Item name {{$item_name->name_np}} (वर्ष {{$monthly_year-1}})</h4>
-                        </div>
-                        <div class="card-body">
-                        <li class="text-danger">Stock level upto next 5 months</li>
-                        <li class="text-success">0mt imported to fulfill this year</li>
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Production</th>
-                                        <th>Consumption</th>  
-                                        <th>Surplus/Deficit</th>                                             
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>0 mt</td>
-                                        <td>0 mt</td>
-                                        <td>0 mt</td>                                                                                            
-                                    </tr>                                     
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                            <!-- <a href="javascript:void(0)" class="btn btn-dark">Go somewhere</a> -->
-                    </div>
-                    <ul class="list-inline m-t-30 text-center mb-1 d-flex">
-                                <li class="list-inline-item p-r-20">
-                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #fb9678;"></i>Production</h5>
-                                    <h4 class="m-b-0">0</h4>
-                                </li>
-                                <li class="list-inline-item p-r-20">
-                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #01c0c8;"></i>Consumption</h5>
-                                    <h4 class="m-b-0">0</h4>
-                                </li>
-                                <li class="list-inline-item">
-                                    <h5 class="text-muted"> <i class="fa fa-circle" style="color: #4F5467;"></i>Deficit/surplus</h5>
-                                    <h4 class="m-b-0">0</h4>
-                                </li>
-                        </ul>
-                </div>
-            </div>
-            </div>
-        </div>
-    </div>
+    
     <div class="card-body">
     <h4 class="card-title">{{$monthly_year}} Monthly data of {{$item_name->name_np}}</h4>
     <!-- <h6 class="card-subtitle">Add<code>.table-striped</code>for borders on all sides of the table and cells.</h6> -->
@@ -253,10 +130,11 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Months</th>
+                    <th>Item Name</th>
                     <th>Production</th>
                     <th>Consumption</th>
                     <th>Surplus/Deficit Progress</th>
+                    <th>View</th>
                     <!-- <th>Consumption</th> -->
                     
                 </tr>
@@ -292,7 +170,8 @@
                             <div class="progress progress-xs margin-vertical-10 ">
                                 <div class="progress-bar bg-{{$success_danger}}" data-toggle="tooltip" data-placement="top" title="{{$title}}" style="width: {{$perc ?? 1}}% ;height:6px;"></div>
                             </div>
-                        </td>                                                
+                        </td>  
+                        <td><button class="button btn-sm">View</button></td>                                              
                     </tr>
                 @endforeach
             </tbody>
@@ -300,48 +179,3 @@
     </div>
 </div>
 
-    <!-- Donute Chart close-->  
-     <!-- Monthly Report Chart open-->
-     <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Monthly Report</h4>
-                    <div id="bar-chart" style="width:100%; height:400px;"></div>
-                </div>
-            </div>
-
-                <!-- Chart JS -->
-                <script src="/chart/node_modules/echarts/echarts-all.js"></script>
-                <script src="/chart/node_modules/echarts/echarts-init.js"></script>
-            <!-- Monthly Report Chart close-->
-
-    <!-- Bar Chart open-->
-
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Yearly comparision Chart</h4>
-                <div id="morris-bar-chart"></div>
-            </div>
-        </div>
-
-     <!-- Bar Chart close-->
-
-
-    <!-- Line Bar chart -->
-
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Production Consumption Export/Import line Chart</h4>
-                <ul class="list-inline text-end">
-                    <li>
-                        <h5><i class="fa fa-circle m-r-5 text-inverse"></i>Import/Export</h5>
-                    </li>
-                    <li>
-                        <h5><i class="fa fa-circle m-r-5 text-info"></i>Consumption</h5>
-                    </li>
-                    <li>
-                        <h5><i class="fa fa-circle m-r-5 text-success"></i>Production</h5>
-                    </li>
-                </ul>
-                <div id="morris-area-chart"></div>
-            </div>
-        </div>
