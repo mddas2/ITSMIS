@@ -1,17 +1,10 @@
 <script>
     //Monthly report
-    ajax_production_item_fetch_id = "{{$item_name->id}}"
+
     ajax_production_url = "{{route('AjaxgetMonthlyData')}}"
-    ajax_production_year = "{{$monthly_year}}"
-    pmc_v = "{{round($total_consumption/12)}}" //per_month_consumption
-    pmc = []
-    pmc.length = 12
-    pmc.fill(pmc_v)
-
+ 
     //Yearly comparision data
-    yearly_url = "{{route('AjaxGetYearlyData')}}"
-    line_chart = "{{route('AjaxGetYearlyLineChartData')}}" 
-
+  
 
 </script>
 <div class="card-body">
@@ -124,7 +117,7 @@
 
     
     <div class="card-body">
-    <h4 class="card-title">{{$monthly_year}} Monthly data of {{$item_name->name_np}}</h4>
+    <h4 class="card-title">{{$monthly_year}} all items</h4>
     <!-- <h6 class="card-subtitle">Add<code>.table-striped</code>for borders on all sides of the table and cells.</h6> -->
     <div class="table-responsive">
         <table class="table table-striped">
@@ -141,13 +134,20 @@
             </thead>
             <tbody>
                
-                @foreach($monthly_data as $key=>$data)
+                @foreach($all_data_p_c as $key=>$data)
+              
+                    <!-- dd($data['obj']->id); -->
                     <tr>
-                        <td>{{$key}}</td>
-                        <td>{{$data}} mt</td>
-                        <td>{{round($total_consumption/12)}} mt</td>
+                        <td>{{$data['obj']->name_np}}</td>
+                        
+                        <td>{{$data['production']}} mt</td>
+               
+                        <td>{{$data['consumption']}} mt</td>
+                   
                         @php
-                            $surplus_deficit = $data-round($total_consumption/12);
+                            
+                            $surplus_deficit = $data['production']-$data['consumption'];
+                            
                             if($surplus_deficit>0){
                                 $success_danger = "success";
                                 $title = "Surplus ";

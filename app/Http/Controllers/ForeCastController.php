@@ -40,8 +40,8 @@ class ForeCastController extends Controller
             $request['to_date'] = $date_split[0]."-"."12"."-"."33";
         }
 
-        $monthly_data = $this->putMonthlyData($request);
-        $this->_data['monthly_data'] = $monthly_data;
+        $all_data_p_c = $this->putAll_ItemProductionConsumption($request);
+        $this->_data['all_data_p_c'] = $all_data_p_c;
 
         $to_date = $request['to_date'];
         $year = explode("-", $to_date)[0];
@@ -49,15 +49,7 @@ class ForeCastController extends Controller
         $this->_data["item_name"] = Item::find($request['item_id']);
                 
 
-        $total_production = $this->getTotalProduction($request);
-        $total_consumption = $this->getTotalConsumption($request);
-
-        $total_privious_year_production = $this->getTotalProductionPreviousYear($request);
-        $total_privious_year_consumption = $this->getTotalConsumptionPreviousYear($request);
- 
-
-        $this->_data['total_production'] = $total_production;
-        $this->_data['total_consumption'] = $total_consumption;
+     
 
 
         // return $consumption;
@@ -768,6 +760,28 @@ class ForeCastController extends Controller
             $data[$year] = array("period"=>strval($current_year-$year),"Production"=>$year_sum,"Consumption"=>90,"import_export"=>60);
         }
         return $data;
+    }
+    public function putAll_ItemProductionConsumption($request){
+        $from_date = $request['from_date'];
+        $to_date = $request['to_date'];
+        $year = explode("-", $to_date)[0];
+
+        $all_items = Item::all();
+
+        $all_data_p_c = [];
+
+        foreach($all_items as $item){           
+            
+            $production = LocalProduction::where("item_id",$item->id)->whereYear('date', '=', $year)->get()->sum("quantity");
+            if($production > 0){
+                $consumption = Consumption::where("item_id",$item->id)->whereYear('date', '=', $year)->get()->sum("quantity");
+                $record = array("obj" => $item,"production"=>12,"consumption"=>$consumption);
+                $all_data_p_c[] = $record;
+            }
+           
+        }
+        
+        return $all_data_p_c;
     }
     
 }
