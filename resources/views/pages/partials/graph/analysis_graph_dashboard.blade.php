@@ -117,7 +117,7 @@
 
     
     <div class="card-body">
-    <h4 class="card-title">{{$monthly_year}} all items</h4>
+    <h4 class="card-title">all items in {{$monthly_year}}</h4>
     <!-- <h6 class="card-subtitle">Add<code>.table-striped</code>for borders on all sides of the table and cells.</h6> -->
     <div class="table-responsive">
         <table class="table table-striped">
@@ -171,7 +171,7 @@
                                 <div class="progress-bar bg-{{$success_danger}}" data-toggle="tooltip" data-placement="top" title="{{$title}}" style="width: {{$perc ?? 1}}% ;height:6px;"></div>
                             </div>
                         </td>  
-                        <td><button class="button btn-sm">View</button></td>                                              
+                        <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}" style=" text-decoration: none;  color: inherit;">View</a></button></td>                                              
                     </tr>
                 @endforeach
             </tbody>
