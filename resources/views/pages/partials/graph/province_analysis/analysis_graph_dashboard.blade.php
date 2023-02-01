@@ -163,7 +163,7 @@
      <!-- Monthly Report Chart open-->
      <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">{{$monthly_year}} Monthly data of {{$item_name->name_np}}</h4>
+                    <h4 class="card-title">Yearly comparision with provience of item {{$item_name->name_np}}</h4>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
