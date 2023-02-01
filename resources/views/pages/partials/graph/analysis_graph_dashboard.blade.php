@@ -156,13 +156,13 @@
                                 $success_danger = "danger";
                                 $title = "Deficit ";
                             }
-                            if($data > 0 && $surplus_deficit > 0){
-                                $perc = $surplus_deficit/$data * 100; 
-                                
+                            if($data['production'] > 0 && $surplus_deficit > 0){
+                                $perc = $surplus_deficit/$data['production'] * 100;
                             }
                             else{
-                                $perc = 100; 
+                                $perc = 50; 
                             }
+                                      
                             $title = $title.strval($surplus_deficit);                            
                             
                         @endphp
