@@ -37,7 +37,6 @@
                         <th>Quantity Unit</th>
                         <th>Stock Quantity</th>
                         <th>Sales Quantity</th>
-
                     </tr>
 
                     </thead>
@@ -164,8 +163,39 @@
      <!-- Monthly Report Chart open-->
      <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Monthly Report</h4>
-                    <div id="bar-chart" style="width:100%; height:400px;"></div>
+                    <h4 class="card-title">{{$monthly_year}} Monthly data of {{$item_name->name_np}}</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>year</th>
+                                    <th>Provience-1</th>
+                                    <th>Provience-2</th>
+                                    <th>Provience-3</th>
+                                    <th>Provience-4</th>
+                                    <th>Provience-5</th>
+                                    <th>Provience-6</th>
+                                    <th>Provience-7</th>
+                                
+                                    <!-- <th>Consumption</th> -->
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                          
+                            
+                                @foreach($yearly_provience_data as $key=>$data)
+                                  
+                                    <tr>                                       
+                                        <td>{{$key}}</td>
+                                        @foreach($data as $keyp=>$datap)                                        
+                                            <td>P:{{$datap['production']}},C:{{$datap['consumption']}}</td>
+                                        @endforeach                                                                                                                       
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 

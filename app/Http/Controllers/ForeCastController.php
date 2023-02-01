@@ -106,7 +106,8 @@ class ForeCastController extends Controller
         }
 
         $this->_data['ForecastIndex'] = "active";
-        $this->_data['items'] = Item::pluck('name_np', 'id')->toArray();
+        $items = $this->GetAvailableItems($request);
+        $this->_data['items'] = $items;
         $this->_data['units'] = MeasurementUnit::pluck('name', 'id')->toArray();
         $this->_data['data'] = $data;
         $this->_data['page_type'] = "forecast_all";
@@ -200,7 +201,8 @@ class ForeCastController extends Controller
 
         }
         $this->_data['central_analysis'] = "active";
-        $this->_data['items'] = Item::pluck('name_np', 'id')->toArray();
+        $items = $this->GetAvailableItems($request);
+        $this->_data['items'] = $items;
         $this->_data['units'] = MeasurementUnit::pluck('name', 'id')->toArray();
         $this->_data['data'] = $data;
         $this->_data['page_type'] = "central_analysis";
@@ -218,6 +220,7 @@ class ForeCastController extends Controller
             $request['from_date'] = $date_split[0]."-"."01"."-"."33";
             $request['to_date'] = $date_split[0]."-"."12"."-"."33";
         }
+       
 
         $to_date = $request['to_date'];
         $year = explode("-", $to_date)[0];
@@ -225,7 +228,7 @@ class ForeCastController extends Controller
         $this->_data["item_name"] = Item::find($request['item_id']);
 
         $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
-
+        
         if ($request->has('from_date')) {
             $this->_data['from_date'] = $request->from_date;
         }
@@ -236,6 +239,9 @@ class ForeCastController extends Controller
 
         $provience_data = $this->getAllProvienceProduction($request);
         $this->_data['provience_data'] = $provience_data;
+
+        $yearly_provience_data = $this->GetYearlyProvienceData($request);
+        $this->_data['yearly_provience_data'] = $yearly_provience_data;
 
         $this->_data['item_id'] = '';
 
@@ -830,6 +836,28 @@ class ForeCastController extends Controller
             }
         }
         return $items_dict;
+    }
+    public function GetYearlyProvienceData($request){ // Production Consumption Export/Import line Chart
+        $from_date = $request['from_date'];
+        $to_date = $request['to_date'];
+        $year = explode("-", $to_date)[0];
+      
+        $item_id = $request['item_id'];
+   
+        $proviences = Province::all();
+        $yearly_data = [];
+        for($i = 0; $i<5; $i++){
+            $data = [];
+            foreach($proviences as $provience){
+                $production = LocalProduction::where("item_id",$item_id)->whereYear('date', '=', $year-$i)->where("provience_id",$provience->id)->get()->sum("quantity");
+                $consumption = Consumption::where("item_id",$item_id)->whereYear('date', '=', $year-$i)->where("provience_id",$provience->id)->get()->sum("quantity");
+                
+                $data["provience-".$provience->id] = array("provience"=>$provience->id,"production"=>$production,"consumption"=>$consumption);
+               
+            }
+            $yearly_data[$year-$i] = $data;
+        }
+        return $yearly_data;
     }
     
 }
