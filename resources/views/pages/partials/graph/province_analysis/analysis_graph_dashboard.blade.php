@@ -130,10 +130,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($provience_data as $key=>$data)
                                             <tr>
-                                                <td>Provience 1</td>
-                                                <td>500mt</td>
-                                                <td>400mt</td>
+                                         
+                                                <td>{{$key}}</td>
+                                                <td>{{$data['production']}} mt</td>
+                                                <td>{{$data['consumption']}} mt</td>
                                                 <td>
                                                     <div class="progress progress-xs margin-vertical-10 ">
                                                         <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
@@ -146,112 +148,8 @@
                                                 </td>
                                                
                                             </tr>
-                                            <tr>
-                                                <td>Provience 2 </td>
-                                                <td>500mt</td>
-                                                <td>400mt</td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-warning" style="width: 50%; height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>Provience 3 </td>
-                                                <td>500mt</td>
-                                                <td>400mt</td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-success" style="width: 100%; height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>Provience 4 </td>
-                                                <td>500mt</td>
-                                                <td>400mt</td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-primary" style="width: 70%; height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>Provience 5 </td>
-                                                <td>500mt</td>
-                                                <td>400mt</td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-info" style="width: 85%; height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>Provience 6</td>
-                                                <td>500mt</td>
-                                                <td>400mt</td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-success" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-inverse" style="width: 50%; height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                               
-                                            </tr>
+                                        @endforeach
+                                        
                                         </tbody>
                                     </table>
                                 </div>
@@ -279,30 +177,30 @@
                         element: 'morris-donut-chart',
                         data: [ {
                             label: "Provience 1",
-                            value: 3000
+                            value: "{{$provience_data['provience-1']['production']}}"
                         }, {
                             label: "Provience 2",
-                            value: 2000
+                            value: "{{$provience_data['provience-2']['production']}}"
                         },
                         {
                             label: "Provience 3",
-                            value: 2000
+                            value: "{{$provience_data['provience-3']['production']}}"
                         },
                         {
                             label: "Provience 4",
-                            value: 2000
+                            value: "{{$provience_data['provience-4']['production']}}"
                         },
                         {
                             label: "Provience 5",
-                            value: 2000
+                            value: "{{$provience_data['provience-5']['production']}}"
                         },
                         {
                             label: "Provience 6",
-                            value: 2000
+                            value: "{{$provience_data['provience-6']['production']}}"
                         },
                         {
                             label: "Provience 7",
-                            value: 2000
+                            value: "{{$provience_data['provience-7']['production']}}"
                         }],
                         resize: true,
                         colors:['#55ce63', '#2f3d4a','red','yellow','blue','orange','gray']

@@ -13,6 +13,7 @@ use App\Models\FoodManagementTradingSales;
 use App\Models\IEERelated;
 use App\Models\IpRegistration;
 use App\Models\Item;
+use App\Models\Province;
 use App\Models\MeasurementUnit;
 use App\Models\NepalOilCorporation;
 use App\Models\RepatriationApproval;
@@ -219,6 +220,8 @@ class ForeCastController extends Controller
             $this->_data['to_date'] = $request->to_date;
         }
 
+        $provience_data = $this->getAllProvienceProduction($request);
+        $this->_data['provience_data'] = $provience_data;
 
         $this->_data['item_id'] = '';
 
@@ -783,7 +786,7 @@ class ForeCastController extends Controller
         
         return $all_data_p_c;
     }
-    public function getAllProvienceProduction(Request $request){
+    public function getAllProvienceProduction($request){
         $from_date = $request['from_date'];
         $to_date = $request['to_date'];
         $item_id = $request['item_id'];
@@ -797,7 +800,7 @@ class ForeCastController extends Controller
             $p = array("production"=>$production,"consumption"=>$consumption);
             $provience_data["provience-".$provience->id] = $p;
         }
-        dd($provience_data);
+        // dd($provience_data);
         return $provience_data;
     }
     
