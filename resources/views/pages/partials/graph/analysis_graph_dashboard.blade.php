@@ -163,7 +163,7 @@
                             else{
                                 $perc = 100; 
                             }
-                            $title = $title.$surplus_deficit;                            
+                            $title = $title.strval($surplus_deficit);                            
                             
                         @endphp
                         <td>
