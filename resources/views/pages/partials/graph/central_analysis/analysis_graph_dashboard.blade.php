@@ -197,15 +197,15 @@
                         <ul class="list-inline m-t-30 text-center mb-1 d-flex">
                                 <li class="list-inline-item p-r-20">
                                     <h5 class="text-muted"><i class="fa fa-circle" style="color: #55ce63;"></i>Production</h5>
-                                    <h4 class="m-b-0">{{$total_production}}</h4>
+                                    <h4 class="m-b-0">{{$total_production}} mt</h4>
                                 </li>
                                 <li class="list-inline-item p-r-20">
                                     <h5 class="text-muted"><i class="fa fa-circle" style="color: #fb9678;"></i>Consumption</h5>
-                                    <h4 class="m-b-0">{{$total_consumption}}</h4>
+                                    <h4 class="m-b-0">{{$total_consumption}} mt</h4>
                                 </li>
                                 <li class="list-inline-item">
                                     <h5 class="text-muted"> <i class="fa fa-circle" style="color: #4F5467;"></i>Deficit/surplus</h5>
-                                    <h4 class="m-b-0">{{$total_production-$total_consumption}}</h4>
+                                    <h4 class="m-b-0">{{$total_production-$total_consumption}} mt</h4>
                                 </li>
                         </ul>
                 </div>
