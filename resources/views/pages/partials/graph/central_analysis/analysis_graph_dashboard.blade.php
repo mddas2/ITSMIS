@@ -267,23 +267,21 @@
                         <td>{{$data}} mt</td>
                         <td>{{round($total_consumption/12)}} mt</td>
                         @php
+                            
                             $surplus_deficit = $data-round($total_consumption/12);
+                            
                             if($surplus_deficit>0){
                                 $success_danger = "success";
                                 $title = "Surplus ";
+                                $perc = $surplus_deficit/$data * 100;
                             }
                             else{
                                 $success_danger = "danger";
                                 $title = "Deficit ";
+                                $perc = ($surplus_deficit*-1)/round($total_consumption/12) * 100;
                             }
-                            if($data > 0 && $surplus_deficit > 0){
-                                $perc = $surplus_deficit/$data * 100; 
-                                
-                            }
-                            else{
-                                $perc = 100; 
-                            }
-                            $title = $title.$surplus_deficit;                            
+                                         
+                            $title = $title.strval($surplus_deficit);                            
                             
                         @endphp
                         <td>

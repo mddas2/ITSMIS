@@ -151,18 +151,14 @@
                             if($surplus_deficit>0){
                                 $success_danger = "success";
                                 $title = "Surplus ";
+                                $perc = $surplus_deficit/$data['production'] * 100;
                             }
                             else{
                                 $success_danger = "danger";
                                 $title = "Deficit ";
+                                $perc = ($surplus_deficit*-1)/$data['consumption'] * 100;
                             }
-                            if($data['production'] > 0 && $surplus_deficit > 0){
-                                $perc = $surplus_deficit/$data['production'] * 100;
-                            }
-                            else{
-                                $perc = 50; 
-                            }
-                                      
+                                         
                             $title = $title.strval($surplus_deficit);                            
                             
                         @endphp
