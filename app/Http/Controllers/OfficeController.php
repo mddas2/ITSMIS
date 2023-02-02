@@ -24,6 +24,7 @@ class OfficeController extends Controller
 
     public function index(Request $request)
     {
+       
         $this->_data['hierarchy_id'] = "";
         $query = DB::table('office')
             ->select('office.*',DB::raw('COUNT(users.id) as total_users'))
@@ -169,10 +170,10 @@ class OfficeController extends Controller
             if($lang == 'np'){
                 $district = District::where('province_id',$request->province_id)->pluck('nepali_name','id')->prepend("प्रदेश चयन  जिल्ला","0")->toArray();
             }else{
-                $district = District::where('province_id',$request->province_id)->pluck('name','id')->prepend("Select District","0")->toArray();
+                $district = District::where('province_id',$request->province_id)->pluck('alt_name','id')->prepend("Select District","0")->toArray();
             }
         } else {
-            $district = District::pluck('name','id')->prepend("Select District","0")->toArray();
+            $district = District::pluck('alt_name','id')->prepend("Select District","0")->toArray();
         }
 
         if($request->ajax()){
@@ -187,12 +188,12 @@ class OfficeController extends Controller
         if ($request->has('district_id')) {
             $lang = Session::get('applocale');
             if($lang == 'np'){
-                $municipality = Municipality::where('district_id',$request->district_id)->pluck('name_np','id')->prepend("नगरपालिका चयन  जिल्ला","0")->toArray();
+                $municipality = Municipality::where('district_id',$request->district_id)->pluck('alt_name','id')->prepend("नगरपालिका चयन  जिल्ला","0")->toArray();
             }else{
-                $municipality = Municipality::where('district_id',$request->district_id)->pluck('name_en','id')->prepend("Select Municipality","0")->toArray();
+                $municipality = Municipality::where('district_id',$request->district_id)->pluck('alt_name','id')->prepend("Select Municipality","0")->toArray();
             }
         } else {
-            $municipality = Municipality::pluck('name_en','id')->prepend("Select Municipality","0")->toArray();
+            $municipality = Municipality::pluck('alt_name','id')->prepend("Select Municipality","0")->toArray();
         }
 
         if($request->ajax()){

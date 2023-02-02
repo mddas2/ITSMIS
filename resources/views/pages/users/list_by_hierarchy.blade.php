@@ -64,7 +64,6 @@
 			  	</div>
 			  	<div class="card-toolbar">
 			  		<a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('offices.create',['hierarchy_id'=>$hierarchy_id])}}" ><i class="fa fa-plus icon-sm"></i>Add New Office</a>
-
 			  	</div>
 		 	</div>
 		 	<div class="card-body">
