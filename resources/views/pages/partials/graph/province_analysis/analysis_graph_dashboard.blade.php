@@ -233,7 +233,7 @@
                             value: "{{$provience_data['provience-7']['production']}}"
                         }],
                         resize: true,
-                        colors:['#55ce63', '#2f3d4a','red','yellow','blue','orange','gray']
+                        colors:['#55ce63', 'aqua','red','yellow','blue','orange','gray']
                     });
                 </script>
             <!-- Monthly Report Chart close-->

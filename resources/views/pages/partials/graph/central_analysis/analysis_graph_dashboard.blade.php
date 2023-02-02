@@ -147,7 +147,7 @@
                             value: {{$total_consumption}}
                         }],
                         resize: true,
-                        colors:['#55ce63', '#2f3d4a']
+                        colors:['#55ce63', '#fb9678']
                     });
                 </script>          
                 <div class="col-md-4">
@@ -155,16 +155,30 @@
                             <div class="card-header bg-info">
                                 <h4 class="m-b-0 text-white">Item name {{$item_name->name_np}} (वर्ष {{$monthly_year}})</h4></div>
                             <div class="card-body">
-                                <li class="text-danger">Stock level upto next 5 months</li>
-                                <li class="text-success">10mt is required to fulfill this year</li>
+                                
+                                @php
+                                    $deficit_surplus = $total_production-$total_consumption;
+                                    $per_month_consumption = round($total_consumption/12);
+                                    if($deficit_surplus > 0){                                        
+                                        $upto_month = round($total_production/$per_month_consumption);
+                                        $extra_month = round($deficit_surplus/$per_month_consumption);
+                                        $notices = '<li class="text-success">upto '.$upto_month.' months</li>'.'<li class="text-success">Surplus(extra month) '.$extra_month.' months</li>';                                       
+                                    }
+                                    else{                                        
+                                        $upto_month = round(total_production/$per_month_consumption);
+                                        $required_month_to_fulfill_production = round($deficit_surplus/$per_month_consumption);
+                                        $notices = '<li class="text-danger">production goes upto only'.$upto_month.' months</li>'.'<li class="text-danger"> Deficit '.$required_month_to_fulfill_production.' months</li>'.'<li class="text-danger">'.$deficit_surplus.' Mt need to Import to fulfill this year</li>';
+                                    }
+                                    echo $notices;
+                                @endphp
+                                
                                 <div class="table-responsive">
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
                                                 <th>Production</th>
                                                 <th>Consumption</th>  
-                                                <th>Surplus/Deficit</th>                                             
-                                                
+                                                <th>Surplus/Deficit</th>                                           
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -182,11 +196,11 @@
                         </div>
                         <ul class="list-inline m-t-30 text-center mb-1 d-flex">
                                 <li class="list-inline-item p-r-20">
-                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #fb9678;"></i>Production</h5>
+                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #55ce63;"></i>Production</h5>
                                     <h4 class="m-b-0">{{$total_production}}</h4>
                                 </li>
                                 <li class="list-inline-item p-r-20">
-                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #01c0c8;"></i>Consumption</h5>
+                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #fb9678;"></i>Consumption</h5>
                                     <h4 class="m-b-0">{{$total_consumption}}</h4>
                                 </li>
                                 <li class="list-inline-item">
@@ -201,8 +215,10 @@
                             <h4 class="m-b-0 text-white">Item name {{$item_name->name_np}} (वर्ष {{$monthly_year-1}})</h4>
                         </div>
                         <div class="card-body">
+    
                         <li class="text-danger">Stock level upto next 5 months</li>
                         <li class="text-success">0mt imported to fulfill this year</li>
+
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
@@ -227,11 +243,11 @@
                     </div>
                     <ul class="list-inline m-t-30 text-center mb-1 d-flex">
                                 <li class="list-inline-item p-r-20">
-                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #fb9678;"></i>Production</h5>
+                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #55ce63;"></i>Production</h5>
                                     <h4 class="m-b-0">0</h4>
                                 </li>
                                 <li class="list-inline-item p-r-20">
-                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #01c0c8;"></i>Consumption</h5>
+                                    <h5 class="text-muted"><i class="fa fa-circle" style="color: #fb9678;"></i>Consumption</h5>
                                     <h4 class="m-b-0">0</h4>
                                 </li>
                                 <li class="list-inline-item">
