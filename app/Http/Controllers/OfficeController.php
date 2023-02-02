@@ -188,12 +188,12 @@ class OfficeController extends Controller
         if ($request->has('district_id')) {
             $lang = Session::get('applocale');
             if($lang == 'np'){
-                $municipality = Municipality::where('district_id',$request->district_id)->pluck('alt_name','id')->prepend("नगरपालिका चयन  जिल्ला","0")->toArray();
+                $municipality = Municipality::where('district_id',$request->district_id)->pluck('alt_name','municipality_id')->prepend("नगरपालिका चयन  जिल्ला","0")->toArray();
             }else{
-                $municipality = Municipality::where('district_id',$request->district_id)->pluck('alt_name','id')->prepend("Select Municipality","0")->toArray();
+                $municipality = Municipality::where('district_id',$request->district_id)->pluck('alt_name','municipality_id')->prepend("Select Municipality","0")->toArray();
             }
         } else {
-            $municipality = Municipality::pluck('alt_name','id')->prepend("Select Municipality","0")->toArray();
+            $municipality = Municipality::pluck('alt_name','municipality_id')->prepend("Select Municipality","0")->toArray();
         }
 
         if($request->ajax()){
