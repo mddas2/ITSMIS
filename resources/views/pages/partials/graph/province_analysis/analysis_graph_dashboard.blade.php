@@ -122,10 +122,8 @@
                                                 <th>Provience Name</th>
                                                 <th>produce</th>
                                                 <th>consume</th>
-                                                <th>Progress</th>
-                                                <th>Consumption</th>
-                                            
-                                               
+                                                <th>Surplus/Deficit Progress</th>
+                  
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -135,17 +133,38 @@
                                                 <td>{{$key}}</td>
                                                 <td>{{$data['production']}} mt</td>
                                                 <td>{{$data['consumption']}} mt</td>
+                                                @php                            
+                                                    if($data['consumption'] == 0){
+                                                        $data['consumption'] = 12;
+                                                    }
+                                                   
+                                                    $surplus_deficit = $data['production']-round($data['consumption']/12);
+                                                    
+                                                    if($surplus_deficit>0){
+                                                        $success_danger = "success";
+                                                        $title = "Surplus ";
+                                                        if($data['production'] == 0){
+                                                              $data['production'] = 0.001;
+                                                        }
+                                                        
+                                                        $perc = $surplus_deficit/$data['production'] * 100;
+                                                    }
+                                                    else{
+                                                        
+                                                        $success_danger = "danger";
+                                                        $title = "Deficit ";
+                                                   
+                                                        $perc = ($surplus_deficit*-1)/round($data['consumption']/12) * 100;
+                                                    }       
+                                                                                                           
+                                                    $title = $title.strval($surplus_deficit);                       
+                                                @endphp
                                                 <td>
                                                     <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
+                                                        <div class="progress-bar bg-{{$success_danger}}" data-toggle="tooltip" data-placement="top" title="{{$title}}" style="width: {{$perc ?? 1}}% ;height:6px;"></div>
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <div class="progress progress-xs margin-vertical-10 ">
-                                                        <div class="progress-bar bg-danger" style="width: 35% ;height:6px;"></div>
-                                                    </div>
-                                                </td>
-                                               
+                                                </td> 
+                                            
                                             </tr>
                                         @endforeach
                                         
