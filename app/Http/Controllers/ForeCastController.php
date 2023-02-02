@@ -814,7 +814,7 @@ class ForeCastController extends Controller
             $production = LocalProduction::where("item_id",$item->id)->whereYear('date', '=', $year)->get()->sum("quantity");
             if($production > 0){
                 $consumption = Consumption::where("item_id",$item->id)->whereYear('date', '=', $year)->get()->sum("quantity");
-                $record = array("obj" => $item,"production"=>12,"consumption"=>$consumption);
+                $record = array("obj" => $item,"production"=>$production,"consumption"=>$consumption);
                 $all_data_p_c[] = $record;
             }
            
