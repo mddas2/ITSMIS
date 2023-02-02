@@ -216,8 +216,28 @@
                         </div>
                         <div class="card-body">
     
-                        <li class="text-danger">Stock level upto next 5 months</li>
-                        <li class="text-success">0mt imported to fulfill this year</li>
+                            @php
+                                    $deficit_surplus = $previous_data['prouction']-$previous_data['consumption'];
+
+                                    if($previous_data['consumption']>12){
+                                        $per_month_consumption = round($previous_data['consumption']/12);                                        
+                                    }
+                                    else{
+                                        $per_month_consumption = 0.01;
+                                    }                       
+
+                                    if($deficit_surplus > 0){                                        
+                                        $upto_month = round($previous_data['prouction']/$per_month_consumption);
+                                        $extra_month = round($deficit_surplus/$per_month_consumption);
+                                        $notices = '<li class="text-success">upto '.$upto_month.' months</li>'.'<li class="text-success">Surplus(extra month) '.$extra_month.' months</li>';                                       
+                                    }
+                                    else{                                        
+                                        $upto_month = round($previous_data['prouction']/$per_month_consumption);
+                                        $required_month_to_fulfill_production = round($deficit_surplus/$per_month_consumption);
+                                        $notices = '<li class="text-danger">production goes upto only '.$upto_month.' months</li>'.'<li class="text-danger"> Deficit '.$required_month_to_fulfill_production.' months</li>'.'<li class="text-danger">'.$deficit_surplus.' Mt need to Import to fulfill this year</li>';
+                                    }
+                                    echo $notices;
+                            @endphp
 
                         <div class="table-responsive">
                             <table class="table table-striped">
@@ -231,9 +251,9 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>0 mt</td>
-                                        <td>0 mt</td>
-                                        <td>0 mt</td>                                                                                            
+                                        <td>{{$previous_data['prouction']}} mt</td>
+                                        <td>{{$previous_data['consumption']}} mt</td>
+                                        <td>{{$previous_data['prouction'] - $previous_data['consumption']}} mt</td>                                                                                            
                                     </tr>                                     
                                     
                                 </tbody>
@@ -244,15 +264,15 @@
                     <ul class="list-inline m-t-30 text-center mb-1 d-flex">
                                 <li class="list-inline-item p-r-20">
                                     <h5 class="text-muted"><i class="fa fa-circle" style="color: #55ce63;"></i>Production</h5>
-                                    <h4 class="m-b-0">0</h4>
+                                    <h4 class="m-b-0">{{$previous_data['prouction']}} mt</h4>
                                 </li>
                                 <li class="list-inline-item p-r-20">
                                     <h5 class="text-muted"><i class="fa fa-circle" style="color: #fb9678;"></i>Consumption</h5>
-                                    <h4 class="m-b-0">0</h4>
+                                    <h4 class="m-b-0">{{$previous_data['consumption']}} mt</h4>
                                 </li>
                                 <li class="list-inline-item">
                                     <h5 class="text-muted"> <i class="fa fa-circle" style="color: #4F5467;"></i>Deficit/surplus</h5>
-                                    <h4 class="m-b-0">0</h4>
+                                    <h4 class="m-b-0">{{$previous_data['prouction'] - $previous_data['consumption']}} mt</h4>
                                 </li>
                         </ul>
                 </div>
