@@ -260,19 +260,19 @@
       
     <!-- Bar Chart open-->
 
-        <div class="card">
+        <!-- <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Bar Chart</h4>
                 <div id="morris-bar-chart"></div>
             </div>
-        </div>
+        </div> -->
 
      <!-- Bar Chart close-->
 
 
     <!-- Line Bar chart -->
 
-        <div class="card">
+        <!-- <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Product line Chart</h4>
                 <ul class="list-inline text-end">
@@ -288,7 +288,7 @@
                 </ul>
                 <div id="morris-area-chart"></div>
             </div>
-        </div>
+        </div> -->
 
     <!-- Line Bar chart close-->
 
