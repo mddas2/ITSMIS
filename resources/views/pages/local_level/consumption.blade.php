@@ -67,7 +67,7 @@
                 {{csrf_field()}}
                 <div class="form-group card-body row">
                     <div class="col-lg-3">
-                        <label>Provience<span style="color: #e9594d;">*</span></label>
+                        <label>Province<span style="color: #e9594d;">*</span></label>
                         <select name="provience_id" id="provience_id" class="form-control form-control-solid">
                             <option value="1">Provience 1</option>
                             <option value="2">Provience 2</option>
@@ -84,7 +84,7 @@
                         </select>
                     </div>
                     <div class="col-lg-3">
-                        <label>Municipalitys:</label>
+                        <label>Municipality:</label>
                         <select name="municipality_id" id = "muncipality_id" class="form-control form-control-solid">	
                         </select>
                     </div>

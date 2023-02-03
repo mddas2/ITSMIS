@@ -158,17 +158,27 @@
                                 
                                 @php
                                     $deficit_surplus = $total_production-$total_consumption;
-                                    $per_month_consumption = round($total_consumption/12);
+                                    if($total_consumption == 0){
+                                        $per_month_consumption = 0.1;
+                                    }
+                                    else{
+                                        $per_month_consumption = round($total_consumption/12);
+                                    }
+                                    
                                     if($deficit_surplus > 0){                                        
                                         $upto_month = round($total_production/$per_month_consumption);
                                         $extra_month = round($deficit_surplus/$per_month_consumption);
-                                        $notices = '<li class="text-success">upto '.$upto_month.' months</li>'.'<li class="text-success">Surplus(extra month) '.$extra_month.' months</li>';                                       
+                                        $notices = '<li class="text-success">Upto '.$upto_month.' months</li>'.'<li class="text-success">Surplus(extra months) '.$extra_month.' months</li>';                                       
                                     }
-                                    else{                                        
+                                    else{         
+                                        if($total_production == 0 ){
+                                            $total_production = 0.1;
+                                        }                           
                                         $upto_month = round(total_production/$per_month_consumption);
                                         $required_month_to_fulfill_production = round($deficit_surplus/$per_month_consumption);
-                                        $notices = '<li class="text-danger">production goes upto only'.$upto_month.' months</li>'.'<li class="text-danger"> Deficit '.$required_month_to_fulfill_production.' months</li>'.'<li class="text-danger">'.$deficit_surplus.' Mt need to Import to fulfill this year</li>';
+                                        $notices = '<li class="text-danger">Production goes upto only'.$upto_month.' months</li>'.'<li class="text-danger"> Deficit '.$required_month_to_fulfill_production.' months</li>'.'<li class="text-danger">'.$deficit_surplus.' Mt need to Import to fulfill this year</li>';
                                     }
+                                    
                                     echo $notices;
                                 @endphp
                                 
@@ -218,23 +228,34 @@
     
                             @php
                                     $deficit_surplus = $previous_data['prouction']-$previous_data['consumption'];
-
+                                    
                                     if($previous_data['consumption']>12){
+                                      
                                         $per_month_consumption = round($previous_data['consumption']/12);                                        
-                                    }
+                                    }  
                                     else{
-                                        $per_month_consumption = 0.01;
-                                    }                       
-
+                                        $per_month_consumption = 1;
+                                    }                    
+                                    if($previous_data['prouction'] == 0){
+                                        $previous_data['prouction'] = 0.1;
+                                    }
+                                    
+                                   
                                     if($deficit_surplus > 0){                                        
                                         $upto_month = round($previous_data['prouction']/$per_month_consumption);
                                         $extra_month = round($deficit_surplus/$per_month_consumption);
-                                        $notices = '<li class="text-success">upto '.$upto_month.' months</li>'.'<li class="text-success">Surplus(extra month) '.$extra_month.' months</li>';                                       
+                                        $notices = '<li class="text-success">Upto '.$upto_month.' months</li>'.'<li class="text-success">Surplus(extra month) '.$extra_month.' months</li>';                                       
                                     }
-                                    else{                                        
+                                    else{    
+                                        if($deficit_surplus == 0){
+                                            $deficit_surplus = 1;
+                                        }   
+                                                                       
                                         $upto_month = round($previous_data['prouction']/$per_month_consumption);
+                                         
                                         $required_month_to_fulfill_production = round($deficit_surplus/$per_month_consumption);
-                                        $notices = '<li class="text-danger">production goes upto only '.$upto_month.' months</li>'.'<li class="text-danger"> Deficit '.$required_month_to_fulfill_production.' months</li>'.'<li class="text-danger">'.$deficit_surplus.' Mt need to Import to fulfill this year</li>';
+                                      
+                                        $notices = '<li class="text-danger">Production goes upto only '.$upto_month.' months</li>'.'<li class="text-danger"> Deficit '.$required_month_to_fulfill_production.' months</li>'.'<li class="text-danger">'.$deficit_surplus.' Mt need to Import to fulfill this year</li>';
                                     }
                                     echo $notices;
                             @endphp
@@ -298,33 +319,42 @@
             <tbody>
                
                 @foreach($monthly_data as $key=>$data)
+                 
                     <tr>
                         <td>{{$key}}</td>
                         <td>{{$data}} mt</td>
                         <td>{{round($total_consumption/12)}} mt</td>
-                        @php
-                            
-                            $surplus_deficit = $data-round($total_consumption/12);
-                            
-                            if($surplus_deficit>0){
-                                $success_danger = "success";
-                                $title = "Surplus ";
-                                $perc = $surplus_deficit/$data * 100;
-                            }
-                            else{
-                                $success_danger = "danger";
-                                $title = "Deficit ";
-                                $perc = ($surplus_deficit*-1)/round($total_consumption/12) * 100;
-                            }
-                                         
-                            $title = $title.strval($surplus_deficit);                            
-                            
-                        @endphp
-                        <td>
-                            <div class="progress progress-xs margin-vertical-10 ">
-                                <div class="progress-bar bg-{{$success_danger}}" data-toggle="tooltip" data-placement="top" title="{{$title}}" style="width: {{$perc ?? 1}}% ;height:6px;"></div>
-                            </div>
-                        </td>                                                
+                        @if($total_consumption > 0)
+                            @php
+                                
+                                $surplus_deficit = $data-round($total_consumption/12);
+                                
+                                if($surplus_deficit>0){
+                                    $success_danger = "success";
+                                    $title = "Surplus ";
+                                    $perc = $surplus_deficit/$data * 100;
+                                }
+                                else{
+                                    $success_danger = "danger";
+                                    $title = "Deficit ";
+                                    $perc = ($surplus_deficit*-1)/round($total_consumption/12) * 100;
+                                }
+                                            
+                                $title = $title.strval($surplus_deficit);                            
+                                
+                            @endphp
+                            <td>
+                                <div class="progress progress-xs margin-vertical-10 ">
+                                    <div class="progress-bar bg-{{$success_danger}}" data-toggle="tooltip" data-placement="top" title="{{$title}}" style="width: {{$perc ?? 1}}% ;height:6px;"></div>
+                                </div>
+                            </td> 
+                        @else
+                            <td>
+                                0
+                            </td>
+                        @endif 
+
+                                                               
                     </tr>
                 @endforeach
             </tbody>
