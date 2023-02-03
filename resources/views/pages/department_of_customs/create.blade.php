@@ -195,7 +195,7 @@
                                    autocomplete="off" id="nepstart1">
                         </td>
                         <td>
-                            <input type="text" name="data[{{$key}}][hscode]" class="form-control" autocomplete="off">
+                            <input type="text" name="data[{{$key}}][hscode]" class="form-control" autocomplete="off" required>
                         </td>
                         <td>
                             <!-- {{Form::select('data['.$key.'][category]',$category,null,['class' => 'form-control select_category'])}} -->
@@ -217,13 +217,13 @@
                             <!-- {{Form::select('',$units,$measurementUnit,['class' => 'form-control'])}}                           -->
                         </td>
                         <td>
-                            <input type="text" name="data[{{$key}}][quantity]" class="form-control" autocomplete="off">
+                            <input type="text" name="data[{{$key}}][quantity]" class="form-control" autocomplete="off" required>
                         </td>
                         <td>
-                            <input type="text" name="data[{{$key}}][customs]" class="form-control" autocomplete="off">
+                            <input type="text" name="data[{{$key}}][customs]" class="form-control" autocomplete="off" required>
                         </td>
                         <td>
-                            <input type="text" name="data[{{$key}}][cif_value]" class="form-control" autocomplete="off">
+                            <input type="text" name="data[{{$key}}][cif_value]" class="form-control" autocomplete="off" required>
                         </td>
                         <!-- <td>
                             <input type="text" name="data[{{$key}}][hs4]" class="form-control" autocomplete="off">
