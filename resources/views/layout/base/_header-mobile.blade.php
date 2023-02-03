@@ -1,6 +1,6 @@
 <div id="kt_header_mobile" class="header-mobile header-mobile-fixed">
     <!--begin::Logo-->
-    <a href="#">
+    <a href="/">
         <img alt="Logo" src="{{asset('media/logos/itsmis-logo.png')}}" class="max-h-30px" />
     </a>
     <!--end::Logo-->

@@ -412,3 +412,4 @@ Route::get('/forecast-future-predict', 'ForeCastController@FutureAnalysis')->nam
 Route::get('/ajax-get-monthly-data', 'ForeCastController@AjaxgetMonthlyData')->name('AjaxgetMonthlyData'); // FutureAnalysis
 Route::get('/ajax-get-comparision-yearly-data', 'ForeCastController@AjaxGetYearlyData')->name('AjaxGetYearlyData'); // comparision yearly based data
 Route::get('/ajax-get-comparision-yearly-production-line-chart-data', 'ForeCastController@AjaxGetYearlyLineChartData')->name('AjaxGetYearlyLineChartData'); // comparision yearly based data
+Route::get('/ajax-get-comparision-yearly-production-with-provience-line-chart-data', 'ForeCastController@AjaxGetYearlyLineChartDataProvinceWise')->name('AjaxGetYearlyLineChartDataProvinceWise'); // comparision yearly based with provision data

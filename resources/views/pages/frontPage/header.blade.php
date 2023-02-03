@@ -3,7 +3,7 @@
     <div class="header-top" style="background-color: #1e5fba !important;">
         <div class="container">
             <div class="d-none d-lg-flex align-items-center mr-3">
-                <a href="#" class="mr-6">
+                <a href="/" class="mr-6">
                     <img alt="Logo" src="{{asset('media/logos/itsmis-logo.png')}}" class="max-h-60px"/>
                 </a>
                 <div class="title">

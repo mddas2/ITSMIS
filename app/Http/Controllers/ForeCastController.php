@@ -730,7 +730,7 @@ class ForeCastController extends Controller
 
         for($month = 1; $month<=12; $month++){
             // $variable = "month_".$month;
-            $monthly_data[$month_name[$month]] = Consumption::where("item_id",$item_id)->whereYear('date', '=', $year)->whereMonth('date','=',$month)->get()->sum("quantity");
+            $monthly_data[$month_name[$month]] = LocalProduction::where("item_id",$item_id)->whereYear('date', '=', $year)->whereMonth('date','=',$month)->get()->sum("quantity");
         }
         
         return $monthly_data;
@@ -762,7 +762,7 @@ class ForeCastController extends Controller
 
         for($month = 1; $month<=12; $month++){
             // $variable = "month_".$month;
-            $monthly_data[$month] = Consumption::where("item_id",$item_id)->whereYear('date', '=', $year)->whereMonth('date','=',$month)->get()->sum("quantity");
+            $monthly_data[$month] = LocalProduction::where("item_id",$item_id)->whereYear('date', '=', $year)->whereMonth('date','=',$month)->get()->sum("quantity");
         }
         return $monthly_data;
     }
@@ -778,8 +778,11 @@ class ForeCastController extends Controller
       
         $data = [];
         for($year = 0; $year<=6; $year++){
-            $year_sum = Consumption::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
-            $data[$year] = array("y"=>$current_year-$year,"a"=>$year_sum,"b"=>90,"c"=>60);
+            
+            $year_sum = LocalProduction::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
+            $consusmption = Consumption::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
+
+            $data[$year] = array("y"=>$current_year-$year,"a"=>$year_sum,"b"=>$consusmption,"c"=>60);
         }
         return $data;
     }
@@ -788,15 +791,40 @@ class ForeCastController extends Controller
         $current_year = $request['year'];
 
         $item_id = $request['item_id'];
-        $item_obj = Consumption::all()->where("item_id",$item_id)->sum("quantity"); 
-
+   
 
         // $monthly_data = [];
       
         $data = [];
         for($year = 0; $year<=6; $year++){
-            $year_sum = Consumption::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
-            $data[$year] = array("period"=>strval($current_year-$year),"Production"=>$year_sum,"Consumption"=>90,"import_export"=>60);
+            $year_sum = LocalProduction::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
+            $consusmption = Consumption::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
+            $data[$year] = array("period"=>strval($current_year-$year),"Production"=>$year_sum,"Consumption"=>$consusmption,"import_export"=>60);
+        }
+        return $data;
+    }
+    public function AjaxGetYearlyLineChartDataProvinceWise(Request $request){ // Production Consumption Export/Import line Chart
+
+        $current_year = $request['year'];
+
+        $item_id = $request['item_id'];
+        $item_obj_p = LocalProduction::all()->where("item_id",$item_id); 
+        $item_obj_c = Consumption::all()->where("item_id",$item_id); 
+
+
+        // $monthly_data = [];
+      
+        $data = [];
+        $proviences = Province::all();
+        for($year = 0; $year<=6; $year++){
+            $year_sum = LocalProduction::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
+
+            $previous_data = array();
+            foreach($proviences as $province){
+                $previous_data["Provience-".$province->id] = LocalProduction::where("item_id",$item_id)->where('provience_id',$province->id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
+            }
+            $previous_data['period'] = strval($current_year-$year);
+            $data[$year] = $previous_data;
         }
         return $data;
     }

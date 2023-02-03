@@ -99,7 +99,7 @@
 
         <script src="/chart/node_modules/raphael/raphael-min.js"></script>
         <script src="/chart/node_modules/morrisjs/morris.js"></script>
-        <script src="/chart/dist/js/pages/morris-data.js"></script>
+        <!-- <script src="/chart/dist/js/pages/morris-data.js"></script> -->
         
     <!-- Donute Chart open-->
 
@@ -272,7 +272,7 @@
 
     <!-- Line Bar chart -->
 
-        <!-- <div class="card">
+         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Product line Chart</h4>
                 <ul class="list-inline text-end">
@@ -288,10 +288,35 @@
                 </ul>
                 <div id="morris-area-chart"></div>
             </div>
-        </div> -->
-
+        </div>
     <!-- Line Bar chart close-->
-
+<script>
+    $.ajax({
+    url: '{{route("AjaxGetYearlyLineChartDataProvinceWise")}}',
+    type: "GET",
+    data: {'item_id':' {{$item_name->id}}','year':'2079'},
+    success: function(data) {
+        console.log(data);
+        Morris.Area({
+            element: 'morris-area-chart',
+            data: data,
+            xkey: 'period',
+            ykeys: ['Provience-1', 'Provience-2', 'Provience-3','Provience-4','Provience-5','Provience-6','Provience-7'],
+            labels: ['Provience-1', 'Provience-2', 'Provience-3','Provience-4','Provience-5','Provience-6','Provience-7'],
+            pointSize: 7,
+            fillOpacity: 0,
+            pointStrokeColors:['#55ce63', '#009efb', '#2f3d4a','#55ce64', '#009efc', '#2f3d4b','#2f3d5a'],
+            behaveLikeLine: true,
+            gridLineColor: '#e0e0e0',
+            lineWidth: 3,
+            hideHover: 'auto',
+            lineColors: ['#55ce63', '#009efb', '#2f3d4a','#55ce64', '#009efc', '#2f3d4b','#2f3d5a'],
+            resize: true
+            
+        });
+    }
+});
+</script>
 
 
 
