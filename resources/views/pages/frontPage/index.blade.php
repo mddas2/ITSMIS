@@ -4,6 +4,11 @@
     <link href="{{asset('plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
+    @if (session('permission_denied'))
+        <div class="alert alert-danger">
+            {{ session('permission_denied') }}
+        </div>
+    @endif
     <div class="card card-custom gutter-b">
 
         <div class="card-header flex-wrap border-0 pt-6 pb-0">

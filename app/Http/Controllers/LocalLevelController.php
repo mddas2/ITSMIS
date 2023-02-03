@@ -38,8 +38,7 @@ class LocalLevelController extends Controller
 
     public function add(Request $request)
     {
-
-
+        
         $query = LocalProduction::query();
 
         $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
