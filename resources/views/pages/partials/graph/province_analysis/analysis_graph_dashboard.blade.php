@@ -274,9 +274,9 @@
 
          <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Product line Chart</h4>
+                <h4 class="card-title">Yearly comparision line Chart</h4>
                 <ul class="list-inline text-end">
-                    <li>
+                    <!-- <li>
                         <h5><i class="fa fa-circle m-r-5 text-inverse"></i>Import/Export</h5>
                     </li>
                     <li>
@@ -284,7 +284,7 @@
                     </li>
                     <li>
                         <h5><i class="fa fa-circle m-r-5 text-success"></i>Production</h5>
-                    </li>
+                    </li> -->
                 </ul>
                 <div id="morris-area-chart"></div>
             </div>
