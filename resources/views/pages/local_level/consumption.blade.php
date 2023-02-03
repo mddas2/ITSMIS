@@ -62,37 +62,39 @@
                 <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_production_excel','production')}}" ><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
             </div>
         </div>
-        <form action='{{route("SetLocalLocationSession")}}' method = "post">
-            {{csrf_field()}}
-            <div class="form-group card-body row">
-                <div class="col-lg-3">
-                    <label>Provience<span style="color: #e9594d;">*</span></label>
-                    <select name="provience_id" id="provience_id" class="form-control form-control-solid">
-                        <option value="1">Provience 1</option>
-                        <option value="2">Provience 2</option>
-                        <option value="3">Provience 3</option>
-                        <option value="4">Provience 4</option>
-                        <option value="5">Provience 5</option>
-                        <option value="6">Provience 6</option>
-                        <option value="7">Provience 7</option>
-                    </select>
+        @if(auth()->user()->role_id == 2)
+            <form action='{{route("SetLocalLocationSession")}}' method = "post">
+                {{csrf_field()}}
+                <div class="form-group card-body row">
+                    <div class="col-lg-3">
+                        <label>Provience<span style="color: #e9594d;">*</span></label>
+                        <select name="provience_id" id="provience_id" class="form-control form-control-solid">
+                            <option value="1">Provience 1</option>
+                            <option value="2">Provience 2</option>
+                            <option value="3">Provience 3</option>
+                            <option value="4">Provience 4</option>
+                            <option value="5">Provience 5</option>
+                            <option value="6">Provience 6</option>
+                            <option value="7">Provience 7</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3">
+                        <label>District:</label>
+                        <select name="district_id" id="district_id" class="form-control form-control-solid">						
+                        </select>
+                    </div>
+                    <div class="col-lg-3">
+                        <label>Municipalitys:</label>
+                        <select name="municipality_id" id = "muncipality_id" class="form-control form-control-solid">	
+                        </select>
+                    </div>
+                    <div class="col-lg-2" style="margin-top: 24px;">
+                        <button type="submit" class="btn btn-secondary">SET</button>
+                    </div>
+            
                 </div>
-                <div class="col-lg-3">
-                    <label>District:</label>
-                    <select name="district_id" id="district_id" class="form-control form-control-solid">						
-                    </select>
-                </div>
-                <div class="col-lg-3">
-                    <label>Municipalitys:</label>
-                    <select name="municipality_id" id = "muncipality_id" class="form-control form-control-solid">	
-                    </select>
-                </div>
-                <div class="col-lg-2" style="margin-top: 24px;">
-                    <button type="submit" class="btn btn-secondary">SET</button>
-                </div>
-        
-            </div>
-        </form>
+            </form>
+        @endif
         <div class="card-body">
             <form>
                 <div class="form-group row">
@@ -185,7 +187,7 @@
                         </td>
                         <td>
                             @if(auth()->user()->role_id == 2)
-                                {{session('municipality_name')}}
+                                {{session('municipality_name') ?? Auth::user()->getUserMunicipality->alt_name}}
                             @else
                                 {{Auth::user()->getUserMunicipality->alt_name}}
                             @endif
