@@ -192,7 +192,7 @@
                         <td>
                             <input type="hidden" name="data[{{$key}}][id]" value="">
                             <input type="date" name="data[{{$key}}][asmt_date]"   class="form-control  "
-                                   autocomplete="off" id="nepstart1">
+                                   autocomplete="off" id="nepstart1" required>
                         </td>
                         <td>
                             <input type="text" name="data[{{$key}}][hscode]" class="form-control" autocomplete="off" required>
