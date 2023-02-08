@@ -125,9 +125,9 @@
                     <thead>
                     <tr>
                         <th rowspan="1">SN</th>
-                        <th rowspan="1">Date</th>
-                        <th rowspan="1">Produced Product</th>
+                        <th rowspan="1">Date</th>                        
                         <th rowspan="1">Category</th>
+                        <th rowspan="1">Produced Product</th>
                         <th rowspan="1">Quantity</th>
                         <th rowspan="1">Quantity Unit</th>
                         <th colspan="1">Muncipality</th>
@@ -146,11 +146,11 @@
                                 <input type="text" class="form-control nepdatepicker"  data-single="true"  autocomplete="off" id="nep{{$key}}" value="{{$row->date}}" disabled="">
                             </td>
                             <td>
-                                {{Form::select('',$items,$row->item_id,['class' => 'form-control  ','disabled'=> 'disabled'])}}
-                            </td>
-                            <td>
                                 {{Form::select('',$category,$row->item_category_id,['class' => 'form-control  ','disabled'=> 'disabled'])}}
                             </td>
+                            <td>
+                                {{Form::select('',$items,$row->item_id,['class' => 'form-control  ','disabled'=> 'disabled'])}}
+                            </td>                          
                             <td>
                                 <input type="text" name="" class="form-control nepdatepicker" autocomplete="off" value="{{$row->quantity}}" disabled="">
                             </td>
@@ -174,19 +174,19 @@
                         <td>
                             <input type="hidden" name="data[{{$key}}][id]">
                             <input type="text" name="data[{{$key}}][date]"  data-single="true" class="form-control nepdatepicker"
-                                   autocomplete="off" id="nepstart1">
-                        </td>
-                        <td>
-                            {{Form::select('data['.$key.'][item_id]',$items,null,['class' => 'form-control select_item'])}}
+                                   autocomplete="off" id="nepstart1" required>
                         </td>
                         <td>
                             {{Form::select('data['.$key.'][item_category_id]',$category,null,['class' => 'form-control select_category'])}}
                         </td>
                         <td>
-                            <input type="text" name="data[{{$key}}][quantity]" class="form-control ">
+                            {{Form::select('data['.$key.'][item_id]',$items,null,['class' => 'form-control select_item'])}}
+                        </td>                       
+                        <td>
+                            <input type="text" name="data[{{$key}}][quantity]" class="form-control " required>
                         </td>
                         <td>
-                            {{Form::select('data['.$key.'][quantity_unit]',$units,null,['class' => 'form-control'])}}
+                            {{Form::select('data['.$key.'][quantity_unit]',$units,null,['class' => 'form-control' , 'id' => 'quantity_unit_action'])}}
                         </td>
                         <td>
                             @if(auth()->user()->role_id == 2)
@@ -196,7 +196,7 @@
                             @endif
                         </td>
                         <td>
-                            <input type="text" name="data[{{$key}}][produced_by]" class="form-control " autocomplete="off">
+                            <input type="text" name="data[{{$key}}][produced_by]" class="form-control " autocomplete="off" required>
                         </td>
                         <td id='remRow'></td>
                     </tr>
@@ -363,7 +363,7 @@
 
                 e.preventDefault();
                 var itemID = $(this).val();
-
+                
                 $.ajax({
                     type: "GET",
                     url: "{{route('getCategoryByItem')}}",
@@ -376,7 +376,6 @@
 
             });
             $(".select_category" + updatedTblCount).on("change", function (e) {
-
                 var catId = $(this).val();
                 $.ajax({
                     type: "GET",
@@ -415,8 +414,9 @@
             });
         });
         $(".select_category").on("change", function (e) {
-
+            
             var catId = $(this).val();
+            ActionOnQuantityUnit(catId);
             $.ajax({
                 type: "GET",
                 url: "{{route('getItemByCategory')}}",
@@ -426,6 +426,23 @@
                 }
             });
         });
-
+        function ActionOnQuantityUnit(catId){
+            if(catId == 1){
+                $("#quantity_unit_action").val(1);
+            }
+            else if (catId == 2){
+                $("#quantity_unit_action").val(1);
+            }
+            else if(catId == 3){
+                $("#quantity_unit_action").val(2);
+            }
+            else if(catId == 7){
+                $("#quantity_unit_action").val(4);
+            }
+            else {
+                $("#quantity_unit_action").val(1);
+            }
+            
+        }
     </script>
 @endsection
