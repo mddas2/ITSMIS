@@ -1,9 +1,7 @@
 <table>
     <thead>
     <tr>
-        <th>Date</th>
-        <th>Produced Product</th>
-        <th>Produced Category</th>
+        <th>Date</th>        
         <th>Quantity</th>
         <th>Unit</th>
         <th>Produced By</th>
@@ -14,9 +12,7 @@
     <?php
     for ($i=0; $i < 5; $i++) { ?>
     <tr>
-        <th>2021-01-0{{$i}}</th>
-        <th>Apple</th>
-        <th>Agricultural</th>
+        <th>2021-01-0{{$i}}</th>     
         <th>58</th>
         <th>Kilogram</th>
         <th>Thakali Samaj</th>

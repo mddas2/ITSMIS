@@ -99,7 +99,7 @@ class ChildLLPExport implements FromView, WithEvents, WithTitle
                     } else {
                         // clone validation to remaining rows
                         for ($i = 2; $i <= $itemCount; $i++) {
-                            $objValidation = $sheet->getCell('C' . $i)->getDataValidation();
+                            $objValidation = $sheet->getCell('B' . $i)->getDataValidation();
                             $objValidation->setType(DataValidation::TYPE_LIST);
                             $objValidation->setErrorStyle(DataValidation::STYLE_INFORMATION);
                             $objValidation->setAllowBlank(false);
@@ -129,7 +129,7 @@ class ChildLLPExport implements FromView, WithEvents, WithTitle
                         }
 
                         for ($i = 2; $i <= 999; $i++) {
-                            $objValidation = $sheet->getCell('B' . $i)->getDataValidation();
+                            $objValidation = $sheet->getCell('C' . $i)->getDataValidation();
                             $objValidation->setType(DataValidation::TYPE_LIST);
                             $objValidation->setErrorStyle(DataValidation::STYLE_INFORMATION);
                             $objValidation->setAllowBlank(false);
