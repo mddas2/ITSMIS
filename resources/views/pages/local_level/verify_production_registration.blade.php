@@ -46,8 +46,8 @@
                         <th >SN</th>
                         <th>Date</th>
                         <th>District</th>
-                        <th>Produced Category</th>
-                        <th>Produced Product</th>                       
+                        <th>Product Category</th>
+                        <th>Product Item</th>                       
                         <th>Quantity</th>
                         <th>Unit</th>
                         <th>Produced By</th>
@@ -69,13 +69,15 @@
                                 <input type="hidden" name="data[{{$key}}][id]" value="">
                                 <input type="text" name="data[{{$key}}][date]" class="form-control nepdatepicker"  data-single="true" autocomplete="off" id="nep{{$key}}" value="{{$row['date']}}">
                             </td>
-                            <td>District</td>
+        
                             <td>
-                                <input type="text" name="data[{{$key}}][district]" class="form-control" autocomplete="off" value="{{$row['district']}}">
-                               
+                                <input type="text" name="data[{{$key}}][district]" class="form-control" autocomplete="off" value="{{$row['district']}}">                               
                             </td>
                             <td>
-                                <input type="text" name="data[{{$key}}][quantity]" class="form-control" autocomplete="off" value="{{$row['quantity']}}">
+                                agriculture
+                            </td>
+                            <td>
+                                apple
                                
                             </td>                           
                             <td>
