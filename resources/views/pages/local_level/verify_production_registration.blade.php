@@ -71,16 +71,18 @@
                             </td>
                             <td>District</td>
                             <td>
-                                {{Form::select('data['.$key.'][item_category_id]',$itemCategory,$row['item_category_id'],['class' => 'form-control'])}}
+                                <input type="text" name="data[{{$key}}][district]" class="form-control" autocomplete="off" value="{{$row['district']}}">
+                               
                             </td>
                             <td>
-                                {{Form::select('data['.$key.'][item_id]',$items,$row['item_id'],['class' => 'form-control'])}}
+                                <input type="text" name="data[{{$key}}][quantity]" class="form-control" autocomplete="off" value="{{$row['quantity']}}">
+                               
                             </td>                           
                             <td>
                                 <input type="text" name="data[{{$key}}][quantity]" class="form-control" autocomplete="off" value="{{$row['quantity']}}">
                             </td>
                             <td>
-                                {{Form::select('data['.$key.'][quantity_unit]',$units,$row['quantity_unit'],['class' => 'form-control'])}}
+                                quantity unit
                             </td>
                             <td>
                                 <input type="text" name="data[{{$key}}][produced_by]" class="form-control" autocomplete="off" value="{{$row['produced_by']}}">

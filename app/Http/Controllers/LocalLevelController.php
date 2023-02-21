@@ -169,31 +169,25 @@ class LocalLevelController extends Controller
         $this->_data['columns'] = $heading = Schema::getColumnListing('local_level_production');
 
         foreach ($heading as $key=>$head) {
-            if(in_array($head, ['id','user_id','locked','created_at','updated_at'])) {
+            if(in_array($head, ['id','user_id','locked','created_at','updated_at','item_id','item_category_id','quantity_unit','municipality_id','district_id','provience_id'])) {
                 unset($heading[$key]);
             }
         }
+        $heading['District'] = "Districts";
         $heading = array_values($heading);
+       
+        $heading[0] = "date";
+        $heading[1] = "district";
+        $heading[2] = "quantity";
+        $heading[3] = "produced_by";
+        // return $data['Production'];
 
 
         foreach ($data['Production'] as $key => $row) {
             if ($key > 0 && !empty($row[0])) {
 
                 for ($i = 0; $i < count($heading); $i++) {
-                    if ($i == 1) {
-                        $item = Item::where('name', $row[$i])->first();
-                        // $row[$i] = $item->id;
-                    }
-                    if ($i == 2) {
-                        $itemCategory = ItemCategory::where('name', $row[$i])->first();
-
-
-                        // $row[$i] = $itemCategory->id;
-                    }
-                    if ($i == 4) {
-                        $unit = MeasurementUnit::where('name', $row[$i])->first();
-                        // $row[$i] = $unit->id;
-                    }
+           
                     $formatData[$key][$heading[$i]] = $row[$i];
                 }
             }
@@ -201,7 +195,7 @@ class LocalLevelController extends Controller
 
 
 
-
+        // return $formatData;
 
         $this->_data['formatData'] = $formatData;
 
