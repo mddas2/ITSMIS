@@ -12,12 +12,11 @@
             </div>
         </div>
         @if(auth()->user()->role_id == 2)
-            <form action='{{route("SetLocalLocationSession")}}' method = "post">
-                {{csrf_field()}}
+    
                 <div class="form-group card-body row">
                     <div class="col-lg-3">
                         <label>Select Date<span style="color: #e9594d;">*</span></label>
-                        <input type="text" name="date" class="form-control nepdatepicker"  data-single="true" autocomplete="off" >
+                        <input type="text" name="date" class="form-control nepdatepicker" id="nepdatepickerparent"  data-single="true" autocomplete="off" >
                     </div>
                     <div class="col-lg-3">
                         <label>Category:</label>
@@ -29,10 +28,11 @@
                             {{Form::select('data[item_id]',$items,null,['class' => 'form-control select_item'])}}	
                         </select>
                     </div>
-                   
+                    <div class="col-lg-2" style="margin-top: 24px;">
+                        <button type="submit" onclick="setDate()" class="btn btn-secondary">SET</button>
+                    </div>
             
                 </div>
-            </form>
         @endif
         <div class="card-body">
             <form class="form" id="kt_form" action="{{route('local_level_add')}}" method="post">
@@ -64,7 +64,8 @@
                             <td>{{$key+1}}</td>
                             <td>
                                 <input type="hidden" name="data[{{$key}}][id]" value="">
-                                <input type="text" name="data[{{$key}}][date]" class="form-control nepdatepicker"  data-single="true" autocomplete="off" id="nep{{$key}}" value="{{$row['date']}}">
+                                <input type="text"  name="data[{{$key}}][date]" class="form-control nepdatepicker"  data-single="true" autocomplete="off" id="nep{{$key}}" required>
+                                <!-- <input type="text" name="data[{{$key}}][date]" class="form-control nepdatepicker"  data-single="true" autocomplete="off" id="nep{{$key}}" value="{{$row['date']}}"> -->
                             </td>
         
                             <td>
@@ -131,12 +132,18 @@
         });
 
         $('.nepdatepicker').nepaliDatePicker(
+       
             /*{
             language: "english",
             ndpYear: true,
             ndpMonth: true,
             ndpYearCount: 10
         }*/);
+
+  
+
+
+
          $(".select_item").on("change", function (e) {
 
             var itemID = $(this).val();
@@ -198,15 +205,20 @@
             }
             
         }
+
+        function setDate(){
+           var set_to_date = $("#nepdatepickerparent").val()
+           if(set_to_date==''){
+             alert("Please select Date")
+           }
+           else{
+            $(".nepdatepicker").val(set_to_date)
+           }
+           
+        }
+     
     
-
-        $(".nepdatepicker").on("change", function () {
-            alert("hello")
-            // var myDate = new Date($(this).val());
-            // console.log(myDate, myDate.getTime());
-        });
-                
-
+        
         var name = $( ".select_item option:selected" ).text();
         item_id = $( ".select_item option:selected" ).val();
 
