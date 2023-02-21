@@ -134,5 +134,51 @@
             ndpMonth: true,
             ndpYearCount: 10
         }*/);
+         $(".select_item").on("change", function (e) {
+
+            var itemID = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "{{route('getCategoryByItem')}}",
+                data: {itemID: itemID},
+                success: function (response) {
+
+                    $(".select_category").val(response.catId);
+                }
+            });
+        });
+        $(".select_category").on("change", function (e) {
+            
+            var catId = $(this).val();
+            ActionOnQuantityUnit(catId);
+            $.ajax({
+                type: "GET",
+                url: "{{route('getItemByCategory')}}",
+                data: {catId: catId},
+                success: function (response) {
+                    $(".select_item").find('option').remove().end().append(response.html);
+                }
+            });
+        });
+
+        function ActionOnQuantityUnit(catId){
+            if(catId == 1){
+                $("#quantity_unit_action").val(1);
+            }
+            else if (catId == 2){
+                $("#quantity_unit_action").val(1);
+            }
+            else if(catId == 3){
+                $("#quantity_unit_action").val(2);
+            }
+            else if(catId == 7){
+                $("#quantity_unit_action").val(4);
+            }
+            else {
+                $("#quantity_unit_action").val(1);
+            }
+            
+        }
+
     </script>
 @endsection
