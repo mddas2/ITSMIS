@@ -155,9 +155,10 @@ class LocalLevelController extends Controller
     public function productionExcelAction (Request $request)
     {
 
+        $this->_data['items'] = Item::pluck('name_np', 'id')->toArray();
+        $this->_data['category'] = ItemCategory::pluck('name_np', 'id')->toArray();
 
         $data = Excel::toArray(new LocalLevelImport('production'),$request->file('sample_excel'));
-
 
         $formatData = [];
         $this->_data['items'] = Item::pluck('name', 'id')->skip(0)->take(10);
@@ -181,17 +182,17 @@ class LocalLevelController extends Controller
                 for ($i = 0; $i < count($heading); $i++) {
                     if ($i == 1) {
                         $item = Item::where('name', $row[$i])->first();
-                        $row[$i] = $item->id;
+                        // $row[$i] = $item->id;
                     }
                     if ($i == 2) {
                         $itemCategory = ItemCategory::where('name', $row[$i])->first();
 
 
-                        $row[$i] = $itemCategory->id;
+                        // $row[$i] = $itemCategory->id;
                     }
                     if ($i == 4) {
                         $unit = MeasurementUnit::where('name', $row[$i])->first();
-                        $row[$i] = $unit->id;
+                        // $row[$i] = $unit->id;
                     }
                     $formatData[$key][$heading[$i]] = $row[$i];
                 }

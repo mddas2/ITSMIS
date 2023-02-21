@@ -11,6 +11,32 @@
                 </h3>
             </div>
         </div>
+        @if(auth()->user()->role_id == 2)
+            <form action='{{route("SetLocalLocationSession")}}' method = "post">
+                {{csrf_field()}}
+                <div class="form-group card-body row">
+                    <div class="col-lg-3">
+                        <label>Select Date<span style="color: #e9594d;">*</span></label>
+                        <input type="hidden" name="data" value="">
+                        <input type="text" name="date" class="form-control nepdatepicker"  data-single="true" autocomplete="off" >
+                    </div>
+                    <div class="col-lg-3">
+                        <label>Category:</label>
+                            {{Form::select('data[item_category_id]',$category,null,['class' => 'form-control select_category'])}}						
+                        </select>
+                    </div>
+                    <div class="col-lg-3">
+                        <label>Items:</label>
+                            {{Form::select('data[item_id]',$items,null,['class' => 'form-control select_item'])}}	
+                        </select>
+                    </div>
+                    <div class="col-lg-2" style="margin-top: 24px;">
+                        <button type="submit" class="btn btn-secondary">SET</button>
+                    </div>
+            
+                </div>
+            </form>
+        @endif
         <div class="card-body">
             <form class="form" id="kt_form" action="{{route('local_level_add')}}" method="post">
                 {{csrf_field()}}
@@ -19,13 +45,12 @@
                     <tr>
                         <th >SN</th>
                         <th>Date</th>
-                        <th>Produced Product</th>
+                        <th>District</th>
                         <th>Produced Category</th>
+                        <th>Produced Product</th>                       
                         <th>Quantity</th>
                         <th>Unit</th>
                         <th>Produced By</th>
-
-
 
                         {{-- <?php
                          for ($i=10; $i < count($columns); $i++) {
@@ -44,12 +69,13 @@
                                 <input type="hidden" name="data[{{$key}}][id]" value="">
                                 <input type="text" name="data[{{$key}}][date]" class="form-control nepdatepicker"  data-single="true" autocomplete="off" id="nep{{$key}}" value="{{$row['date']}}">
                             </td>
-                            <td>
-                                {{Form::select('data['.$key.'][item_id]',$items,$row['item_id'],['class' => 'form-control'])}}
-                            </td>
+                            <td>District</td>
                             <td>
                                 {{Form::select('data['.$key.'][item_category_id]',$itemCategory,$row['item_category_id'],['class' => 'form-control'])}}
                             </td>
+                            <td>
+                                {{Form::select('data['.$key.'][item_id]',$items,$row['item_id'],['class' => 'form-control'])}}
+                            </td>                           
                             <td>
                                 <input type="text" name="data[{{$key}}][quantity]" class="form-control" autocomplete="off" value="{{$row['quantity']}}">
                             </td>
