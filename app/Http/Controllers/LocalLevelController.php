@@ -161,7 +161,7 @@ class LocalLevelController extends Controller
         $data = Excel::toArray(new LocalLevelImport('production'),$request->file('sample_excel'));
 
         $formatData = [];
-        $this->_data['items'] = Item::pluck('name', 'id')->skip(0)->take(10);
+        $this->_data['items'] = Item::pluck('name_np', 'id')->skip(0)->take(10);
         $this->_data['units'] = MeasurementUnit::pluck('name', 'id')->toArray();
         $this->_data['itemCategory'] = ItemCategory::pluck('name', 'id')->toArray();
 

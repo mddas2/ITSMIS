@@ -17,7 +17,6 @@
                 <div class="form-group card-body row">
                     <div class="col-lg-3">
                         <label>Select Date<span style="color: #e9594d;">*</span></label>
-                        <input type="hidden" name="data" value="">
                         <input type="text" name="date" class="form-control nepdatepicker"  data-single="true" autocomplete="off" >
                     </div>
                     <div class="col-lg-3">
@@ -30,9 +29,7 @@
                             {{Form::select('data[item_id]',$items,null,['class' => 'form-control select_item'])}}	
                         </select>
                     </div>
-                    <div class="col-lg-2" style="margin-top: 24px;">
-                        <button type="submit" class="btn btn-secondary">SET</button>
-                    </div>
+                   
             
                 </div>
             </form>
@@ -74,10 +71,12 @@
                                 <input type="text" name="data[{{$key}}][district]" class="form-control" autocomplete="off" value="{{$row['district']}}">                               
                             </td>
                             <td>
-                                <input  class="form-control" type="text" value="Agriculture" disabled >
+                                <input  class="form-control category_md" type="text" value="Agriculture" disabled >
+                                <input type="text" class="category_input_md"  value="0" disabled >
                             </td>
                             <td>
-                                <input  class="form-control" type="text" value="Apple" disabled>                         
+                                <input  class="form-control item_md" type="text" value="Apple" disabled> 
+                                <input type="text" class="item_input_md"  value="0" disabled >                        
                             </td>                           
                             <td>
                                 <input type="text" name="data[{{$key}}][quantity]" class="form-control" autocomplete="off" value="{{$row['quantity']}}">
@@ -131,7 +130,8 @@
             return false;
         });
 
-        $('.nepdatepicker').nepaliDatePicker(/*{
+        $('.nepdatepicker').nepaliDatePicker(
+            /*{
             language: "english",
             ndpYear: true,
             ndpMonth: true,
@@ -140,6 +140,12 @@
          $(".select_item").on("change", function (e) {
 
             var itemID = $(this).val();
+
+            var name = $( ".select_item option:selected" ).text();
+
+            $(".item_md").val(name)
+            $(".item_input_md").val(itemID)
+
             $.ajax({
                 type: "GET",
                 url: "{{route('getCategoryByItem')}}",
@@ -153,6 +159,10 @@
         $(".select_category").on("change", function (e) {
             
             var catId = $(this).val();
+            var name = $( ".select_category option:selected" ).text();
+            $(".category_md").val(name)
+            $(".category_input_md").val(catId)
+
             ActionOnQuantityUnit(catId);
             $.ajax({
                 type: "GET",
@@ -160,6 +170,12 @@
                 data: {catId: catId},
                 success: function (response) {
                     $(".select_item").find('option').remove().end().append(response.html);
+
+                    var name = $( ".select_item option:selected" ).text();
+                    item_id = $( ".select_item option:selected" ).val();
+
+                    $(".item_md").val(name)
+                    $(".item_input_md").val(item_id)
                 }
             });
         });
@@ -182,6 +198,26 @@
             }
             
         }
+    
+
+        $(".nepdatepicker").on("change", function () {
+            alert("hello")
+            // var myDate = new Date($(this).val());
+            // console.log(myDate, myDate.getTime());
+        });
+                
+
+        var name = $( ".select_item option:selected" ).text();
+        item_id = $( ".select_item option:selected" ).val();
+
+        $(".item_md").val(name)
+        $(".item_input_md").val(item_id)
+
+
+        var cat_name = $( ".select_category option:selected" ).text();
+        var cat_id = $( ".select_category option:selected" ).val();
+        $(".category_md").val(cat_name)
+        $(".category_input_md").val(cat_id)
 
     </script>
 @endsection
