@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use App\Models\District;
 
 class ChildItemsExport implements  FromView,WithTitle
 {
@@ -36,6 +37,7 @@ class ChildItemsExport implements  FromView,WithTitle
         }elseif ($this->itemType == 'all'){
             $items = Item::pluck('name')->toArray();
         }
+        $items = District::pluck('name')->toArray();
         return view('pages.sample_excel.items', ['items' => $items ]);
 
 

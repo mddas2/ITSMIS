@@ -74,17 +74,16 @@
                                 <input type="text" name="data[{{$key}}][district]" class="form-control" autocomplete="off" value="{{$row['district']}}">                               
                             </td>
                             <td>
-                                agriculture
+                                <input  class="form-control" type="text" value="Agriculture" disabled >
                             </td>
                             <td>
-                                apple
-                               
+                                <input  class="form-control" type="text" value="Apple" disabled>                         
                             </td>                           
                             <td>
                                 <input type="text" name="data[{{$key}}][quantity]" class="form-control" autocomplete="off" value="{{$row['quantity']}}">
                             </td>
                             <td>
-                                quantity unit
+                                <input  class="form-control" type="text" value="Kg" disabled>  
                             </td>
                             <td>
                                 <input type="text" name="data[{{$key}}][produced_by]" class="form-control" autocomplete="off" value="{{$row['produced_by']}}">
