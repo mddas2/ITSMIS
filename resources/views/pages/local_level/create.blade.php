@@ -138,7 +138,7 @@
                         <th rowspan="1">Produced Product</th>
                         <th rowspan="1">Quantity</th>
                         <th rowspan="1">Quantity Unit</th>
-                        <th colspan="1">Muncipality</th>
+                        <th colspan="1">Location</th>
                         <th colspan="1">Produced By</th>
                         <th rowspan="1">Actions</th>
                     </tr>
@@ -168,6 +168,8 @@
                             <td>
                                 @if($row->getMunicipality)
                                     {{$row->getMunicipality->alt_name}}
+                                @else
+                                    {{$row->getDistrict->alt_name}}
                                 @endif
                             </td>
                             <td>

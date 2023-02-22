@@ -37,38 +37,33 @@
             <form>
               <div class="form-group">
                 <label for="name">Date Pick</label>
-                <input name="from_date" class="form-control form-control-solid" id="nepdatepicker_production"  data-single="true" value="2079-11-11" required>
+                <input name="from_date" class="form-control form-control-solid" id="nepdatepicker_production" type="text" autocomplete="off" data-single="true" value="2079-11-11" required>
               </div>
            
               <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                <label for="category">Select Category</label>
+                  {{Form::select('data[item_category_id]',$category,null,['class' => 'form-control select_category'])}}
               </div>
               <div class="form-group">
-                <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter email">
+                <label for="item">Select Item</label>
+                  {{Form::select('data[item_id]',$items,null,['class' => 'form-control select_item'])}}
               </div>
               <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password">
+                <label for="unit">Select Unit</label>
+                  {{Form::select('data[quantity_unit]',$units,null,['class' => 'form-control' , 'id' => 'quantity_unit_action'])}}
               </div>
               <div class="form-group">
-                <label for="confirm-password">Confirm Password</label>
-                <input type="password" class="form-control" id="confirm-password" placeholder="Confirm Password">
+                <label for="location"> Location </label>
+
+                    @if(auth()->user()->role_id == 2)
+                      <input type="text" value="{{session('municipality_name') ?? Auth::user()->getUserMunicipality->alt_name}}" disabled>
+                    @else
+                      <input type="text" value="{{Auth::user()->getUserMunicipality->alt_name}}" disabled>
+                    @endif
+                
+                  
               </div>
-              <div class="form-group">
-                <label for="gender">Gender</label>
-                <select class="form-control" id="gender">
-                  <option>Select Gender</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="message">Message</label>
-                <textarea class="form-control" id="message" rows="3" placeholder="Enter your message"></textarea>
-              </div>
+
               <div class="text-center">
                 <button type="submit" class="btn btn-primary btn-lg">Submit</button>
               </div>
