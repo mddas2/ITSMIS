@@ -122,12 +122,11 @@
             </form>
        
                
-                   
                 <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_add_production')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
                   
         
         
-            <form class="form" id="kt_form" action="{{route('local_level_add')}}" method="post">
+            <form class="form" id="kt_form" action="{{route('local_level_add_action')}}" method="post">
                 {{csrf_field()}}
                 <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
                     <thead>
@@ -167,7 +166,7 @@
                             </td>
                             <td>
                                 @if($row->getMunicipality)
-                                    {{$row->getMunicipality->alt_name}}
+                                 {{$row->getDistrict->alt_name}},{{$row->getMunicipality->alt_name}}
                                 @else
                                     {{$row->getDistrict->alt_name}}
                                 @endif
@@ -212,19 +211,19 @@
                     </tr>
                     </tbody>
                     <tfoot>
-                    <!-- <tr>
-                        <td colspan="2">
+                    <tr>
+                        <!-- <td colspan="2">
                             <button class="btn btn-primary btn-sm add" type="button">
                                 <i class="fa fa-plus icon-sm"></i>Add New Row
                             </button>
-                        </td>
+                        </td> -->
                         <td colspan="5"></td>
                         <td colspan="1">
                             <button class="btn btn-success btn-sm" type="submit">
                                 <i class="fa fa-plu icon-sm"></i>Save Changes
                             </button>
                         </td>
-                    </tr> -->
+                    </tr>
                     </tfoot>
                 </table>
             </form>
@@ -423,8 +422,7 @@
                 }
             });
         });
-        $(".select_category").on("change", function (e) {
-            
+        $(".select_category").on("change", function (e) {            
             var catId = $(this).val();
             ActionOnQuantityUnit(catId);
             $.ajax({

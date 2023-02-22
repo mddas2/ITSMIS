@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Bootstrap Form</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  
  
   <!-- <link href="{{asset('plugins/nepali-datepicker/nepali-datepicker.min.css')}}" rel="stylesheet" type="text/css" /> -->
   <link href="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/css/nepali.datepicker.v4.0.1.min.css" rel="stylesheet" type="text/css"/>
@@ -21,7 +20,15 @@
         }
         .dt-buttons.btn-group.flex-wrap {
             float: left;
-        }`
+        }
+       .title_md{
+          font-size:16px !important;
+          color:red !important;
+        }
+        .sub_title_md{
+          font-size:14px !important;
+          font-weight: 16px !important;
+        }
     </style>
 </head>
 <body>
@@ -34,36 +41,39 @@
             <h4>Local Level Entry</h4>
           </div>
           <div class="card-body">
-            <form>
+            <form class="form" id="kt_form" action="{{route('local_level_add_action')}}" method="post">
+              {{csrf_field()}}
               <div class="form-group">
-                <label for="name">Date Pick</label>
-                <input name="from_date" class="form-control form-control-solid" id="nepdatepicker_production" type="text" autocomplete="off" data-single="true" value="2079-11-11" required>
+                <label for="name" class="title_md">Date Pick *</label>
+                <input name="data[date]" class="form-control form-control-solid sub_title_md" id="nepdatepicker_production" type="text" autocomplete="off" data-single="true" value="2079-11-11" required>
               </div>
            
               <div class="form-group">
-                <label for="category">Select Category</label>
-                  {{Form::select('data[item_category_id]',$category,null,['class' => 'form-control select_category'])}}
+                <label for="category" class="title_md">Select Category *</label>
+                  {{Form::select('data[item_category_id]',$category,null,['class' => 'form-control select_category sub_title_md'])}}
               </div>
               <div class="form-group">
-                <label for="item">Select Item</label>
-                  {{Form::select('data[item_id]',$items,null,['class' => 'form-control select_item'])}}
+                <label for="item"  class="title_md">Select Item *</label>
+                  {{Form::select('data[item_id]',$items,null,['class' => 'form-control select_item sub_title_md'])}}
               </div>
               <div class="form-group">
-                <label for="unit">Select Unit</label>
-                  {{Form::select('data[quantity_unit]',$units,null,['class' => 'form-control' , 'id' => 'quantity_unit_action'])}}
+                <label for="unit" class="title_md">Select Unit *</label>
+                  {{Form::select('data[quantity_unit]',$units,null,['class' => 'form-control sub_title_md' , 'id' => 'quantity_unit_action_production'])}}
               </div>
               <div class="form-group">
-                <label for="location"> Location </label>
+                <label for="produced_by" class="title_md">Produced by *</label>
+                <input type="text" name="data[produced_by]" class="form-control sub_title_md" autocomplete="off" required>
+              </div>
+              <div class="form-group">
+                <label for="location" class="title_md"> Location </label>
 
                     @if(auth()->user()->role_id == 2)
-                      <input type="text" value="{{session('municipality_name') ?? Auth::user()->getUserMunicipality->alt_name}}" disabled>
+                      <input type="text" value="{{session('municipality_name') ?? Auth::user()->getUserMunicipality->alt_name}}" disabled class="sub_title_md">
                     @else
-                      <input type="text" value="{{Auth::user()->getUserMunicipality->alt_name}}" disabled>
+                      <input type="text" value="{{Auth::user()->getUserMunicipality->alt_name}}" class="sub_title_md" disabled>
                     @endif
-                
-                  
+           
               </div>
-
               <div class="text-center">
                 <button type="submit" class="btn btn-primary btn-lg">Submit</button>
               </div>
@@ -73,9 +83,6 @@
       </div>
     </div>
   </div>
-
-
-
 
 
 <script src="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/js/nepali.datepicker.v4.0.1.min.js" type="text/javascript"></script>
@@ -93,6 +100,51 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"></script> -->
 
+  <script>
+    $(".select_item").on("change", function (e) {
+          var itemID = $(this).val();
+          $.ajax({
+              type: "GET",
+              url: "{{route('getCategoryByItem')}}",
+              data: {itemID: itemID},
+              success: function (response) {
+
+                  $(".select_category").val(response.catId);
+              }
+          });
+      });
+      $(".select_category").on("change", function (e) {
+          var catId = $(this).val();
+          ActionOnQuantityUnit(catId);
+          $.ajax({
+              type: "GET",
+              url: "{{route('getItemByCategory')}}",
+              data: {catId: catId},
+              success: function (response) {
+                  $(".select_item").find('option').remove().end().append(response.html);
+              }
+          });
+      });
+      function ActionOnQuantityUnit(catId){
+      
+        if(catId == 1){
+            $("#quantity_unit_action_production").val(1);
+        }
+        else if (catId == 2){
+            $("#quantity_unit_action_production").val(1);
+        }
+        else if(catId == 3){
+            $("#quantity_unit_action_production").val(2);
+        }
+        else if(catId == 7){
+            $("#quantity_unit_action_production").val(4);
+        }
+        else {
+            $("#quantity_unit_action_production").val(1);
+        }
+
+      }
+  </script>
    
 </body>
 </html>

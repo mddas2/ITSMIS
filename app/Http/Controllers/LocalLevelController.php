@@ -177,39 +177,7 @@ class LocalLevelController extends Controller
         return view($this->_page . 'create', $this->_data);
     }
 
-
-    public function addActionImportProduction(Request $request)
-    {
-        // return $request;
     
-
-        foreach ($request->data as $key => $data) {
-
-
-            $district = $data['district'];
-            $district_obj = District::where('name',$district)->first();
-            $district_id = $district_obj->id;
-            $provience = $district_obj->getProvince;
-            $provience_id = $provience->first()->id;
-
-            $data['district_id'] = $district_id;
-            $data['provience_id'] = $provience_id;
-          
-            $data['user_id'] = Auth::user()->id;
-           
-            //$data['locked'] = 1;
-            if (!empty($data['date'])) {
-                LocalProduction::updateOrCreate(
-                    ['id' => $data['id']],
-                    $data
-                );
-            }
-        }
-
-        return redirect()->route('local_level_add')->with('success', 'Your Information has been Added .');
-    }
-
-
     public function addAction(Request $request)
     {
         if(auth()->user()->role_id == 2 && $request->session()->has('provience_id') && $request->session()->has('district_id') && $request->session()->has('municipality_id')){  //admin        
@@ -231,6 +199,35 @@ class LocalLevelController extends Controller
 
             $data['user_id'] = Auth::user()->id;
 
+            //$data['locked'] = 1;
+            if (!empty($data['date'])) {
+                LocalProduction::updateOrCreate(
+                    ['id' => $data['id']],
+                    $data
+                );
+            }
+        }
+
+        return redirect()->route('local_level_add')->with('success', 'Your Information has been Added .');
+    }
+
+
+    public function addActionImportProduction(Request $request)
+    {
+        foreach ($request->data as $key => $data) {
+
+
+            $district = $data['district'];
+            $district_obj = District::where('name',$district)->first();
+            $district_id = $district_obj->id;
+            $provience = $district_obj->getProvince;
+            $provience_id = $provience->first()->id;
+
+            $data['district_id'] = $district_id;
+            $data['provience_id'] = $provience_id;
+          
+            $data['user_id'] = Auth::user()->id;
+           
             //$data['locked'] = 1;
             if (!empty($data['date'])) {
                 LocalProduction::updateOrCreate(
