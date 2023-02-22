@@ -167,7 +167,7 @@
                                 <div class="progress-bar bg-{{$success_danger}}" data-toggle="tooltip" data-placement="top" title="{{$title}}" style="width: {{$perc ?? 1}}% ;height:6px;"></div>
                             </div>
                         </td>  
-                        <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}" style=" text-decoration: none;  color: inherit;">View</a></button></td>                                              
+                        <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date=2079-01-33&to_date=2079-12-33&item_id={{$data['obj']->id}}" style=" text-decoration: none;  color: inherit;">View</a></button></td>                                              
                     </tr>
                 @endforeach
             </tbody>

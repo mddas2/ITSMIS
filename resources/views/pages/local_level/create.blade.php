@@ -95,6 +95,7 @@
                 </div>
             </form>
         @endif
+        
         <div class="card-body">
             <form>
                 <div class="form-group row">
@@ -119,6 +120,13 @@
                     </div>
                 </div>
             </form>
+       
+               
+                   
+                <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_add_production')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
+                  
+        
+        
             <form class="form" id="kt_form" action="{{route('local_level_add')}}" method="post">
                 {{csrf_field()}}
                 <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
@@ -202,7 +210,7 @@
                     </tr>
                     </tbody>
                     <tfoot>
-                    <tr>
+                    <!-- <tr>
                         <td colspan="2">
                             <button class="btn btn-primary btn-sm add" type="button">
                                 <i class="fa fa-plus icon-sm"></i>Add New Row
@@ -214,7 +222,7 @@
                                 <i class="fa fa-plu icon-sm"></i>Save Changes
                             </button>
                         </td>
-                    </tr>
+                    </tr> -->
                     </tfoot>
                 </table>
             </form>

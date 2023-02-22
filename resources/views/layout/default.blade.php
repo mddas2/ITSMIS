@@ -249,10 +249,6 @@
     </script>
     <script type="text/javascript">
         $('.nepdatepicker').nepaliDatePicker();
-
-
-
-
     </script>
 </body>
 
