@@ -180,6 +180,7 @@ class LocalLevelController extends Controller
     
     public function addAction(Request $request)
     {
+        
         if(auth()->user()->role_id == 2 && $request->session()->has('provience_id') && $request->session()->has('district_id') && $request->session()->has('municipality_id')){  //admin        
             $provience_id = $request->session()->get('provience_id');
             $district_id = $request->session()->get('district_id');
@@ -190,15 +191,15 @@ class LocalLevelController extends Controller
             $district_id = $request->user()->district_id;
             $municipality_id = $request->user()->municipality_id;
         }
-
+       
         foreach ($request->data as $key => $data) {
-
+        
             $data['provience_id'] = $provience_id;
             $data['district_id'] = $district_id;
             $data['municipality_id'] = $municipality_id;
 
             $data['user_id'] = Auth::user()->id;
-
+            
             //$data['locked'] = 1;
             if (!empty($data['date'])) {
                 LocalProduction::updateOrCreate(
@@ -214,6 +215,7 @@ class LocalLevelController extends Controller
 
     public function addActionImportProduction(Request $request)
     {
+
         foreach ($request->data as $key => $data) {
 
 

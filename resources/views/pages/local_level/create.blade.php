@@ -126,7 +126,7 @@
                   
         
         
-            <form class="form" id="kt_form" action="{{route('local_level_add_action')}}" method="post">
+            <form class="form" id="kt_form" action="{{route('local_level_add')}}" method="post">
                 {{csrf_field()}}
                 <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
                     <thead>

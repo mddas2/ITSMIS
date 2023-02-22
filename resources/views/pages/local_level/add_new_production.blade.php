@@ -41,28 +41,33 @@
             <h4>Local Level Entry</h4>
           </div>
           <div class="card-body">
-            <form class="form" id="kt_form" action="{{route('local_level_add_action')}}" method="post">
+            <form class="form" id="kt_form" action="{{route('local_level_add')}}" method="post">
               {{csrf_field()}}
+              <input type="hidden" name="data[0][id]" value="0">
               <div class="form-group">
                 <label for="name" class="title_md">Date Pick *</label>
-                <input name="data[date]" class="form-control form-control-solid sub_title_md" id="nepdatepicker_production" type="text" autocomplete="off" data-single="true" value="2079-11-11" required>
+                <input name="data[0][date]" class="form-control form-control-solid sub_title_md" id="nepdatepicker_production" type="text" autocomplete="off" data-single="true" value="2079-11-11" required>
               </div>
            
               <div class="form-group">
                 <label for="category" class="title_md">Select Category *</label>
-                  {{Form::select('data[item_category_id]',$category,null,['class' => 'form-control select_category sub_title_md'])}}
+                  {{Form::select('data[0][item_category_id]',$category,null,['class' => 'form-control select_category sub_title_md'])}}
               </div>
               <div class="form-group">
                 <label for="item"  class="title_md">Select Item *</label>
-                  {{Form::select('data[item_id]',$items,null,['class' => 'form-control select_item sub_title_md'])}}
+                  {{Form::select('data[0][item_id]',$items,null,['class' => 'form-control select_item sub_title_md'])}}
+              </div>
+              <div class="form-group">
+                <label for="quantity"  class="title_md">Quantity *</label>
+                <input type="text" name="data[0][quantity]" class="form-control " required>
               </div>
               <div class="form-group">
                 <label for="unit" class="title_md">Select Unit *</label>
-                  {{Form::select('data[quantity_unit]',$units,null,['class' => 'form-control sub_title_md' , 'id' => 'quantity_unit_action_production'])}}
+                  {{Form::select('data[0][quantity_unit]',$units,null,['class' => 'form-control sub_title_md' , 'id' => 'quantity_unit_action_production'])}}
               </div>
               <div class="form-group">
                 <label for="produced_by" class="title_md">Produced by *</label>
-                <input type="text" name="data[produced_by]" class="form-control sub_title_md" autocomplete="off" required>
+                <input type="text" name="data[0][produced_by]" class="form-control sub_title_md" autocomplete="off" required>
               </div>
               <div class="form-group">
                 <label for="location" class="title_md"> Location </label>
