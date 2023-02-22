@@ -277,6 +277,9 @@ Route::group(['middleware' => 'auth'], function () {
     //Local Level Product Entry
         Route::get('local_level_add', 'LocalLevelController@add')->name('local_level_add');
         Route::post('local_level_add', 'LocalLevelController@addAction');
+
+        Route::post('local_level_add', 'LocalLevelController@addActionImportProduction')->name('addActionImportProduction'); // this is when production is import from verify_production_registration.blade.php
+
         Route::get('local_level_production_excel', 'LocalLevelController@productionExcel')->name('local_level_production_excel');
         Route::post('local_level_production_excel', 'LocalLevelController@productionExcelAction');
         Route::get('local_level_production_excel_sample/{type}', 'LocalLevelController@getProductionSample')->name('local_level_production_excel_sample');

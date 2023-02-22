@@ -35,7 +35,7 @@
                 </div>
         @endif
         <div class="card-body">
-            <form class="form" id="kt_form" action="{{route('local_level_add')}}" method="post">
+            <form class="form" id="kt_form" action="{{route('addActionImportProduction')}}" method="post">
                 {{csrf_field()}}
                 <table class="table table-bordered table-hover table-checkable mt-10">
                     <thead>
@@ -64,8 +64,8 @@
                             <td>{{$key+1}}</td>
                             <td>
                                 <input type="hidden" name="data[{{$key}}][id]" value="">
-                                <input type="text"  name="data[{{$key}}][date]" class="form-control nepdatepicker"  data-single="true" autocomplete="off" id="nep{{$key}}" required>
-                                <!-- <input type="text" name="data[{{$key}}][date]" class="form-control nepdatepicker"  data-single="true" autocomplete="off" id="nep{{$key}}" value="{{$row['date']}}"> -->
+                                <!-- <input type="text"  name="data[{{$key}}][date]" class="form-control nepdatepicker"  data-single="true" autocomplete="off" id="nep{{$key}}" required> -->
+                                <input type="text" name="data[{{$key}}][date]" class="form-control nepdatepicker"  data-single="true" autocomplete="off" id="nep{{$key}}" value="{{$row['date']}}">
                             </td>
         
                             <td>
@@ -73,17 +73,18 @@
                             </td>
                             <td>
                                 <input  class="form-control category_md" type="text" value="Agriculture" disabled >
-                                <input type="text" class="category_input_md"  value="0" disabled >
+                                <input type="hidden" class="category_input_md" name="data[{{$key}}][item_category_id]" value="0" >
                             </td>
                             <td>
                                 <input  class="form-control item_md" type="text" value="Apple" disabled> 
-                                <input type="text" class="item_input_md"  value="0" disabled >                        
+                                <input type="hidden" class="item_input_md" name="data[{{$key}}][item_id]"  value="0" >                        
                             </td>                           
                             <td>
                                 <input type="text" name="data[{{$key}}][quantity]" class="form-control" autocomplete="off" value="{{$row['quantity']}}">
                             </td>
                             <td>
-                                <input  class="form-control" type="text" value="Kg" disabled>  
+                                <input  class="form-control unit_md_name" type="text" value="Kg" disabled>  
+                                <input  class="form-control unit_md_id" name="data[{{$key}}][quantity_unit]" type="hidden" value="1">  
                             </td>
                             <td>
                                 <input type="text" name="data[{{$key}}][produced_by]" class="form-control" autocomplete="off" value="{{$row['produced_by']}}">
@@ -189,19 +190,24 @@
 
         function ActionOnQuantityUnit(catId){
             if(catId == 1){
-                $("#quantity_unit_action").val(1);
+                $(".unit_md_id").val(1);
+                $(".unit_md_name").val("Kilogram"); //kg agriculture
             }
             else if (catId == 2){
-                $("#quantity_unit_action").val(1);
+                $(".unit_md_id").val(1);
+                $(".unit_md_name").val("Kilogram");
             }
             else if(catId == 3){
-                $("#quantity_unit_action").val(2);
+                $(".unit_md_id").val(2); //petrol
+                $(".unit_md_name").val("Liter");
             }
             else if(catId == 7){
-                $("#quantity_unit_action").val(4);
+                $(".unit_md_id").val(4); //pasu panxi jodi
+                $(".unit_md_name").val("Pair");
             }
             else {
-                $("#quantity_unit_action").val(1);
+                $(".unit_md_id").val(1);
+                $(".unit_md_name").val("Kilogram"); //kg agriculture
             }
             
         }

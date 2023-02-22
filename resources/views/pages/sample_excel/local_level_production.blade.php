@@ -12,7 +12,7 @@
     <?php
     for ($i=0; $i < 5; $i++) { ?>
     <tr>
-        <th>2021-01-0{{$i}}</th>     
+        <th>2079-11-1{{$i}}</th>     
         <th>Sunsari</th>
         <th>3000</th>
         <th>Thakali Samaj</th>
