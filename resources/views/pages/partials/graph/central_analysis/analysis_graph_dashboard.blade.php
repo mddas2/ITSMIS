@@ -478,7 +478,7 @@
         type: "GET",
         data: {'item_id':ajax_production_item_fetch_id,'year':ajax_production_year},
         success: function(data) {
-            console.log(data)
+           
         }
     });
 </script>

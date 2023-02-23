@@ -200,11 +200,8 @@
                                     
                                 </tr>
                             </thead>
-                            <tbody>
-                          
-                            
+                            <tbody>                        
                                 @foreach($yearly_provience_data as $key=>$data)
-                                  
                                     <tr>                                       
                                         <td>{{$key}}</td>
                                         @foreach($data as $keyp=>$datap)                                        
