@@ -799,6 +799,10 @@ class ForeCastController extends Controller
         for($year = 0; $year<=6; $year++){
             $year_sum = LocalProduction::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
             $consusmption = Consumption::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
+            
+            $import = DepartmentOfCustom::where("item",$item_id)->where("type","import")->whereYear('asmt_date', '=', $current_year-$year)->get()->sum("quantity");
+            $export = DepartmentOfCustom::where("item",$item_id)->where("type","export")->whereYear('asmt_date', '=', $current_year-$year)->get()->sum("quantity");
+
             $data[$year] = array("period"=>strval($current_year-$year),"Production"=>$year_sum,"Consumption"=>$consusmption,"import_export"=>60);
         }
         return $data;
