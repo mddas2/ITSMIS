@@ -43,8 +43,6 @@ class FrontendController extends Controller
     public function index(Request $request)
     {
         // return $this->_page;
-   
-        
         return view($this->_page . 'index', $this->_data);
     }
 

@@ -10,7 +10,7 @@
             <span class="nav-text font-size-lg py-2 font-weight-bold text-center">{{ __('lang.department_of_custom') }}</span>
         </a>
     </li>
-    <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
+    <!-- <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
         <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center departmentOfcrsp" href="{{route('front_report_DOCSRPMarketMoniter')}}">
 			<span class="nav-icon py-3 w-auto">
 				<span class="svg-icon svg-icon-3x">
@@ -19,7 +19,7 @@
 			</span>
             <span class="nav-text font-size-lg py-2 font-weight-bold text-center">{{ __('lang.department_of_commerce_supply_and_consumer_right_protection') }}</span>
         </a>
-    </li>
+    </li> -->
     <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
         <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center ocr" href="{{route('front_report_ocr')}}">
 			<span class="nav-icon py-3 w-auto">
