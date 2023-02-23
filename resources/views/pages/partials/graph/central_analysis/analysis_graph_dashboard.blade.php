@@ -324,7 +324,7 @@
                                 <th class="md5md">Remarks<th>
                             </tr>
                         </thead>
-                        <tbody style="font-size: 15px; font-weight: bolder;">
+                        <tbody style="font-size: 15px; font-weight: bolder;" id="tabular_data">
                             <tr>
                                 <td></td>
                                 <td></td>
@@ -338,7 +338,7 @@
                                 <td>(A+B)-(C+D)</td>
                                 <td></td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td>1</td>
                                 <td>{{$monthly_year}}</td>
                                 <td>MT</td>
@@ -350,7 +350,7 @@
                                 <td>{{$total_consumption}}</td>
                                 <td>{{($total_production+0)-($total_consumption+0)}}</td>
                                 <td></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -478,7 +478,22 @@
         type: "GET",
         data: {'item_id':ajax_production_item_fetch_id,'year':ajax_production_year},
         success: function(data) {
-           
+            for (var dat in data) {
+                console.log(data[0])
+                $("#tabular_data").append(`<tr>
+                                <td>1</td>
+                                <td>`+data[dat]['period']+`</td>
+                                <td>MT</td>
+                                <td>`+data[dat]['Production']+`</td>
+                                <td>`+data[dat]['import']+`</td>
+                                <td>`+(data[dat]['Production']+data[dat]['import'])+`</td>
+                                <td>`+data[dat]['Consumption']+`</td>
+                                <td>`+data[dat]['export']+`</td>
+                                <td>`+(data[dat]['Consumption']+data[dat]['export'])+`</td>
+                                <td>`+(data[dat]['Production']+data[dat]['import']-(data[dat]['Consumption']+data[dat]['export']))+`</td>
+                                <td>Calculating...</td>
+                            </tr>`)
+            }
         }
     });
 </script>
