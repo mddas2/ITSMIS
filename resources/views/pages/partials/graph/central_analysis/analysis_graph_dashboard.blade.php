@@ -481,7 +481,7 @@
             for (var dat in data) {
                 console.log(data[0])
                 $("#tabular_data").append(`<tr>
-                                <td>1</td>
+                                <td>`+(dat)+`</td>
                                 <td>`+data[dat]['period']+`</td>
                                 <td>MT</td>
                                 <td>`+data[dat]['Production']+`</td>
