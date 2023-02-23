@@ -456,7 +456,10 @@
                 <h4 class="card-title">Yearly comparision Production Consumption Export/Import line Chart</h4>
                 <ul class="list-inline text-end">
                     <li>
-                        <h5><i class="fa fa-circle m-r-5 text-inverse"></i>Import/Export</h5>
+                        <h5><i class="fa fa-circle m-r-5 text-danger"></i>Import</h5>
+                    </li>
+                    <li>
+                        <h5><i class="fa fa-circle m-r-5 text-inverse"></i>Export</h5>
                     </li>
                     <li>
                         <h5><i class="fa fa-circle m-r-5 text-info"></i>Consumption</h5>
@@ -469,7 +472,16 @@
             </div>
         </div>
 
-
+<script>
+    $.ajax({
+        url: line_chart ,
+        type: "GET",
+        data: {'item_id':ajax_production_item_fetch_id,'year':ajax_production_year},
+        success: function(data) {
+            console.log(data)
+        }
+    });
+</script>
 
 
 

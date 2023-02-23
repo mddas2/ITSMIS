@@ -33,7 +33,7 @@ $(function () {
 //     colors:['#009efb', '#55ce63', '#2f3d4a']
 // });
 
-// Morris bar chart
+// Morris bar chartd
 
 $.ajax({
     url: yearly_url ,
@@ -64,16 +64,16 @@ $.ajax({
             element: 'morris-area-chart',
             data: data,
             xkey: 'period',
-            ykeys: ['Production', 'Consumption', 'import_export'],
-            labels: ['Production', 'Consumption','Import/Export'],
+            ykeys: ['Production', 'Consumption', 'import','export'],
+            labels: ['Production', 'Consumption','Import','Export'],
             pointSize: 3,
             fillOpacity: 0,
-            pointStrokeColors:['#55ce63', '#009efb', '#2f3d4a'],
+            pointStrokeColors:['#55ce63', '#009efb', '#2f3d4a','#2f2d9a','#2f1d6a'],
             behaveLikeLine: true,
             gridLineColor: '#e0e0e0',
             lineWidth: 3,
             hideHover: 'auto',
-            lineColors: ['#55ce63', '#009efb', '#2f3d4a'],
+            lineColors: ['#55ce63', '#009efb', '#2f3d4a','#2f2d9a','#2f1d6a'],
             resize: true
             
         });
