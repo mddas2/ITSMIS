@@ -301,6 +301,67 @@
             </div>
         </div>
     </div>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Tabular Data</h4>
+                <h6 class="card-subtitle">2079 Data of<code> {{$item_name->name_np}}</code></h6>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="md5md">#</th>
+                                <th class="md5md">Year</th>
+                                <th class="md5md">Unit</th>
+                                <th class="md5md">Production</th>
+                                <th class="md5md">Import</th>
+                                <th class="md5md">Total</th>
+                                <th class="md5md">Consumption</th>
+                                <th class="md5md">Export</th>
+                                <th class="md5md">Total</th>
+                                <th class="md5md">Stock</th>
+                                <th class="md5md">Demand Fulfilment</th>
+                                <th class="md5md">Remarks<th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: 15px; font-weight: bolder;">
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>A</td>
+                                <td>B</td>
+                                <td>A+B</td>
+                                <td>C</td>
+                                <td>D</td>
+                                <td>C+D</td>
+                                <td>(A+B)-(C+D)</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>{{$monthly_year}}</td>
+                                <td>MT</td>
+                                <td>{{$total_production}}</td>
+                                <td>0</td>
+                                <td>{{$total_production}}</td>
+                                <td>{{$total_consumption}}</td>
+                                <td>0</td>
+                                <td>{{$total_consumption}}</td>
+                                <td>{{($total_production+0)-($total_consumption+0)}}</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .md5md{
+            font-size:16px !important;
+        }
+    </style>
     <div class="card-body">
     <h4 class="card-title">{{$monthly_year}} Monthly data of {{$item_name->name_np}}</h4>
     <!-- <h6 class="card-subtitle">Add<code>.table-striped</code>for borders on all sides of the table and cells.</h6> -->
