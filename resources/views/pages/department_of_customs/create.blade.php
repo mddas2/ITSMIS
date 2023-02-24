@@ -124,7 +124,7 @@
                             <td>{{$key+1}}</td>
                             <td>
                                 <input type="hidden" name="data[{{$key}}][id]" value="{{$row->id}}">
-                                <input type="date" name="data[{{$key}}][asmt_date]"  class="form-control form-control-solid nepdatepicker"  data-single="true"  autocomplete="off" id="nep{{$key}}" value="{{$row->asmt_date}}" {{$disabled}}>
+                                <input name="data[{{$key}}][asmt_date]"  class="form-control form-control-solid nepdatepicker"  data-single="true"  autocomplete="off" id="nep{{$key}}" value="{{$row->asmt_date}}" {{$disabled}}>
                             </td>
                             <td>
                                 <input type="text" name="data[{{$key}}][hscode]" class="form-control"
@@ -190,7 +190,7 @@
                         <td class="sn">{{$key+1}}</td>
                         <td>
                             <input type="hidden" name="data[{{$key}}][id]" value="">
-                            <input name="data[{{$key}}][asmt_date]"   class="form-control nepdatepicker "
+                            <input name="data[{{$key}}][asmt_date]"   class="form-control nepdatepicker " data-single="true" 
                                    autocomplete="off" id="nepstart1" required>
                         </td>
                         <td>
@@ -288,7 +288,7 @@
         $('.add').click(function (e) {
             var rowClone = $("#firstRow").clone();
             var updatedTblCount = tableCnt + 1;
-            $("[name='data[" + key + "][asmt_date]']", rowClone).attr('id', "nepstart" + updatedTblCount).val("");
+            $("[name='data[" + key + "][asmt_date]']", rowClone).attr('id', "nepstart" + updatedTblCount).attr('data-single','true').attr('id', "nepstart" + updatedTblCount).val("");
             $("[name='data[" + key + "][hscode]']", rowClone).val("");
             $("[name='data[" + key + "][item]']", rowClone).val("");
             $("[name='data[" + key + "][description]']", rowClone).val("");
