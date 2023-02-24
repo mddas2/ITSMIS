@@ -65,11 +65,11 @@
                 <div class="form-group row">
                     <div class="col-lg-3">
                         <label>From Date:</label>
-                        <input  name="from_date" class="form-control form-control-solid  "    required type="date"    value="{{$from_date}}">
+                        <input  name="from_date" class="form-control form-control-solid nepdatepicker"  data-single="true" required value="{{$from_date}}">
                     </div>
                     <div class="col-lg-3">
                         <label>To Date:</label>
-                        <input name="to_date" class="form-control form-control-solid  "  type="date"    required
+                        <input name="to_date" class="form-control form-control-solid nepdatepicker"  data-single="true"    required
                                value="{{$to_date}}">
                     </div>
 
@@ -124,8 +124,7 @@
                             <td>{{$key+1}}</td>
                             <td>
                                 <input type="hidden" name="data[{{$key}}][id]" value="{{$row->id}}">
-                                <input type="date" name="data[{{$key}}][asmt_date]"   data-single="true" class="form-control  "
-                                       autocomplete="off" id="nep{{$key}}" value="{{$row->asmt_date}}" {{$disabled}}>
+                                <input type="date" name="data[{{$key}}][asmt_date]"  class="form-control form-control-solid nepdatepicker"  data-single="true"  autocomplete="off" id="nep{{$key}}" value="{{$row->asmt_date}}" {{$disabled}}>
                             </td>
                             <td>
                                 <input type="text" name="data[{{$key}}][hscode]" class="form-control"
@@ -191,7 +190,7 @@
                         <td class="sn">{{$key+1}}</td>
                         <td>
                             <input type="hidden" name="data[{{$key}}][id]" value="">
-                            <input type="date" name="data[{{$key}}][asmt_date]"   class="form-control  "
+                            <input name="data[{{$key}}][asmt_date]"   class="form-control nepdatepicker "
                                    autocomplete="off" id="nepstart1" required>
                         </td>
                         <td>
@@ -288,7 +287,8 @@
         var tb_id = $('#tb_id');
         $('.add').click(function (e) {
             var rowClone = $("#firstRow").clone();
-            $("[name='data[" + key + "][asmt_date]']", rowClone).val("");
+            var updatedTblCount = tableCnt + 1;
+            $("[name='data[" + key + "][asmt_date]']", rowClone).attr('id', "nepstart" + updatedTblCount).val("");
             $("[name='data[" + key + "][hscode]']", rowClone).val("");
             $("[name='data[" + key + "][item]']", rowClone).val("");
             $("[name='data[" + key + "][description]']", rowClone).val("");
@@ -314,6 +314,12 @@
             $('.sn', rowClone).html(tableCnt + 1);
             tb_id.append(rowClone);
             tableCnt++;
+            $('#nepstart' + updatedTblCount).nepaliDatePicker(/*{
+                language: "english",
+                ndpYear: true,
+                ndpMonth: true,
+                ndpYearCount: 10
+            }*/);
        
         });
 
@@ -353,6 +359,13 @@
                 }
             });
         });
+
+        $('.nepdatepicker').nepaliDatePicker(/*{
+            language: "english",
+            ndpYear: true,
+            ndpMonth: true,
+            ndpYearCount: 10
+        }*/);
         
     </script>
 @endsection

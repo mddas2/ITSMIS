@@ -16,6 +16,9 @@ use App\Models\User;
 use App\Models\PermissionForExportImport;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+
+use NitishRajUprety\NepaliDateConverter\NepaliDateConverter;
+
 use DB;
 
 class DepartmentOfCustomController extends Controller
@@ -35,14 +38,16 @@ class DepartmentOfCustomController extends Controller
 
     public function export(Request $request, $type)
     {
-        
-
+        $converter = new NepaliDateConverter("en");
+    
         $this->_data['units'] = MeasurementUnit::pluck('name_np', 'id')->toArray();
         $this->_data['category'] = ItemCategory::pluck('name_np', 'id')->toArray();
  
         $query = DepartmentOfCustom::query();
-        $this->_data['from_date'] = $this->_data['to_date'] = $this->_data['today'] = date('Y-m-d');
 
+        $nepali_date = $converter->toNepali(date('20y'), date('m'), date('d'));
+        $this->_data['from_date'] = $this->_data['to_date'] = $this->_data['today'] = $nepali_date['year']."-".$nepali_date['month']."-".$nepali_date['date'];//date('Y-m-d');
+               
 
         if ($request->has('from_date')) {
 
