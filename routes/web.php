@@ -417,3 +417,5 @@ Route::get('/ajax-get-monthly-data', 'ForeCastController@AjaxgetMonthlyData')->n
 Route::get('/ajax-get-comparision-yearly-data', 'ForeCastController@AjaxGetYearlyData')->name('AjaxGetYearlyData'); // comparision yearly based data
 Route::get('/ajax-get-comparision-yearly-production-line-chart-data', 'ForeCastController@AjaxGetYearlyLineChartData')->name('AjaxGetYearlyLineChartData'); // comparision yearly based data
 Route::get('/ajax-get-comparision-yearly-production-with-provience-line-chart-data', 'ForeCastController@AjaxGetYearlyLineChartDataProvinceWise')->name('AjaxGetYearlyLineChartDataProvinceWise'); // comparision yearly based with provision data
+
+Route::get('/ajax-get-view-all-item-according-to-category', 'ForeCastController@putAll_ItemProductionConsumptionCategory')->name('putAll_ItemProductionConsumptionCategory'); // Get view all data in which there is item inside category

@@ -74,8 +74,6 @@ class LocalLevelController extends Controller
 
             $data = $query->get();
         } else {
-
-
             $data = $query->latest()->take(20)->get();
         }
 

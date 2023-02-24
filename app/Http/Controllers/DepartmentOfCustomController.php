@@ -38,13 +38,14 @@ class DepartmentOfCustomController extends Controller
 
     public function export(Request $request, $type)
     {
-        $converter = new NepaliDateConverter("en");
+        
     
         $this->_data['units'] = MeasurementUnit::pluck('name_np', 'id')->toArray();
         $this->_data['category'] = ItemCategory::pluck('name_np', 'id')->toArray();
  
         $query = DepartmentOfCustom::query();
 
+        $converter = new NepaliDateConverter("en");
         $nepali_date = $converter->toNepali(date('20y'), date('m'), date('d'));
         $this->_data['from_date'] = $this->_data['to_date'] = $this->_data['today'] = $nepali_date['year']."-".$nepali_date['month']."-".$nepali_date['date'];//date('Y-m-d');
                

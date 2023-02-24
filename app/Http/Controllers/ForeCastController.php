@@ -47,11 +47,7 @@ class ForeCastController extends Controller
         $this->_data['monthly_year'] = $year;
         $this->_data["item_name"] = Item::find($request['item_id']);
         $this->_data['category'] = ItemCategory::pluck('name_np', 'id')->toArray();
-                
-
-        $all_data_p_c = $this->putAll_ItemProductionConsumption($request);
-        $this->_data['all_data_p_c'] = $all_data_p_c;
-
+    
 
         // return $consumption;
 
@@ -108,9 +104,9 @@ class ForeCastController extends Controller
         }
 
         $this->_data['ForecastIndex'] = "active";
-        // $items = $this->GetAvailableItems($request);
-        $this->_data['items'] = Item::pluck('name', 'id')->toArray();
-        // $this->_data['items'] = $items;
+        $items = $this->GetAvailableItems($request);
+        // $this->_data['items'] = Item::pluck('name', 'id')->toArray();
+        $this->_data['items'] = $items;
         $this->_data['units'] = MeasurementUnit::pluck('name', 'id')->toArray();
         $this->_data['data'] = $data;
         $this->_data['page_type'] = "forecast_all";
@@ -836,26 +832,25 @@ class ForeCastController extends Controller
         }
         return $data;
     }
-    public function putAll_ItemProductionConsumption($request){
-        $from_date = $request['from_date'];
-        $to_date = $request['to_date'];
-        $year = explode("-", $to_date)[0];
+
+    public function putAll_ItemProductionConsumptionCategory(Request $request){
+
+        $converter = new NepaliDateConverter("en");
+        $nepali_date = $converter->toNepali(date('20y'), date('m'), date('d'));
+        $year = $nepali_date['year'];
 
         $all_items = Item::all();
 
         $all_data_p_c = [];
 
         foreach($all_items as $item){           
-            
             $production = LocalProduction::where("item_id",$item->id)->whereYear('date', '=', $year)->get()->sum("quantity");
             if($production > 0){
                 $consumption = Consumption::where("item_id",$item->id)->whereYear('date', '=', $year)->get()->sum("quantity");
                 $record = array("obj" => $item,"production"=>$production,"consumption"=>$consumption);
                 $all_data_p_c[] = $record;
-            }
-           
+            }           
         }
-        
         return $all_data_p_c;
     }
     public function getAllProvienceProduction($request){
