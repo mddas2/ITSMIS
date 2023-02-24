@@ -174,7 +174,7 @@
                                         if($total_production == 0 ){
                                             $total_production = 0.1;
                                         }                           
-                                        $upto_month = round(total_production/$per_month_consumption);
+                                        $upto_month = round($total_production/$per_month_consumption);
                                         $required_month_to_fulfill_production = round($deficit_surplus/$per_month_consumption);
                                         $notices = '<li class="text-danger">Production goes upto only'.$upto_month.' months</li>'.'<li class="text-danger"> Deficit '.$required_month_to_fulfill_production.' months</li>'.'<li class="text-danger">'.$deficit_surplus.' Mt need to Import to fulfill this year</li>';
                                     }
@@ -320,8 +320,8 @@
                                 <th class="md5md">Export</th>
                                 <th class="md5md">Total</th>
                                 <th class="md5md">Stock</th>
-                                <th class="md5md">Demand Fulfilment</th>
-                                <th class="md5md">Remarks<th>
+                                <!-- <th class="md5md">Demand Fulfilment</th> -->
+                                <!-- <th class="md5md">Remarks<th> -->
                             </tr>
                         </thead>
                         <tbody style="font-size: 15px; font-weight: bolder;" id="tabular_data">
@@ -491,7 +491,7 @@
                                 <td>`+data[dat]['export']+`</td>
                                 <td>`+(data[dat]['Consumption']+data[dat]['export'])+`</td>
                                 <td>`+(data[dat]['Production']+data[dat]['import']-(data[dat]['Consumption']+data[dat]['export']))+`</td>
-                                <td>Calculating...</td>
+                         
                             </tr>`)
             }
         }
