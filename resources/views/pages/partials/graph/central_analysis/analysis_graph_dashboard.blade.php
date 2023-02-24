@@ -295,7 +295,7 @@
                                     <h5 class="text-muted"> <i class="fa fa-circle" style="color: #4F5467;"></i>Deficit/surplus</h5>
                                     <h4 class="m-b-0">{{$previous_data['prouction'] - $previous_data['consumption']}} mt</h4>
                                 </li>
-                        </ul>
+                    </ul>
                 </div>
             </div>
             </div>

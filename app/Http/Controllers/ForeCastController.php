@@ -13,6 +13,7 @@ use App\Models\FoodManagementTradingSales;
 use App\Models\IEERelated;
 use App\Models\IpRegistration;
 use App\Models\Item;
+use App\Models\ItemCategory;
 use App\Models\Province;
 use App\Models\MeasurementUnit;
 use App\Models\NepalOilCorporation;
@@ -45,6 +46,7 @@ class ForeCastController extends Controller
         $year = explode("-", $to_date)[0];
         $this->_data['monthly_year'] = $year;
         $this->_data["item_name"] = Item::find($request['item_id']);
+        $this->_data['category'] = ItemCategory::pluck('name_np', 'id')->toArray();
                 
 
         $all_data_p_c = $this->putAll_ItemProductionConsumption($request);
@@ -106,8 +108,9 @@ class ForeCastController extends Controller
         }
 
         $this->_data['ForecastIndex'] = "active";
-        $items = $this->GetAvailableItems($request);
-        $this->_data['items'] = $items;
+        // $items = $this->GetAvailableItems($request);
+        $this->_data['items'] = Item::pluck('name', 'id')->toArray();
+        // $this->_data['items'] = $items;
         $this->_data['units'] = MeasurementUnit::pluck('name', 'id')->toArray();
         $this->_data['data'] = $data;
         $this->_data['page_type'] = "forecast_all";

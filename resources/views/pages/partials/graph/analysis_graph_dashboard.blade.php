@@ -23,12 +23,20 @@
                                value="{{$to_date}}">
                     </div>
                     <div class="col-lg-3">
+                        <label class="text_good_header" >Category:</label>
+                        <?php
+                        $itemList = ["" => "Select Items"];
+                        $itemList = $itemList + $items;
+                        ?>
+                        {{Form::select('item_category_id',$category,null,['class' => 'form-control select_category text_good'])}}
+                    </div>
+                    <div class="col-lg-3">
                         <label class="text_good_header" >Items:</label>
                         <?php
                         $itemList = ["" => "Select Items"];
                         $itemList = $itemList + $items;
                         ?>
-                        {{Form::select('item_id',$itemList,$item_id,['class' => 'form-control text_good'])}}
+                        {{Form::select('item_id',$itemList,$item_id,['class' => 'form-control select_item text_good'])}}
                     </div>
                     <div class="col-lg-2" style="margin-top: 24px;">
                         <button type="submit" class="btn btn-secondary text_good_header ">Filter</button>
@@ -133,9 +141,7 @@
                 </tr>
             </thead>
             <tbody>
-               
                 @foreach($all_data_p_c as $key=>$data)
-              
                     <!-- dd($data['obj']->id); -->
                     <tr>
                         <td>{{$data['obj']->name_np}}</td>
@@ -175,3 +181,31 @@
     </div>
 </div>
 
+<script>
+    $(".select_item").on("change", function (e) {
+        var itemID = $(this).val();
+        // alert(itemID)
+        $.ajax({
+            type: "GET",
+            url: "{{route('getCategoryByItem')}}",
+            data: {itemID: itemID},
+            success: function (response) {
+                $(".select_category").val(response.catId);
+            }
+        });
+    });
+    $(".select_category").on("change", function (e) {            
+        var catId = $(this).val();
+        // alert(catId)
+        
+        $.ajax({
+            type: "GET",
+            url: "{{route('getItemByCategory')}}",
+            data: {catId: catId},
+            success: function (response) {
+                $(".select_item").find('option').remove().end().append(response.html);
+            }
+        });
+    });
+   
+</script>
