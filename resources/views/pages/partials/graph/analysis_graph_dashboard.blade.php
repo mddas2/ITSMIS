@@ -132,7 +132,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th class="md5md">#</th>
+                                <!-- <th class="md5md">#</th> -->
                                 <th class="md5md">Item</th>
                                 <th class="md5md">Production</th>
                                 <th class="md5md">Import</th>
@@ -212,13 +212,13 @@
     $.ajax({
             type: "GET",
             url: "{{route('putAll_ItemProductionConsumptionCategory')}}",
-            data: {catId: '1'},
+            data: {catId: '1','year': '{{$monthly_year}}'},
             success: function (response) {
                 // console.log(response);
                 for (var dat in response) {
                     console.log(response[dat])
                     $("#view_available_item").append(`<tr>
-                                <td>1</td>
+                                <!----<td>1</td> --->
                                 <td>`+response[dat]['obj']['name_np']+`</td>
                                 <td>`+response[dat]['production']+`</td>
                                 <td>`+response[dat]['import']+`</td>
@@ -227,10 +227,9 @@
                                 <td>`+response[dat]['export']+`</td>
                                 <td>`+(response[dat]['consumption']+response[dat]['export'])+`</td>
                                 <td>`+((response[dat]['production']+response[dat]['import'])-(response[dat]['consumption']+response[dat]['export']))+`</td>
-                                <td> <button class="btn btn-primary"><a href="{route('central_analysis')}}?from_date=2079-01-33&to_date=2079-12-33&item_id=$data['obj']->id" style=" text-decoration: none;  color: inherit;">View</a></button></td>
+                                <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date=2079-01-33&to_date=2079-12-33&item_id=`+response[dat]['obj']['id']+`" style=" text-decoration: none;  color: inherit;">View</a></button></td>
                     </tr>`)
                 }
-                
             }
         });
 </script>
