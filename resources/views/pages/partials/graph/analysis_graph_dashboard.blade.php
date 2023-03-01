@@ -105,7 +105,6 @@
                                 <td>
                                     {{$row->sales_quantity}}
                                 </td>
-
                         </tr>
                         @php $key++; @endphp
                         @endif
@@ -128,14 +127,13 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Tabular Data</h4>
-                <h6 class="card-subtitle">2079 Data of<code> {{$item_name->name_np}}</code></h6>
+                <h6 class="card-subtitle">{{$monthly_year}}<code>All Items</code></h6>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th class="md5md">#</th>
-                                <th class="md5md">Year</th>
-                                <th class="md5md">Unit</th>
+                                <th class="md5md">Item</th>
                                 <th class="md5md">Production</th>
                                 <th class="md5md">Import</th>
                                 <th class="md5md">Total</th>
@@ -143,24 +141,13 @@
                                 <th class="md5md">Export</th>
                                 <th class="md5md">Total</th>
                                 <th class="md5md">Stock</th>
+                                <th class="md5md">View</th>
                                 <!-- <th class="md5md">Demand Fulfilment</th> -->
                                 <!-- <th class="md5md">Remarks<th> -->
                             </tr>
                         </thead>
                         <tbody style="font-size: 15px; font-weight: bolder;" id="view_available_item">                            
-                            <tr>
-                                <td>1</td>
-                                <td>$monthly_year}}</td>
-                                <td>MT</td>
-                                <td>$total_production}}</td>
-                                <td>0</td>
-                                <td>$total_production}}</td>
-                                <td>$total_consumption}}</td>
-                                <td>0</td>
-                                <td>$total_consumption}}</td>
-                                <td>($total_production+0)-($total_consumption+0)}}</td>
-                                <td></td>
-                            </tr>
+                           
                         </tbody>
                     </table>
                 </div>
@@ -232,17 +219,16 @@
                     console.log(response[dat])
                     $("#view_available_item").append(`<tr>
                                 <td>1</td>
-                                <td>$monthly_year}}</td>
-                                <td>MT</td>
-                                <td>$total_production}}</td>
-                                <td>0</td>
-                                <td>$total_production}}</td>
-                                <td>$total_consumption}}</td>
-                                <td>0</td>
-                                <td>$total_consumption}}</td>
-                                <td>($total_production+0)-($total_consumption+0)}}</td>
-                                <td></td>
-                        </tr>`)
+                                <td>`+response[dat]['obj']['name_np']+`</td>
+                                <td>`+response[dat]['production']+`</td>
+                                <td>`+response[dat]['import']+`</td>
+                                <td>`+(response[dat]['production']+response[dat]['import'])+`</td>
+                                <td>`+response[dat]['consumption']+`</td>
+                                <td>`+response[dat]['export']+`</td>
+                                <td>`+(response[dat]['consumption']+response[dat]['export'])+`</td>
+                                <td>`+((response[dat]['production']+response[dat]['import'])-(response[dat]['consumption']+response[dat]['export']))+`</td>
+                                <td> <button class="btn btn-primary"><a href="{route('central_analysis')}}?from_date=2079-01-33&to_date=2079-12-33&item_id=$data['obj']->id" style=" text-decoration: none;  color: inherit;">View</a></button></td>
+                    </tr>`)
                 }
                 
             }
