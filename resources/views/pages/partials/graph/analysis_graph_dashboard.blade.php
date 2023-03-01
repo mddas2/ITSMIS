@@ -165,11 +165,11 @@
     
      $(".select_category").on("change", function (e) {            
         var catId = $(this).val();
-        // alert(catId)
+        alert(catId)
         $.ajax({
             type: "GET",
             url: "{{route('putAll_ItemProductionConsumptionCategory')}}",
-            data: {catId: catId},
+            data: {catId: catId,year: '{{$monthly_year}}'},
             success: function (response) {
                 // console.log(response);
                 for (var dat in response) {
@@ -212,7 +212,7 @@
     $.ajax({
             type: "GET",
             url: "{{route('putAll_ItemProductionConsumptionCategory')}}",
-            data: {catId: '1','year': '{{$monthly_year}}'},
+            data: {catId: '1',year: '{{$monthly_year}}'},
             success: function (response) {
                 // console.log(response);
                 for (var dat in response) {

@@ -12,5 +12,8 @@ class ItemCategory extends Model
 
     protected $guarded = ['id'];
 
-
+    public function getItems()
+    {
+        return $this->belongsTo('App\Models\Item', 'id', 'item_category_id');
+    }
 }

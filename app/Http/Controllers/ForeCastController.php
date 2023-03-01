@@ -834,11 +834,16 @@ class ForeCastController extends Controller
     }
 
     public function putAll_ItemProductionConsumptionCategory(Request $request){
+        $year =  $request['year'];
+        $category_id = $request['catId'];
+        // return $category_id;
+        // return $request;
+        // $converter = new NepaliDateConverter("en");
+        // $nepali_date = $converter->toNepali(date('20y'), date('m'), date('d'));
+        // $year = $nepali_date['year'];
 
-        $converter = new NepaliDateConverter("en");
-        $nepali_date = $converter->toNepali(date('20y'), date('m'), date('d'));
-        $year = $nepali_date['year'];
-
+        $all_items = ItemCategory::where('id',$category_id)->first()->getItems;
+        return $all_items;
         $all_items = Item::all();
 
         $all_data_p_c = [];
