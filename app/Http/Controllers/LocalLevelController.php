@@ -277,21 +277,23 @@ class LocalLevelController extends Controller
         $heading[0] = "date";
         $heading[1] = "district";
         $heading[2] = "quantity";
-        $heading[3] = "produced_by";
+        $heading[3] = "import";
+        $heading[4] = "consumption";
+        $heading[5] = "export";
+        $heading[6] = "unit";
+        $heading[7] = "produced_by";
+        
         // return $data['Production'];
 
 
         foreach ($data['Production'] as $key => $row) {
             if ($key > 0 && !empty($row[0])) {
 
-                for ($i = 0; $i < count($heading); $i++) {
-           
+                for ($i = 0; $i < count($heading); $i++) {           
                     $formatData[$key][$heading[$i]] = $row[$i];
                 }
             }
         }
-
-
 
         // return $formatData;
 
