@@ -165,7 +165,7 @@
     
      $(".select_category").on("change", function (e) {            
         var catId = $(this).val();
-        alert(catId)
+        $("#view_available_item").empty();
         $.ajax({
             type: "GET",
             url: "{{route('putAll_ItemProductionConsumptionCategory')}}",
@@ -175,34 +175,16 @@
                 for (var dat in response) {
                     console.log(response[dat]['id'])
                     $("#view_available_item").append(`<tr>
-                        <td>`+response[dat]+`</td>
-                        
-                        <td>$data['production'] mt</td>
-               
-                        <td>$data['consumption']mt</td>
-                            
-                            <!-- $surplus_deficit = $data['production']-$data['consumption'];
-                            
-                            if($surplus_deficit>0){
-                                $success_danger = "success";
-                                $title = "Surplus ";
-                                $perc = $surplus_deficit/$data['production'] * 100;
-                            }
-                            else{
-                                $success_danger = "danger";
-                                $title = "Deficit ";
-                                $perc = ($surplus_deficit*-1)/$data['consumption'] * 100;
-                            }
-                                         
-                            $title = $title.strval($surplus_deficit);                             -->
-                            
-                        
-                        <td>
-                            <div class="progress progress-xs margin-vertical-10 ">
-                                <div class="progress-bar bg-$success_danger}}" data-toggle="tooltip" data-placement="top" title="$title" style="width: $perc ?? 1}}% ;height:6px;"></div>
-                            </div>
-                        </td>  
-                        <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date=2079-01-33&to_date=2079-12-33&item_id=$data['obj']->id" style=" text-decoration: none;  color: inherit;">View</a></button></td>                                              
+                                <!----<td>1</td> --->
+                                <td>`+response[dat]['obj']['name_np']+`</td>
+                                <td>`+response[dat]['production']+`</td>
+                                <td>`+response[dat]['import']+`</td>
+                                <td>`+(response[dat]['production']+response[dat]['import'])+`</td>
+                                <td>`+response[dat]['consumption']+`</td>
+                                <td>`+response[dat]['export']+`</td>
+                                <td>`+(response[dat]['consumption']+response[dat]['export'])+`</td>
+                                <td>`+((response[dat]['production']+response[dat]['import'])-(response[dat]['consumption']+response[dat]['export']))+`</td>
+                                <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date=2079-01-33&to_date=2079-12-33&item_id=`+response[dat]['obj']['id']+`" style=" text-decoration: none;  color: inherit;">View</a></button></td>
                     </tr>`)
                 }
                 

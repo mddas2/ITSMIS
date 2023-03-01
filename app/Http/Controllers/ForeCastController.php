@@ -842,10 +842,8 @@ class ForeCastController extends Controller
         // $nepali_date = $converter->toNepali(date('20y'), date('m'), date('d'));
         // $year = $nepali_date['year'];
 
-        $all_items = ItemCategory::where('id',$category_id)->first()->getItems;
-        return $all_items;
-        $all_items = Item::all();
-
+        $all_items = ItemCategory::where('id',$category_id)->first()->getItems()->get();
+        
         $all_data_p_c = [];
 
         foreach($all_items as $item){           
