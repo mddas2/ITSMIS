@@ -1,3 +1,4 @@
+
 <script>
     //Monthly report
 
@@ -123,29 +124,55 @@
 <link href="/chart/dist/css/style.min.css" rel="stylesheet">
 
 
-    
-    <div class="card-body">
-    <h4 class="card-title">all items in {{$monthly_year}}</h4>
-    <!-- <h6 class="card-subtitle">Add<code>.table-striped</code>for borders on all sides of the table and cells.</h6> -->
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Item Name</th>
-                    <th>Production</th>
-                    <th>Consumption</th>
-                    <th>Surplus/Deficit Progress</th>
-                    <th>View</th>
-                    <!-- <th>Consumption</th> -->
-                    
-                </tr>
-            </thead>
-            <tbody id="view_available_item">             
-         
-            </tbody>
-        </table>
+<div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Tabular Data</h4>
+                <h6 class="card-subtitle">2079 Data of<code> {{$item_name->name_np}}</code></h6>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="md5md">#</th>
+                                <th class="md5md">Year</th>
+                                <th class="md5md">Unit</th>
+                                <th class="md5md">Production</th>
+                                <th class="md5md">Import</th>
+                                <th class="md5md">Total</th>
+                                <th class="md5md">Consumption</th>
+                                <th class="md5md">Export</th>
+                                <th class="md5md">Total</th>
+                                <th class="md5md">Stock</th>
+                                <!-- <th class="md5md">Demand Fulfilment</th> -->
+                                <!-- <th class="md5md">Remarks<th> -->
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: 15px; font-weight: bolder;" id="view_available_item">                            
+                            <tr>
+                                <td>1</td>
+                                <td>$monthly_year}}</td>
+                                <td>MT</td>
+                                <td>$total_production}}</td>
+                                <td>0</td>
+                                <td>$total_production}}</td>
+                                <td>$total_consumption}}</td>
+                                <td>0</td>
+                                <td>$total_consumption}}</td>
+                                <td>($total_production+0)-($total_consumption+0)}}</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+    <style>
+        .md5md{
+            font-size:16px !important;
+        }
+    </style>
+
 
 <script>
     
@@ -204,37 +231,22 @@
                 for (var dat in response) {
                     console.log(response[dat])
                     $("#view_available_item").append(`<tr>
-                        <td>`+response[dat]+`</td>
-                        
-                        <td>$data['production'] mt</td>
-               
-                        <td>$data['consumption']mt</td>
-                            
-                            <!-- $surplus_deficit = $data['production']-$data['consumption'];
-                            
-                            if($surplus_deficit>0){
-                                $success_danger = "success";
-                                $title = "Surplus ";
-                                $perc = $surplus_deficit/$data['production'] * 100;
-                            }
-                            else{
-                                $success_danger = "danger";
-                                $title = "Deficit ";
-                                $perc = ($surplus_deficit*-1)/$data['consumption'] * 100;
-                            }
-                                         
-                            $title = $title.strval($surplus_deficit);                             -->
-                            
-                        
-                        <td>
-                            <div class="progress progress-xs margin-vertical-10 ">
-                                <div class="progress-bar bg-$success_danger}}" data-toggle="tooltip" data-placement="top" title="$title" style="width: $perc ?? 1}}% ;height:6px;"></div>
-                            </div>
-                        </td>  
-                        <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date=2079-01-33&to_date=2079-12-33&item_id=$data['obj']->id" style=" text-decoration: none;  color: inherit;">View</a></button></td>                                              
-                    </tr>`)
+                                <td>1</td>
+                                <td>$monthly_year}}</td>
+                                <td>MT</td>
+                                <td>$total_production}}</td>
+                                <td>0</td>
+                                <td>$total_production}}</td>
+                                <td>$total_consumption}}</td>
+                                <td>0</td>
+                                <td>$total_consumption}}</td>
+                                <td>($total_production+0)-($total_consumption+0)}}</td>
+                                <td></td>
+                        </tr>`)
                 }
                 
             }
         });
 </script>
+
+<!-- <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date=2079-01-33&to_date=2079-12-33&item_id=$data['obj']->id" style=" text-decoration: none;  color: inherit;">View</a></button></td>                                               -->
