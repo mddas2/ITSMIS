@@ -12,7 +12,6 @@
             </div>
         </div>
         @if(auth()->user()->role_id == 2)
-    
                 <div class="form-group card-body row">
                     <div class="col-lg-3">
                         <label>Select Date<span style="color: #e9594d;">*</span></label>
@@ -72,11 +71,13 @@
                                 <input type="text" name="data[{{$key}}][district]" class="form-control" autocomplete="off" value="{{$row['district']}}">                               
                             </td>
                             <td>
-                                <input  class="form-control category_md" type="text" value="Agriculture" disabled >
+                                <!-- <input  class="form-control category_md" type="text" value="Agriculture" disabled > -->
+                                {{Form::select('data[item_category_id]',$category,null,['class' => 'form-control select_category'])}}
                                 <input type="hidden" class="category_input_md" name="data[{{$key}}][item_category_id]" value="0" >
                             </td>
                             <td>
-                                <input  class="form-control item_md" type="text" value="Apple" disabled> 
+                                <!-- <input  class="form-control item_md" type="text" value="Apple" disabled>  -->
+                                {{Form::select('data[item_id]',$items,null,['class' => 'form-control select_item'])}}
                                 <input type="hidden" class="item_input_md" name="data[{{$key}}][item_id]"  value="0" >                        
                             </td>                           
                             <td>
