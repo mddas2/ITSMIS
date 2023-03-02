@@ -260,6 +260,7 @@ class LocalLevelController extends Controller
 
         $formatData = [];
         $this->_data['items'] = Item::pluck('name_np', 'id')->skip(0)->take(10);
+        $this->_data['districts'] = District::pluck('name','id')->toArray();
         $this->_data['units'] = MeasurementUnit::pluck('name', 'id')->toArray();
         $this->_data['itemCategory'] = ItemCategory::pluck('name', 'id')->toArray();
 
@@ -289,8 +290,21 @@ class LocalLevelController extends Controller
         foreach ($data['Production'] as $key => $row) {
             if ($key > 0 && !empty($row[0])) {
 
-                for ($i = 0; $i < count($heading); $i++) {           
-                    $formatData[$key][$heading[$i]] = $row[$i];
+                for ($i = 0; $i < count($heading); $i++) {
+                    if($i==1){
+                        $districts_check = District::where("name",$row[$i])->first();
+                        if($districts_check->count()>0){
+                            $districts_id = $districts_check->id;
+                            $formatData[$key][$heading[$i]] = $districts_id;
+                        }
+                        else{
+                            $formatData[$key][$heading[$i]] = 999;
+                        }
+                    }   
+                    else{
+                        $formatData[$key][$heading[$i]] = $row[$i];
+                    }        
+                    
                 }
             }
         }

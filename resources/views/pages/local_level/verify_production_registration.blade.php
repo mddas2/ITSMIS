@@ -60,6 +60,7 @@
                     <?php $key = 0; ?>
                     @foreach($formatData as $row)
                         <tr>
+                        <!-- {{$row['district']}} -->
                             <td>{{$key+1}}</td>
                             <td>
                                 <input type="hidden" name="data[{{$key}}][id]" value="">
@@ -67,7 +68,8 @@
                                 <input type="text" name="data[{{$key}}][date]" class="form-control nepdatepicker"  data-single="true" autocomplete="off" id="nep{{$key}}" value="{{$row['date']}}">
                             </td>
                             <td>
-                                <input type="text" name="data[{{$key}}][district]" class="form-control" autocomplete="off" value="{{$row['district']}}">                               
+                                <!-- <input type="text" name="data[{{$key}}][district]" class="form-control" autocomplete="off" value="{{$row['district']}}">       -->
+                                {{Form::select('data['.$key.'][district]',$districts,$row['district'],['class' => 'form-control district'])}}                         
                             </td>
                             <td>
                                 <!-- <input  class="form-control category_md" type="text" value="Agriculture" disabled > -->
