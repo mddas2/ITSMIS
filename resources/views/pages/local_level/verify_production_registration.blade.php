@@ -19,12 +19,12 @@
                     </div>
                     <div class="col-lg-3">
                         <label>Category:</label>
-                            {{Form::select('data[item_category_id]',$category,null,['class' => 'form-control select_category','id'=>"all_cat"])}}						
+                            {{Form::select('data[item_category_id]',$category,null,['class' => 'form-control select_category','id'=>"select_category_all"])}}						
                         </select>
                     </div>
                     <div class="col-lg-3">
                         <label>Items:</label>
-                            {{Form::select('data[item_id]',$items,null,['class' => 'form-control select_item','id'=>"all_item"])}}	
+                            {{Form::select('data[item_id]',$items,null,['class' => 'form-control select_item','id'=>"select_item_all"])}}	
                         </select>
                     </div>
                     <div class="col-lg-2" style="margin-top: 24px;">
@@ -72,12 +72,12 @@
                             <td>
                                 <!-- <input  class="form-control category_md" type="text" value="Agriculture" disabled > -->
                                 {{Form::select('data['.$key.'][item_category_id]',$category,null,['class' => 'form-control select_category','id'=>'selectcategory'.$key])}}
-                                <input type="hidden" class="category_input_md" name="data[{{$key}}][item_category_id]" value="0" >
+                                <!-- <input type="hidden" class="category_input_md" name="data[{{$key}}][item_category_id]" value="0" > -->
                             </td>
                             <td>
                                 <!-- <input  class="form-control item_md" type="text" value="Apple" disabled>  -->
                                 {{Form::select('data['.$key.'][item_id]',$items,null,['class' => 'form-control select_item','id' => 'selectcategory'.$key.'select_item'])}}
-                                <input type="hidden" class="item_input_md" name="data[{{$key}}][item_id]"  value="0" >                        
+                                <!-- <input type="hidden" class="item_input_md" name="data[{{$key}}][item_id]"  value="0" >                         -->
                             </td>                           
                             <td>
                                 <input type="text" name="data[{{$key}}][quantity]" class="form-control" autocomplete="off" value="{{$row['quantity']}}">
@@ -151,8 +151,8 @@
 
             var name = $( ".select_item option:selected" ).text();
 
-            $(".item_md").val(name)
-            $(".item_input_md").val(itemID)
+            // $(".item_md").val(name)
+            // $(".item_input_md").val(itemID)
 
             $.ajax({
                 type: "GET",
@@ -168,8 +168,8 @@
             
             var catId = $(this).val();
             var name = $( ".select_category option:selected" ).text();
-            $(".category_md").val(name)
-            $(".category_input_md").val(catId)
+            // $(".category_md").val(name)
+            // $(".category_input_md").val(catId)
 
             var selectId = $(this).attr('id');
         
@@ -220,14 +220,14 @@
             
         }
 
-        $(".select_item").on("change", function (e) {
+        $("#select_item_all").on("change", function (e) {
 
     var itemID = $(this).val();
 
     var name = $( ".select_item option:selected" ).text();
 
-    $(".item_md").val(name)
-    $(".item_input_md").val(itemID)
+    // $(".item_md").val(name)
+    // $(".item_input_md").val(itemID)
 
     $.ajax({
         type: "GET",
@@ -239,20 +239,22 @@
         }
     });
 });
-$(".select_category").on("change", function (e) {
+$("#select_category_all").on("change", function (e) {
     
-    var catId = $(this).val();
-    var name = $( ".select_category option:selected" ).text();
-    $(".category_md").val(name)
-    $(".category_input_md").val(catId)
+    var catId = $('#select_category_all').val();
+    // var name = $( ".select_category option:selected" ).text();
+    // $(".category_md").val(name)
+    // $(".category_input_md").val(catId)
 
-    ActionOnQuantityUnit(catId);
+    // $(".select_category").val(catId);
+
+    // ActionOnQuantityUnitAll(catId);
     $.ajax({
         type: "GET",
         url: "{{route('getItemByCategory')}}",
         data: {catId: catId},
         success: function (response) {
-            $(".select_item").find('option').remove().end().append(response.html);
+            $("#select_item_all").find('option').remove().end().append(response.html);
 
             var name = $( ".select_item option:selected" ).text();
             item_id = $( ".select_item option:selected" ).val();
@@ -263,7 +265,7 @@ $(".select_category").on("change", function (e) {
     });
 });
 
-function ActionOnQuantityUnit(catId){
+function ActionOnQuantityUnitAll(catId){
     if(catId == 1){
         $(".unit_md_id").val(1);
         $(".unit_md_name").val("Kilogram"); //kg agriculture
@@ -287,75 +289,31 @@ function ActionOnQuantityUnit(catId){
     
 }
 
-//
 
-$(".select_item").on("change", function (e) {
+function ActionCategory(){
+    var catId = $('#select_category_all').val();
+    // var name = $( ".select_category option:selected" ).text();
+    // $(".category_md").val(name)
+    // $(".category_input_md").val(catId)
 
-var itemID = $(this).val();
+    $(".select_category").val(catId);
 
-var name = $( ".select_item option:selected" ).text();
+    ActionOnQuantityUnitAll(catId);
+    $.ajax({
+        type: "GET",
+        url: "{{route('getItemByCategory')}}",
+        data: {catId: catId},
+        success: function (response) {
+            $(".select_item").find('option').remove().end().append(response.html);
 
-$(".item_md").val(name)
-$(".item_input_md").val(itemID)
+            // var name = $( ".select_item option:selected" ).text();
+            // item_id = $( ".select_item option:selected" ).val();
 
-$.ajax({
-    type: "GET",
-    url: "{{route('getCategoryByItem')}}",
-    data: {itemID: itemID},
-    success: function (response) {
-
-        $(".select_category").val(response.catId);
-    }
-});
-});
-$(".select_category").on("change", function (e) {
-
-var catId = $(this).val();
-var name = $( ".select_category option:selected" ).text();
-$(".category_md").val(name)
-$(".category_input_md").val(catId)
-
-ActionOnQuantityUnit(catId);
-$.ajax({
-    type: "GET",
-    url: "{{route('getItemByCategory')}}",
-    data: {catId: catId},
-    success: function (response) {
-        $(".select_item").find('option').remove().end().append(response.html);
-
-        var name = $( ".select_item option:selected" ).text();
-        item_id = $( ".select_item option:selected" ).val();
-
-        $(".item_md").val(name)
-        $(".item_input_md").val(item_id)
-    }
-});
-});
-
-function ActionOnQuantityUnit(catId){
-if(catId == 1){
-    $(".unit_md_id").val(1);
-    $(".unit_md_name").val("Kilogram"); //kg agriculture
+            // $(".item_md").val(name)
+            // $(".item_input_md").val(item_id)
+        }
+    });
 }
-else if (catId == 2){
-    $(".unit_md_id").val(1);
-    $(".unit_md_name").val("Kilogram");
-}
-else if(catId == 3){
-    $(".unit_md_id").val(2); //petrol
-    $(".unit_md_name").val("Liter");
-}
-else if(catId == 7){
-    $(".unit_md_id").val(4); //pasu panxi jodi
-    $(".unit_md_name").val("Pair");
-}
-else {
-    $(".unit_md_id").val(1);
-    $(".unit_md_name").val("Kilogram"); //kg agriculture
-}
-
-}
-//
 
         function setDate(){
            var set_to_date = $("#nepdatepickerparent").val()
@@ -365,6 +323,8 @@ else {
            else{
             $(".nepdatepicker").val(set_to_date)
            }
+           ActionCategory()
+           
            
         }
      
