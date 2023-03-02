@@ -69,7 +69,7 @@
                             </td>
                             <td>
                                 <!-- <input type="text" name="data[{{$key}}][district]" class="form-control" autocomplete="off" value="{{$row['district']}}">       -->
-                                {{Form::select('data['.$key.'][district]',$districts,$row['district'],['class' => 'form-control district'])}}                         
+                                {{Form::select('data['.$key.'][district]',$districts,$row['district'],['class' => 'form-control district','style' => ($row['district'] == 999) ? 'color: red;' : ''])}}                         
                             </td>
                             <td>
                                 <!-- <input  class="form-control category_md" type="text" value="Agriculture" disabled > -->
