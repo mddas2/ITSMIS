@@ -71,20 +71,20 @@
                             </td>
                             <td>
                                 <!-- <input  class="form-control category_md" type="text" value="Agriculture" disabled > -->
-                                {{Form::select('data['.$key.'][item_category_id]',$category,null,['class' => 'form-control select_category'])}}
+                                {{Form::select('data['.$key.'][item_category_id]',$category,null,['class' => 'form-control select_category','id'=>'selectcategory'.$key])}}
                                 <input type="hidden" class="category_input_md" name="data[{{$key}}][item_category_id]" value="0" >
                             </td>
                             <td>
                                 <!-- <input  class="form-control item_md" type="text" value="Apple" disabled>  -->
-                                {{Form::select('data['.$key.'][item_id]',$items,null,['class' => 'form-control select_item'])}}
+                                {{Form::select('data['.$key.'][item_id]',$items,null,['class' => 'form-control select_item','id' => 'selectcategory'.$key.'select_item'])}}
                                 <input type="hidden" class="item_input_md" name="data[{{$key}}][item_id]"  value="0" >                        
                             </td>                           
                             <td>
                                 <input type="text" name="data[{{$key}}][quantity]" class="form-control" autocomplete="off" value="{{$row['quantity']}}">
                             </td>
                             <td>
-                                <input  class="form-control unit_md_name" type="text" value="Kg" disabled>  
-                                <input  class="form-control unit_md_id" name="data[{{$key}}][quantity_unit]" type="hidden" value="1">  
+                                <input  class="form-control unit_md_name" type="text" value="Kg" disabled id="selectcategory{{$key}}unitshow">  
+                                <input  class="form-control unit_md_id" name="data[{{$key}}][quantity_unit]" type="hidden" value="1" id="selectcategory{{$key}}unithide">  
                             </td>
                             <td>
                                 <input type="text" name="data[{{$key}}][produced_by]" class="form-control" autocomplete="off" value="{{$row['produced_by']}}">
@@ -171,43 +171,51 @@
             $(".category_md").val(name)
             $(".category_input_md").val(catId)
 
-            ActionOnQuantityUnit(catId);
+            var selectId = $(this).attr('id');
+        
+            ActionOnQuantityUnit(catId,selectId);
             $.ajax({
                 type: "GET",
                 url: "{{route('getItemByCategory')}}",
                 data: {catId: catId},
                 success: function (response) {
-                    $(".select_item").find('option').remove().end().append(response.html);
+                    // $(".select_item").find('option').remove().end().append(response.html);
 
-                    var name = $( ".select_item option:selected" ).text();
-                    item_id = $( ".select_item option:selected" ).val();
+                    $('#'+selectId+'select_item').find('option').remove().end().append(response.html);      
+                    console.log(selectId+'select_item')             
+                    
 
-                    $(".item_md").val(name)
-                    $(".item_input_md").val(item_id)
+                    // var name = $( ".select_item option:selected" ).text();
+                    // item_id = $( ".select_item option:selected" ).val();
+
+                    // $(".item_md").val(name)
+                    // $(".item_input_md").val(item_id)
                 }
             });
         });
 
-        function ActionOnQuantityUnit(catId){
+        function ActionOnQuantityUnit(catId,selectId){
             if(catId == 1){
-                $(".unit_md_id").val(1);
-                $(".unit_md_name").val("Kilogram"); //kg agriculture
+                // $(".unit_md_id").val(1);
+                // $(".unit_md_name").val("Kilogram"); //kg agriculture
+                $("#"+selectId+'unithide').val(1);
+                $("#"+selectId+'unitshow').val("Kilogram"); //kg agriculture
             }
             else if (catId == 2){
-                $(".unit_md_id").val(1);
-                $(".unit_md_name").val("Kilogram");
+                $("#"+selectId+'unithide').val(1);
+                $("#"+selectId+'unitshow').val("Kilogram");
             }
             else if(catId == 3){
-                $(".unit_md_id").val(2); //petrol
-                $(".unit_md_name").val("Liter");
+                $("#"+selectId+'unithide').val(2); //petrol
+                $("#"+selectId+'unitshow').val("Liter");
             }
             else if(catId == 7){
-                $(".unit_md_id").val(4); //pasu panxi jodi
-                $(".unit_md_name").val("Pair");
+                $("#"+selectId+'unithide').val(4); //pasu panxi jodi
+                $("#"+selectId+'unitshow').val("Pair");
             }
             else {
-                $(".unit_md_id").val(1);
-                $(".unit_md_name").val("Kilogram"); //kg agriculture
+                $("#"+selectId+'unithide').val(1);
+                $("#"+selectId+'unitshow').val("Kilogram"); //kg agriculture
             }
             
         }
