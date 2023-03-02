@@ -19,12 +19,12 @@
                     </div>
                     <div class="col-lg-3">
                         <label>Category:</label>
-                            {{Form::select('data[item_category_id]',$category,null,['class' => 'form-control select_category'])}}						
+                            {{Form::select('data[item_category_id]',$category,null,['class' => 'form-control select_category','id'=>"all_cat"])}}						
                         </select>
                     </div>
                     <div class="col-lg-3">
                         <label>Items:</label>
-                            {{Form::select('data[item_id]',$items,null,['class' => 'form-control select_item'])}}	
+                            {{Form::select('data[item_id]',$items,null,['class' => 'form-control select_item','id'=>"all_item"])}}	
                         </select>
                     </div>
                     <div class="col-lg-2" style="margin-top: 24px;">
@@ -220,6 +220,143 @@
             
         }
 
+        $(".select_item").on("change", function (e) {
+
+    var itemID = $(this).val();
+
+    var name = $( ".select_item option:selected" ).text();
+
+    $(".item_md").val(name)
+    $(".item_input_md").val(itemID)
+
+    $.ajax({
+        type: "GET",
+        url: "{{route('getCategoryByItem')}}",
+        data: {itemID: itemID},
+        success: function (response) {
+
+            $(".select_category").val(response.catId);
+        }
+    });
+});
+$(".select_category").on("change", function (e) {
+    
+    var catId = $(this).val();
+    var name = $( ".select_category option:selected" ).text();
+    $(".category_md").val(name)
+    $(".category_input_md").val(catId)
+
+    ActionOnQuantityUnit(catId);
+    $.ajax({
+        type: "GET",
+        url: "{{route('getItemByCategory')}}",
+        data: {catId: catId},
+        success: function (response) {
+            $(".select_item").find('option').remove().end().append(response.html);
+
+            var name = $( ".select_item option:selected" ).text();
+            item_id = $( ".select_item option:selected" ).val();
+
+            $(".item_md").val(name)
+            $(".item_input_md").val(item_id)
+        }
+    });
+});
+
+function ActionOnQuantityUnit(catId){
+    if(catId == 1){
+        $(".unit_md_id").val(1);
+        $(".unit_md_name").val("Kilogram"); //kg agriculture
+    }
+    else if (catId == 2){
+        $(".unit_md_id").val(1);
+        $(".unit_md_name").val("Kilogram");
+    }
+    else if(catId == 3){
+        $(".unit_md_id").val(2); //petrol
+        $(".unit_md_name").val("Liter");
+    }
+    else if(catId == 7){
+        $(".unit_md_id").val(4); //pasu panxi jodi
+        $(".unit_md_name").val("Pair");
+    }
+    else {
+        $(".unit_md_id").val(1);
+        $(".unit_md_name").val("Kilogram"); //kg agriculture
+    }
+    
+}
+
+//
+
+$(".select_item").on("change", function (e) {
+
+var itemID = $(this).val();
+
+var name = $( ".select_item option:selected" ).text();
+
+$(".item_md").val(name)
+$(".item_input_md").val(itemID)
+
+$.ajax({
+    type: "GET",
+    url: "{{route('getCategoryByItem')}}",
+    data: {itemID: itemID},
+    success: function (response) {
+
+        $(".select_category").val(response.catId);
+    }
+});
+});
+$(".select_category").on("change", function (e) {
+
+var catId = $(this).val();
+var name = $( ".select_category option:selected" ).text();
+$(".category_md").val(name)
+$(".category_input_md").val(catId)
+
+ActionOnQuantityUnit(catId);
+$.ajax({
+    type: "GET",
+    url: "{{route('getItemByCategory')}}",
+    data: {catId: catId},
+    success: function (response) {
+        $(".select_item").find('option').remove().end().append(response.html);
+
+        var name = $( ".select_item option:selected" ).text();
+        item_id = $( ".select_item option:selected" ).val();
+
+        $(".item_md").val(name)
+        $(".item_input_md").val(item_id)
+    }
+});
+});
+
+function ActionOnQuantityUnit(catId){
+if(catId == 1){
+    $(".unit_md_id").val(1);
+    $(".unit_md_name").val("Kilogram"); //kg agriculture
+}
+else if (catId == 2){
+    $(".unit_md_id").val(1);
+    $(".unit_md_name").val("Kilogram");
+}
+else if(catId == 3){
+    $(".unit_md_id").val(2); //petrol
+    $(".unit_md_name").val("Liter");
+}
+else if(catId == 7){
+    $(".unit_md_id").val(4); //pasu panxi jodi
+    $(".unit_md_name").val("Pair");
+}
+else {
+    $(".unit_md_id").val(1);
+    $(".unit_md_name").val("Kilogram"); //kg agriculture
+}
+
+}
+//
+
         function setDate(){
            var set_to_date = $("#nepdatepickerparent").val()
            if(set_to_date==''){
@@ -231,6 +368,7 @@
            
         }
      
+
     
         
         var name = $( ".select_item option:selected" ).text();
