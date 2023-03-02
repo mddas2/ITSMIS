@@ -66,18 +66,17 @@
                                 <!-- <input type="text"  name="data[{{$key}}][date]" class="form-control nepdatepicker"  data-single="true" autocomplete="off" id="nep{{$key}}" required> -->
                                 <input type="text" name="data[{{$key}}][date]" class="form-control nepdatepicker"  data-single="true" autocomplete="off" id="nep{{$key}}" value="{{$row['date']}}">
                             </td>
-        
                             <td>
                                 <input type="text" name="data[{{$key}}][district]" class="form-control" autocomplete="off" value="{{$row['district']}}">                               
                             </td>
                             <td>
                                 <!-- <input  class="form-control category_md" type="text" value="Agriculture" disabled > -->
-                                {{Form::select('data[item_category_id]',$category,null,['class' => 'form-control select_category'])}}
+                                {{Form::select('data['.$key.'][item_category_id]',$category,null,['class' => 'form-control select_category'])}}
                                 <input type="hidden" class="category_input_md" name="data[{{$key}}][item_category_id]" value="0" >
                             </td>
                             <td>
                                 <!-- <input  class="form-control item_md" type="text" value="Apple" disabled>  -->
-                                {{Form::select('data[item_id]',$items,null,['class' => 'form-control select_item'])}}
+                                {{Form::select('data['.$key.'][item_id]',$items,null,['class' => 'form-control select_item'])}}
                                 <input type="hidden" class="item_input_md" name="data[{{$key}}][item_id]"  value="0" >                        
                             </td>                           
                             <td>
