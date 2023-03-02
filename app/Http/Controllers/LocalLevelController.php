@@ -213,12 +213,12 @@ class LocalLevelController extends Controller
 
     public function addActionImportProduction(Request $request)
     {
-
+        // return $request;
         foreach ($request->data as $key => $data) {
 
 
             $district = $data['district'];
-            $district_obj = District::where('name',$district)->first();
+            $district_obj = District::where('id',$district)->first();
             $district_id = $district_obj->id;
             $provience = $district_obj->getProvince;
             $provience_id = $provience->first()->id;

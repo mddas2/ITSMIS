@@ -21,7 +21,6 @@ Route::get('locale/{lang}', function ($locale) {
 Route::get('/', 'FrontendController@index')->name('home');
 
 
-
 Route::get('/login', function () {
     return view('layout.login');
 });
