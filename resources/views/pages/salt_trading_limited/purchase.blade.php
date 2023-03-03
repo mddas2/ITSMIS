@@ -26,7 +26,7 @@
 						<i class="fab fa-bitbucket icon-2x"></i>
 					</span>
 				</span>
-                        <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Salt Import</span>
+                        <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Import</span>
                     </a>
                 </li>
                 <!-- <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
@@ -40,9 +40,10 @@
                         <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Sales and Stock</span>
                     </a>
                 </li> -->
-/a>
-                </li>
--header flex-wrap border-1 pt-6 pb-0">
+            </ul>
+        </div>
+
+        <div class="card-header flex-wrap border-1 pt-6 pb-0">
             <div class="card-title">
                 <h3 class="card-label">
                  Salt Trading Limited - {{$type}}
