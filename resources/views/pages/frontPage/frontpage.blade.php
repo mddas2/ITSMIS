@@ -7,7 +7,7 @@
             <span class="card-icon">
                 <i class="flaticon2-delivery-package text-primary"></i>
             </span>
-                <h3 class="card-label"> 	Introduction to ITSMIS</h3>
+                <h3 class="card-label"> Introduction to ITSMIS</h3>
             </div>
 
         </div>
