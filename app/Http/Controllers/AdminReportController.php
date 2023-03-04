@@ -193,7 +193,47 @@ class AdminReportController extends Controller
         return view($this->_page . 'noc', $this->_data);
     }
     public function local_level_production(Request $request){
-        return "this is local user report";
+        $query = NepalOilCorporation::query();
+
+        $this->_data['to_date'] = $this->_data['from_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
+
+
+        if ($request->has('from_date')) {
+            $this->_data['from_date'] = $request->from_date;
+        }
+        if ($request->has('to_date')) {
+            $this->_data['to_date'] = $request->to_date;
+        }
+
+        $this->_data['item_id'] = '';
+        if ($request->has('item_id') && !empty($request->item_id)) {
+            $this->_data['item_id'] = $request->item_id;
+            $query->where('item_id', $request->item_id);
+        }
+
+        if ($request->has('from_date')) {
+            if (!empty($this->_data['from_date'])) {
+                $query->where('date', '>=', $this->_data['from_date']);
+            }
+            if (!empty($this->_data['to_date'])) {
+                $query->where('date', '<=', $this->_data['to_date']);
+            }
+
+            $data = $query->get();
+        } else {
+
+
+            $data = $query->latest()->take(100)->get();
+        }
+
+        $measurementUnit = MeasurementUnit::pluck('name', 'id')->toArray();
+        $this->_data['measurementUnit'] = $measurementUnit;
+        $this->_data['items'] = Item::where('item_category_id', 3)->pluck('name', 'id')->toArray();
+
+
+        $this->_data['data'] = $data;
+    
+        return view($this->_page . 'local_level_production', $this->_data);
     }
 
     public function foodManagement(Request $request)

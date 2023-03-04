@@ -378,7 +378,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('admin/report/noc', 'AdminReportController@noc')->name('report_noc');
     Route::get('admin/report/foodManagement/', 'AdminReportController@foodManagement')->name('report_foodManagement');
     Route::get('admin/report/saltTrading/', 'AdminReportController@saltTrading')->name('report_saltTrading');
-    Route::get('admin/report/local-level-production/', 'AdminReportController@local_level_production')->name('local_level_production_report');
+    Route::get('admin/report/local-level-production/', 'AdminReportController@local_level_production')->name('local_level_production_admin_report');
     Route::get('admin/report/doc/{type}', 'AdminReportController@doc')->name('report_doc');
 
 });
@@ -390,6 +390,7 @@ Route::get('report/DOCSRPFirmRegister', 'FrontendController@DOCSRPFirmRegister')
 Route::get('report/ocr', 'FrontendController@ocr')->name('front_report_ocr');
 Route::get('report/doi', 'FrontendController@doi')->name('front_report_doi');
 Route::get('report/noc', 'FrontendController@noc')->name('front_report_noc');
+Route::get('report/local-level-production-report', 'FrontendController@local_level_production_report')->name('local_level_production_report');
 Route::get('report/foodManagement/', 'FrontendController@foodManagement')->name('front_report_foodManagement');
 Route::get('report/saltTrading/', 'FrontendController@saltTrading')->name('front_report_saltTrading');
 Route::get('report/doc/{type}', 'FrontendController@doc')->name('front_report_doc');
