@@ -378,6 +378,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('admin/report/noc', 'AdminReportController@noc')->name('report_noc');
     Route::get('admin/report/foodManagement/', 'AdminReportController@foodManagement')->name('report_foodManagement');
     Route::get('admin/report/saltTrading/', 'AdminReportController@saltTrading')->name('report_saltTrading');
+    Route::get('admin/report/local-level-production/', 'AdminReportController@local_level_production')->name('local_level_production_report');
     Route::get('admin/report/doc/{type}', 'AdminReportController@doc')->name('report_doc');
 
 });

@@ -192,6 +192,9 @@ class AdminReportController extends Controller
         $this->_data['data'] = $data;
         return view($this->_page . 'noc', $this->_data);
     }
+    public function local_level_production(Request $request){
+        return "this is local user report";
+    }
 
     public function foodManagement(Request $request)
     {
