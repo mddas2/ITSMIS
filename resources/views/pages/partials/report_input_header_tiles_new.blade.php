@@ -71,7 +71,7 @@
         </a>
     </li>
     <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-        <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center local_level_add" href="{{route('local_level_add')}}">
+        <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center local_level_production" href="{{route('local_level_production_admin_report')}}">
 			<span class="nav-icon py-3 w-auto">
 				<span class="svg-icon svg-icon-3x">
 					<i class="fas fa-poll-h icon-2x"></i>
@@ -80,6 +80,7 @@
             <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Local Production</span>
         </a>
     </li>
+   
     <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
         <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center forecast" href="{{route('ForecastIndex')}}">
 			<span class="nav-icon py-3 w-auto">

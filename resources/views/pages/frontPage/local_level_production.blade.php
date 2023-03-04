@@ -128,6 +128,6 @@
             ]
         });
 
-        $('.noc').addClass("active");
+        $('.local_level_production').addClass("active");
     </script>
 @endsection
