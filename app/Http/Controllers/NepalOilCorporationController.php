@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\NepalOilCorporation;
 use App\Models\User;
 use App\Models\Item;
+use App\Models\ItemCategory;
 use Auth;
 use App\Models\Hierarchy;
 use Maatwebsite\Excel\Facades\Excel;
@@ -48,24 +49,98 @@ class NepalOilCorporationController extends Controller
         });
         return redirect()->back()->with('success', 'New Column has been Added .');
     }
-
-    public function add(Request $request)
-    {
+    public function addOil(Request $request){
         $query = NepalOilCorporation::query();
 
-        $this->_data['to_date'] = $this->_data['from_date'] = DB::table('nepali_calendar')->where('edate',date('Y-m-d'))->pluck('ndate')->first();
-        
+        $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
+
         if ($request->has('from_date')) {
             $this->_data['from_date'] = $request->from_date;
         }
+
         if ($request->has('to_date')) {
             $this->_data['to_date'] = $request->to_date;
         }
 
-        if (auth()->user()->role_id == 3) {
-            $query->where('user_id',auth()->user()->id);
+
+        if ($request->has('item_id') && !empty($request->item_id)) {
+            $query->where('item_id', $request->item_id);
         }
 
+        if ($request->has('item_category_id') && !empty($request->item_category_id)) {
+            $query->where('item_category_id', $request->item_category_id);
+        }
+
+        if (auth()->user()->role_id == 3) {
+            $query->where('user_id', auth()->user()->id);
+        }
+
+        if ($request->has('from_date')) {
+            if (!empty($this->_data['from_date'])) {
+                $query->where('date', '>=', $this->_data['from_date']);
+            }
+            if (!empty($this->_data['to_date'])) {
+                $query->where('date', '<=', $this->_data['to_date']);
+            }
+
+            $data = $query->get();
+        } else {
+            $data = $query->latest()->take(20)->get();
+        }
+
+        //$this->_data['columns'] = Schema::getColumnListing('nepal_oil_corporations');
+        $this->_data['items'] = Item::pluck('name_np', 'id')->toArray();
+        $this->_data['units'] = MeasurementUnit::pluck('name_np', 'id')->toArray();
+        $this->_data['category'] = ItemCategory::pluck('name_np', 'id')->toArray();
+        $this->_data['data'] = $data;
+        $this->_data['user'] = User::find(Auth::id());
+
+        $hierarchyId = auth()->user()->hierarchy->hierarchy_id;
+        $parentHierarchy = Hierarchy::ancestorsAndSelf($hierarchyId)->toArray();
+        $this->_data['hierarchyTitle'][0] = "";
+        $this->_data['hierarchyTitle'][1] = "";
+        if (count($parentHierarchy) > 1) {
+            foreach ($parentHierarchy as $key => $parent) {
+                if ($key > 0) {
+                    if ($key != count($parentHierarchy) - 1) {
+                        $this->_data['hierarchyTitle'][0] .= $parent['name'];
+                        $this->_data['hierarchyTitle'][0] .= ($key != count($parentHierarchy) - 2) ? ' -> ' : ' -> ';
+                    } else {
+                        $this->_data['hierarchyTitle'][1] .= $parent['name'];
+                    }
+
+                }
+            }
+        }
+        
+        return view($this->_page . 'add_new_oil', $this->_data);
+    }
+    public function add(Request $request)
+    {
+        $query = NepalOilCorporation::query();
+
+        $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
+
+        if ($request->has('from_date')) {
+            $this->_data['from_date'] = $request->from_date;
+        }
+
+        if ($request->has('to_date')) {
+            $this->_data['to_date'] = $request->to_date;
+        }
+
+
+        if ($request->has('item_id') && !empty($request->item_id)) {
+            $query->where('item_id', $request->item_id);
+        }
+
+        if ($request->has('item_category_id') && !empty($request->item_category_id)) {
+            $query->where('item_category_id', $request->item_category_id);
+        }
+
+        if (auth()->user()->role_id == 3) {
+            $query->where('user_id', auth()->user()->id);
+        }
 
         if ($request->has('from_date')) {
             if (!empty($this->_data['from_date'])) {
@@ -82,12 +157,32 @@ class NepalOilCorporationController extends Controller
             $data = $query->latest()->take(20)->get();
         }
 
-        $this->_data['columns'] = Schema::getColumnListing('nepal_oil_corporations');
-        $measurementUnit = MeasurementUnit::pluck('name','id')->toArray();
-        $this->_data['items'] = Item::where('item_category_id',3)->pluck('name_np','id')->toArray();
+        //$this->_data['columns'] = Schema::getColumnListing('nepal_oil_corporations');
+        $this->_data['items'] = Item::pluck('name_np', 'id')->toArray();
+        $this->_data['units'] = MeasurementUnit::pluck('name_np', 'id')->toArray();
+        $this->_data['category'] = ItemCategory::pluck('name_np', 'id')->toArray();
         $this->_data['data'] = $data;
-        $this->_data['measurementUnit'] = $measurementUnit;
         $this->_data['user'] = User::find(Auth::id());
+
+        $hierarchyId = auth()->user()->hierarchy->hierarchy_id;
+        $parentHierarchy = Hierarchy::ancestorsAndSelf($hierarchyId)->toArray();
+        $this->_data['hierarchyTitle'][0] = "";
+        $this->_data['hierarchyTitle'][1] = "";
+        if (count($parentHierarchy) > 1) {
+            foreach ($parentHierarchy as $key => $parent) {
+                if ($key > 0) {
+                    if ($key != count($parentHierarchy) - 1) {
+                        $this->_data['hierarchyTitle'][0] .= $parent['name'];
+                        $this->_data['hierarchyTitle'][0] .= ($key != count($parentHierarchy) - 2) ? ' -> ' : ' -> ';
+                    } else {
+                        $this->_data['hierarchyTitle'][1] .= $parent['name'];
+                    }
+
+                }
+            }
+        }
+        
+        return view($this->_page . 'create', $this->_data);
         return view($this->_page . 'create', $this->_data);
     }
 

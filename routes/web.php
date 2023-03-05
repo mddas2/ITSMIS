@@ -251,6 +251,9 @@ Route::group(['middleware' => 'auth'], function () {
     //NEPAL OIL CORPORATION
     Route::get('noc_add', 'NepalOilCorporationController@add')->name('noc_add');
     Route::post('noc_add', 'NepalOilCorporationController@addAction');
+
+    Route::get('oil_add_production', 'NepalOilCorporationController@addOil')->name('oil_add_production');
+
     Route::get('noc_import_column', 'NepalOilCorporationController@importColumn')->name('noc_import_column');
     Route::post('noc_import_column', 'NepalOilCorporationController@importColumnAction');
     Route::get('noc_excel_insert', 'NepalOilCorporationController@excelDataInsert')->name('noc-excel-insert');
