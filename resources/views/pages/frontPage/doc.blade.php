@@ -9,7 +9,7 @@
         </div>
         <div class="card-header flex-wrap border-0 pt-6 pb-0">
             <div class="card-title">
-                <h3 class="card-label">{{ __('lang.department_of_custom') }} {{$type}} site</h3>
+                <h3 class="card-label">{{ __('lang.department_of_custom') }} {{$type}} site <a href="{{route('department-of-custom','import')}}"> <button type="button" class="btn btn-primary btn-sm">Entry Master</button></a></h3>
             </div>
         </div>
         <div class="card card-custom gutter-b">

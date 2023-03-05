@@ -9,7 +9,7 @@
         </div>
         <div class="card-header flex-wrap border-0 pt-6 pb-0">
             <div class="card-title">
-                <h3 class="card-label">{{ __('lang.salt_trading_limited') }} <a href="{{route('local_level_add')}}"> <button type="button" class="btn btn-primary btn-sm">Entry Master</button></a></h3>
+                <h3 class="card-label">{{ __('lang.salt_trading_limited') }} <a href="{{route('salt_trading_add','purchase')}}"> <button type="button" class="btn btn-primary btn-sm">Entry Master</button></a></h3>
             </div>
         </div>
 
