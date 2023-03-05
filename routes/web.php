@@ -57,6 +57,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('hierarchies/delete_node/:id', 'HierarchyController@deleteNode')->name('hierarchies.delete_node');
     Route::get('hierarchies/access_level', 'HierarchyController@accessLevel')->name('hierarchies.access_level');
     Route::post('hierarchies/access_level', 'HierarchyController@accessLevelAction');
+
+    Route::get('hierarchies/department-have-category', 'HierarchyController@ModuleHaveCategory')->name('ModuleHaveCategory');
+    Route::post('hierarchies/department-have-category', 'HierarchyController@ModuleHaveCategoryAction');
+
     Route::get('get_access_level', 'HierarchyController@getAccessLevel')->name('get_access_level');
     Route::resource('hierarchies', 'HierarchyController');
 

@@ -178,6 +178,13 @@
                                                 <span class="menu-text">Access Levels</span>
                                             </a>
                                         </li>
+                                        <li class="menu-item menu-item-submenu" data-menu-toggle="hover"
+                                            aria-haspopup="true">
+                                            <a href="{{route('ModuleHaveCategory')}}" class="menu-link">
+                                                <span class="fas fa-boxes menu-icon"></span>
+                                                <span class="menu-text">Deparment have Category</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
