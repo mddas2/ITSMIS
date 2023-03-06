@@ -45,20 +45,16 @@
 	var roleId = {!! auth()->user()->role_id !!};
 
 	$(document).on('change','.hierarchyList', function() {
-		var hierarchy = $(this).val();
+		var module_id = $(this).val();
 		var route = '{{route('getModuleHasCategory')}}';
 		var officeId = [];
 		$.ajax({
 			type: "GET",
-			url: route + '?hierarchy_id=' + hierarchy,
+			url: route + '?module_id=' + module_id,
 			success: function(response) {
-				var obj = JSON.parse(response);
-				console.log(obj);
-				if (obj.office.length > 0) {
-					officeId = obj.office;
-				}
-				if (obj.module.length > 0) {
-					$('.modules').val(obj.module);
+				console.log(response);
+				if (response.length > 0) {
+					$('.modules').val(response);
 				}
 			}
 		});
@@ -66,7 +62,7 @@
 		var route =  "<?php echo URL::to("office_list"); ?>";
 		$.ajax({
 			type: "GET",
-			url: route + '?hierarchy_id=' + hierarchy,
+			url: route + '?hierarchy_id=' + module_id,
 			success: function(response) {
 				var obj = JSON.parse(response);
 				var select = "";

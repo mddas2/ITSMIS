@@ -74,25 +74,16 @@ class ModulehascategoryController extends Controller
 
     public function getModuleHasCategory(Request $request)
     {
-
-        $query = AccessLevel::query();
+        $query = Modulehascategory::query();
         // return $query->get();
-        if ($request->has('hierarchy_id')) {
-            $query->where('hierarchy_id',$request->hierarchy_id);
+        // return $query->get();
+        if ($request->has('module_id')) {
+            $query->where('module_id',$request->module_id);
         }
 
-        $data = $query->first();
-        $return = ['office' => [],'module'=>[]];
-        if (!empty($data)) {
-            $return = [
-                'office' => !empty($data->office_id)?unserialize($data->office_id):"",
-                'module' => unserialize($data->module_id)
-            ];
-
-            return json_encode($return);
-        } else {
-            return json_encode($return);
-        }
+        $data = $query->where('module_id',$request->module_id)->pluck('category_id')->toArray();
+        return $data;
+      
         // {"office":["0"],"module":["1","2","3","4","5","6","7","8","9","10","11","12","13"]}
     }
 
