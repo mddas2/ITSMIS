@@ -60,9 +60,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     
     Route::get('hierarchies/department-have-category', 'ModulehascategoryController@ModuleHaveCategory')->name('ModuleHaveCategory');
-
-    // Route::get('hierarchies/department-have-category', 'HierarchyController@ModuleHaveCategory')->name('ModuleHaveCategory');
     Route::post('hierarchies/department-have-category', 'HierarchyController@ModuleHaveCategoryAction');
+    Route::get('get_module_have_category', 'ModulehascategoryController@getModuleHasCategory')->name('getModuleHasCategory');
 
 
     Route::get('get_access_level', 'HierarchyController@getAccessLevel')->name('get_access_level');

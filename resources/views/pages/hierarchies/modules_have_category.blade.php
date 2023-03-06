@@ -46,7 +46,7 @@
 
 	$(document).on('change','.hierarchyList', function() {
 		var hierarchy = $(this).val();
-		var route = "<?php echo URL::to("get_access_level"); ?>";
+		var route = '{{route('getModuleHasCategory')}}';
 		var officeId = [];
 		$.ajax({
 			type: "GET",
@@ -57,7 +57,6 @@
 				if (obj.office.length > 0) {
 					officeId = obj.office;
 				}
-
 				if (obj.module.length > 0) {
 					$('.modules').val(obj.module);
 				}
