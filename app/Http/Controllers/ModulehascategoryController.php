@@ -81,14 +81,13 @@ class ModulehascategoryController extends Controller
 
         $data = $query->where('module_id',$request->module_id)->first();
         $data = unserialize($data->categories);
-        $data = json_decode($data);
+        // $data = json_decode($data);
         return $data;      
        
     }
     public function StoreModuleHasCategory(Request $request)
     {
         $categories = $request->id;
-        $categories = '["1","2"]';
         // return $categories;
         Modulehascategory::updateOrCreate(
             ['module_id' => $request->module_id],
@@ -111,7 +110,7 @@ class ModulehascategoryController extends Controller
         
         $datas = $query->where('module_id',$request->module_id)->first();
         $datas = unserialize($datas->categories);
-        $datas = json_decode($datas);
+        // $datas = json_decode($datas);
         
         foreach($datas as $dat){
             $cat = ItemCategory::find($dat);

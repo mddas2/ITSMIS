@@ -17,8 +17,7 @@
 				<div class="col-lg-6">
 					<label>category list:</label>
 						<ul class="officeList">
-							<li>Apple</li>
-							<li>Ball</li>
+							
 						</ul>
 				</div>
 			</div>
