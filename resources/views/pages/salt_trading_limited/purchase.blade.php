@@ -26,7 +26,18 @@
 						<i class="fab fa-bitbucket icon-2x"></i>
 					</span>
 				</span>
-                        <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Import</span>
+                        <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Salt Import</span>
+                    </a>
+                </li>
+                <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
+                    <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center purchasePage "
+                       href="{{route('salt_consumption')}}">
+				<span class="nav-icon py-3 w-auto">
+					<span class="svg-icon svg-icon-3x">
+						<i class="fab fa-bitbucket icon-2x"></i>
+					</span>
+				</span>
+                        <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Salt Consumption</span>
                     </a>
                 </li>
                 <!-- <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
@@ -82,6 +93,8 @@
                     </div>
                 </div>
             </form>
+            <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('oil_add_production')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
+                  
             <form class="form" id="kt_form" action="{{route('salt_trading_add',$type)}}" method="post">
                 {{csrf_field()}}
                 <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">

@@ -38,10 +38,10 @@
       <div class="col-lg-6 col-md-8">
         <div class="card">
           <div class="card-header bg-primary text-white text-center">
-            <h4>Oil Level Entry</h4>
+            <h4>Salt Entry</h4>
           </div>
           <div class="card-body">
-            <form class="form" id="kt_form" action="{{route('noc_add')}}" method="post">
+            <form class="form" id="kt_form" action="{{route('salt_trading_add','purchase')}}" method="post">
               {{csrf_field()}}
               <input type="hidden" name="data[0][id]" value="0">
               <div class="form-group">

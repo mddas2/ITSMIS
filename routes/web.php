@@ -283,6 +283,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('salt_add/{type}', 'SaltTradingLimitedController@add')->name('salt_trading_add');
     Route::post('salt_add/{type}', 'SaltTradingLimitedController@addAction');
+
+    Route::get('salt-consumption-add', 'ConsumptionController@SaltConsusmptionAdd')->name('salt_consumption');
+    Route::post('salt-consumption-add', 'ConsumptionController@SaltConsumptionAddAction')->name('SaltAddAction');
+    Route::get('salt-new-add', 'SaltTradingLimitedController@AddSaltNew')->name('salt_new_add');
+
     Route::get('salt_excel_insert/{type}', 'SaltTradingLimitedController@excelDataInsert')->name('salt-trading-excel-insert');
     Route::post('salt_excel_insert/{type}', 'SaltTradingLimitedController@excelDataInsertAction');
     Route::get('salt_excel_sample/{type}', 'SaltTradingLimitedController@getSample')->name('salt-trading-excel-sample');
