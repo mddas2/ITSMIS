@@ -303,10 +303,6 @@ class ConsumptionController extends Controller
             }
         }
 
-
-
-
-
         $this->_data['formatData'] = $formatData;
 
         return view($this->_page . 'verify_production_registration', $this->_data);
