@@ -18,13 +18,13 @@
                 role="tablist">
                 <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
                         <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center active "
-                        href="{{route('local_level_add')}}">
+                        href="{{route('noc_add')}}">
                     <span class="nav-icon py-3 w-auto">
                         <span class="svg-icon svg-icon-3x">
                             <i class="fab fa-bitbucket icon-2x"></i>
                         </span>
                     </span>
-                            <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Product Entry</span>
+                            <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Oil Import Entry</span>
                         </a>
                 </li>
                 <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
@@ -38,7 +38,7 @@
                             <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Consumption Entry</span>
                         </a>
                 </li>
-                <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
+                <!-- <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
                     <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center SalesStockPage"
                        href="{{route('local_level_addTraining')}}">
 				<span class="nav-icon py-3 w-auto">
@@ -48,7 +48,7 @@
 				</span>
                         <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Entrepreneurship Promotion Program</span>
                     </a>
-                </li>
+                </li> -->
             </ul>
         </div>
 
@@ -126,7 +126,7 @@
                   
         
         
-            <form class="form" id="kt_form" action="{{route('local_level_add')}}" method="post">
+            <form class="form" id="kt_form" action="{{route('noc_add')}}" method="post">
                 {{csrf_field()}}
                 <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
                     <thead>
@@ -135,7 +135,8 @@
                         <th rowspan="1">Date</th>                        
                         <th rowspan="1">Category</th>
                         <th rowspan="1">Oil Name</th>
-                        <th rowspan="1">Quantity</th>                       
+                        <th rowspan="1">Quantity</th>      
+                        <th rowspan="1">Unit</th>                       
                         <th rowspan="1">Actions</th>
                     </tr>
 
@@ -158,9 +159,11 @@
                             <td>
                                 <input type="text" name="" class="form-control nepdatepicker" autocomplete="off" value="{{$row->quantity}}" disabled="">
                             </td>
-                   >
                           
-                            <td></td>
+                            <td>
+                                Litre
+                            </td>
+                          <td></td>
                         </tr>
                         @php $key++; @endphp
                     @endforeach
@@ -180,6 +183,10 @@
                         <td>
                             <input type="text" name="data[{{$key}}][quantity]" class="form-control " required>
                         </td>
+                        <td>
+                            Litre
+                        </td>
+                   
                   
                         <td id='remRow'></td>
                     </tr>

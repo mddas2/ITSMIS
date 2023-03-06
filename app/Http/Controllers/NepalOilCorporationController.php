@@ -201,9 +201,11 @@ class NepalOilCorporationController extends Controller
 
     public function addAction(Request $request)
     {
+        // return $request;
     	foreach($request->data as $key=>$data) {
             $data['user_id'] = Auth::user()->id;
-            //$data['locked'] = 1;
+            $data['unit_id'] = 2;//2 is liter unit
+           
             if (!empty($data['date'])) {
                // dd($data);
                 NepalOilCorporation::updateOrCreate(
