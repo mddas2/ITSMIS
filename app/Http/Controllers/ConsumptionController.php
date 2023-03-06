@@ -106,7 +106,7 @@ class ConsumptionController extends Controller
     }
     public function OiladdAction(Request $request)
     {
-        return $request;
+        // return $request;
    
         if(auth()->user()->role_id == 2 && $request->session()->has('provience_id') && $request->session()->has('district_id') && $request->session()->has('municipality_id')){  //admin        
             $provience_id = $request->session()->get('provience_id');
@@ -137,7 +137,8 @@ class ConsumptionController extends Controller
             }
         }
 
-        return redirect()->route('local_level_consumption_add')->with('success', 'Your Information has been Added .');
+        return redirect()->back()->with('success', 'Your Information has been Added .');
+        // return redirect()->route('local_level_consumption_add')->with('success', 'Your Information has been Added .');
     }
 
     public function add(Request $request)

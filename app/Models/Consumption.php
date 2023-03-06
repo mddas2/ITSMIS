@@ -30,6 +30,10 @@ class Consumption extends Model
     {
         return $this->belongsTo('App\Models\Municipality', 'municipality_id', 'municipality_id');
     }
+    public function getProvince()
+    {
+        return $this->belongsTo('App\Models\Province', 'provience_id', 'id');
+    }
 
 }
 

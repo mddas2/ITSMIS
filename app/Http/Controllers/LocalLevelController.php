@@ -12,6 +12,7 @@ use App\Models\TrainingType;
 use Illuminate\Http\Request;
 use App\Models\MeasurementUnit;
 use App\Models\User;
+use App\Models\Province;
 use App\Models\Item;
 
 use App\Models\District;
@@ -458,12 +459,14 @@ class LocalLevelController extends Controller
         $municipality_id = $request['municipality_id'];
         // return $municipality_id;
         $municipality_name = Municipality::where('municipality_id',$municipality_id)->first()->alt_name;
+        $provience_name = Province::where('id',$provience_id)->first()->alt_name;
 
         $request->session()->put('municipality_name', $municipality_name);
+        $request->session()->put('province_name', $provience_name);
+
         $request->session()->put('provience_id', $provience_id);
         $request->session()->put('district_id', $district_id);
         $request->session()->put('municipality_id', $municipality_id);
-        return redirect(route('local_level_add'));
-
+        return redirect()->back();
     }
 }
