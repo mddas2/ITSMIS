@@ -125,16 +125,7 @@
                         <tr>
                             <td>{{$key+1}}</td>
                             <td>
-
-                                @php
-                                    $nepFromDate = explode('-',$row->asmt_date);
-                                       $fromDate = toNepali($nepFromDate[0], $nepFromDate[1], $nepFromDate[2],'en');
-                                       $engFromDate=  $fromDate['year'].'-'.$fromDate['month'].'-'.$fromDate['date'] ;
-                                       $engFromDate = date('Y-m-d',strtotime($engFromDate));
-
-
-                                @endphp
-                                {{$engFromDate }}
+                              {{$row->asmt_date }}
                             </td>
 
                             <td>
