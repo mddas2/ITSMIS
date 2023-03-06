@@ -20,14 +20,9 @@
                         <th rowspan="2">Item(Product Description)</th>
                         <th rowspan="2">Import Quantity</th>
                         <th rowspan="2">Unit</th>
-                        <th rowspan="2">Import Cost (Per Unit)</th>
-                        <th colspan="2">Stock</th>
-                        <th rowspan="2">Sales Quantity</th>
+             
                     </tr>
-                    <tr>
-                        <td>Stock Date</td>
-                        <td>Stock Quantity</td>
-                    </tr>
+              
                     </thead>
                     <tbody id="tb_id">
                     <?php $key = 0;?>
@@ -48,21 +43,7 @@
                             <td>
                                 {{Form::select('data['.$key.'][unit_id]',$units,$row['unit'],['class' => 'form-control'])}}
                             </td>
-                            <td>
-                                <input type="text" name="data[{{$key}}][import_cost]" class="form-control"
-                                       autocomplete="off" value="{{$row['import_cost']}}">
-                            </td>
-                            <td>
-                                <input type="text" name="data[{{$key}}][stock_date]"   data-single="true" class="form-control nepdatepicker" autocomplete="off" id="nep0{{$key}}" value="{{$row['stock_date']}}" >
-                            </td>
-                            <td>
-                                <input type="text" name="data[{{$key}}][stock_quantity]" class="form-control" autocomplete="off"
-                                       value="{{$row['stock_quantity']}}">
-                            </td>
-                            <td>
-                                <input type="text" name="data[{{$key}}][sales_quantity]" class="form-control" autocomplete="off"
-                                       value="{{$row['sales_quantity']}}">
-                            </td>
+            
                         </tr>
                         @php $key++; @endphp
                     @endforeach

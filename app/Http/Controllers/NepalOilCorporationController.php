@@ -225,12 +225,10 @@ class NepalOilCorporationController extends Controller
 
     public function excelDataInsertAction(Request $request,$type)
     {
-
+        
         $data = Excel::toArray(new DOIImport(),$request->file('sample_excel'));
 
         $formatData = [];
-
-
 
             $heading = ['date','item_id','quantity','unit','import_cost','stock_date','stock_quantity','sales_quantity'];
             foreach ($data[0] as $key=>$row) {
