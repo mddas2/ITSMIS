@@ -17,7 +17,10 @@
 				</div>
 				<div class="col-lg-6">
 					<label>category list:</label>
-					{{Form::select('office_id[]',[],null,['class'=>'form-control form-control-solid officeList','size' => 8,'multiple'=>true])}}
+						<ul class="officeList">
+							<li>Apple</li>
+							<li>Ball</li>
+						</ul>
 				</div>
 			</div>
 			<div class="form-group row">
@@ -52,7 +55,7 @@
 			type: "GET",
 			url: route + '?module_id=' + module_id,
 			success: function(response) {
-				console.log(response);
+				
 				if (response.length > 0) {
 					$('.modules').val(response);
 				}
@@ -64,16 +67,14 @@
 			type: "GET",
 			url: route + '?module_id=' + module_id,
 			success: function(response) {
-				var obj = JSON.parse(response);
-				var select = "";
-				Object.keys(obj).forEach(function(key) {
-					if (officeId.includes(key)) {
-						select += '<option value="' + key + '" selected>' + obj[key] + '</option >';
-					} else {
-						select += '<option value="' + key + '">' + obj[key] + '</option >';
-					}
+				// var obj = JSON.parse(response);
+				// var select = "";
+				$(".officeList").empty();
+				Object.keys(response).forEach(function(key) {
+					console.log(response[key]['name'])
+					$(".officeList").append('<li>'+response[key]['name']+'</li>')
+				
 				});
-				$(".officeList").html(select);
 			}
 		});
 	});

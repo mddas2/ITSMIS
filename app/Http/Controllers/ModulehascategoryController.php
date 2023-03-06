@@ -85,13 +85,18 @@ class ModulehascategoryController extends Controller
     }
     public function getModuleHasCategoryList(Request $request)
     {
+        $list = [];
         $query = Modulehascategory::query();
         if ($request->has('module_id')) {
             $query->where('module_id',$request->module_id);
         }
 
-        $data = $query->where('module_id',$request->module_id)->pluck('category_id')->toArray();
-        return $data;      
+        $datas = $query->where('module_id',$request->module_id)->pluck('category_id')->toArray();
+        foreach($datas as $dat){
+            $cat = ItemCategory::find($dat);
+            $list[] = $cat;
+        }   
+        return $list;
        
     }
 
