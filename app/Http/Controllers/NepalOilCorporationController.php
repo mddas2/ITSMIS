@@ -12,6 +12,8 @@ use App\Models\Item;
 use App\Models\ItemCategory;
 use Auth;
 use App\Models\Hierarchy;
+use App\Models\Modulehascategory;
+use App\Models\AccessLevel;
 use Maatwebsite\Excel\Facades\Excel;
 use DB;
 use Illuminate\Support\Facades\Schema;
@@ -50,6 +52,11 @@ class NepalOilCorporationController extends Controller
         return redirect()->back()->with('success', 'New Column has been Added .');
     }
     public function addOil(Request $request){
+    
+        $category_ids = Modulehascategory::where('module_id',4)->first();//oil module is 4
+        $category_ids = unserialize($category_ids->categories);    
+        $category = ItemCategory::whereIn('id',$category_ids)->pluck('name_np', 'id')->toArray();
+
         $query = NepalOilCorporation::query();
 
         $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
@@ -89,9 +96,9 @@ class NepalOilCorporationController extends Controller
         }
 
         //$this->_data['columns'] = Schema::getColumnListing('nepal_oil_corporations');
-        $this->_data['items'] = Item::pluck('name_np', 'id')->toArray();
+        $this->_data['items'] = Item::whereIn('item_category_id',$category_ids)->pluck('name_np', 'id')->toArray();
         $this->_data['units'] = MeasurementUnit::pluck('name_np', 'id')->toArray();
-        $this->_data['category'] = ItemCategory::pluck('name_np', 'id')->toArray();
+        $this->_data['category'] = $category;
         $this->_data['data'] = $data;
         $this->_data['user'] = User::find(Auth::id());
 
@@ -117,6 +124,12 @@ class NepalOilCorporationController extends Controller
     }
     public function add(Request $request)
     {
+
+        $category_ids = Modulehascategory::where('module_id',4)->first();//oil module is 4
+        $category_ids = unserialize($category_ids->categories);    
+        $category = ItemCategory::whereIn('id',$category_ids)->pluck('name_np', 'id')->toArray();
+        // return $category;
+    
         $query = NepalOilCorporation::query();
 
         $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
@@ -158,9 +171,9 @@ class NepalOilCorporationController extends Controller
         }
 
         //$this->_data['columns'] = Schema::getColumnListing('nepal_oil_corporations');
-        $this->_data['items'] = Item::pluck('name_np', 'id')->toArray();
+        $this->_data['items'] = Item::whereIn('item_category_id',$category_ids)->pluck('name_np', 'id')->toArray();
         $this->_data['units'] = MeasurementUnit::pluck('name_np', 'id')->toArray();
-        $this->_data['category'] = ItemCategory::pluck('name_np', 'id')->toArray();
+        $this->_data['category'] = $category;
         $this->_data['data'] = $data;
         $this->_data['user'] = User::find(Auth::id());
 

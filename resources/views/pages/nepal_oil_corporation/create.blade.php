@@ -180,9 +180,7 @@
                         <td>
                             <input type="text" name="data[{{$key}}][quantity]" class="form-control " required>
                         </td>
-                       
-                      
-                      
+                  
                         <td id='remRow'></td>
                     </tr>
                     </tbody>
