@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use App\Models\FoodManagementTradingCo;
 use App\Models\MeasurementUnit;
 use App\Models\User;
+use App\Models\Modulehascategory;
+use App\Models\ItemCategory;
 use App\Models\Item;
 use Auth;
 use App\Models\Hierarchy;
@@ -41,7 +43,7 @@ class SaltTradingLimitedController extends Controller
 
     public function AddSaltNew(Request $request){
     
-        $category_ids = Modulehascategory::where('module_id',4)->first();//oil module is 4
+        $category_ids = Modulehascategory::where('module_id',6)->first();//salt module is 4
         $category_ids = unserialize($category_ids->categories);    
         $category = ItemCategory::whereIn('id',$category_ids)->pluck('name_np', 'id')->toArray();
 
@@ -113,6 +115,10 @@ class SaltTradingLimitedController extends Controller
 
     public function add(Request $request, $type)
     {
+        $category_ids = Modulehascategory::where('module_id',6)->first();//salt module is 6
+        $category_ids = unserialize($category_ids->categories);    
+        $category = ItemCategory::whereIn('id',$category_ids)->pluck('name_np', 'id')->toArray();
+
         $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
 
         $this->_data['type'] = $type;
@@ -160,7 +166,7 @@ class SaltTradingLimitedController extends Controller
         }
 
         //$this->_data['columns'] = Schema::getColumnListing('nepal_oil_corporations');
-        $this->_data['items'] = Item::pluck('name_np', 'id')->toArray();
+        $this->_data['items'] = Item::whereIn('item_category_id',$category_ids)->pluck('name_np', 'id')->toArray();
         $this->_data['units'] = MeasurementUnit::pluck('name_np', 'id')->toArray();
         $this->_data['data'] = $data;
         $this->_data['user'] = User::find(Auth::id());

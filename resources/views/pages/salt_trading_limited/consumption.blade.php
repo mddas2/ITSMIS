@@ -18,18 +18,18 @@
                 role="tablist">
                 <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
                         <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center"
-                        href="{{route('noc_add')}}">
+                        href="{{route('salt_trading_add','purchase')}}">
                     <span class="nav-icon py-3 w-auto">
                         <span class="svg-icon svg-icon-3x">
                             <i class="fab fa-bitbucket icon-2x"></i>
                         </span>
                     </span>
-                            <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Oil Import Entry</span>
+                            <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Salt Import Entry</span>
                         </a>
                 </li>
                 <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
                         <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center active"
-                        href="{{route('oil_level_consumption_add')}}">
+                        href="{{route('salt_consumption')}}">
                     <span class="nav-icon py-3 w-auto">
                         <span class="svg-icon svg-icon-3x">
                             <i class="fab fa-bitbucket icon-2x"></i>
