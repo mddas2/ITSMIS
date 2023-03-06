@@ -14,10 +14,10 @@
     <div class="card card-custom gutter-b">
         {{-- @include('pages.partials.corporation_office_header_tiles') --}}
         <div class="card-body">
-            <ul class="dashboard-tabs nav nav-pills nav-primary row row-paddingless m-0 p-0 flex-column flex-sm-row"
+        <ul class="dashboard-tabs nav nav-pills nav-primary row row-paddingless m-0 p-0 flex-column flex-sm-row"
                 role="tablist">
                 <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-                        <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center active "
+                        <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center"
                         href="{{route('noc_add')}}">
                     <span class="nav-icon py-3 w-auto">
                         <span class="svg-icon svg-icon-3x">
@@ -28,7 +28,7 @@
                         </a>
                 </li>
                 <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-                        <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center"
+                        <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center active"
                         href="{{route('oil_level_consumption_add')}}">
                     <span class="nav-icon py-3 w-auto">
                         <span class="svg-icon svg-icon-3x">
@@ -55,18 +55,14 @@
         <div class="card-header flex-wrap border-1 pt-6 pb-0">
             <div class="card-title">
                 <h3 class="card-label">
-                    Local Level - Productions
+                    Oil Level - Consumption
                 </h3>
             </div>
             <div class="card-toolbar">
-            <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax"
-			   data-src="{{route('noc-excel-insert')}}"><i
-						class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
-                <!-- <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_production_excel','production')}}" ><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a> -->
+                <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_production_excel','production')}}" ><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
             </div>
         </div>
-      
-        
+    
         <div class="card-body">
             <form>
                 <div class="form-group row">
@@ -91,23 +87,19 @@
                     </div>
                 </div>
             </form>
-       
-               
-                <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('oil_add_production')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
-                  
-        
-        
-            <form class="form" id="kt_form" action="{{route('noc_add')}}" method="post">
+            <form class="form" id="kt_form" action="{{route('local_level_consumption_add')}}" method="post">
                 {{csrf_field()}}
                 <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
                     <thead>
                     <tr>
                         <th rowspan="1">SN</th>
-                        <th rowspan="1">Date</th>                        
+                        <th rowspan="1">Date</th>
                         <th rowspan="1">Category</th>
-                        <th rowspan="1">Oil Name</th>
-                        <th rowspan="1">Quantity</th>      
-                        <th rowspan="1">Unit</th>                       
+                        <th rowspan="1">Consume Product</th>                     
+                        <th rowspan="1">Quantity</th>
+                        <th rowspan="1">Quantity Unit</th>
+                        <th colspan="1">Muncipality</th>
+                      
                         <th rowspan="1">Actions</th>
                     </tr>
 
@@ -126,15 +118,19 @@
                             </td>
                             <td>
                                 {{Form::select('',$items,$row->item_id,['class' => 'form-control  ','disabled'=> 'disabled'])}}
-                            </td>                          
+                            </td>                           
                             <td>
                                 <input type="text" name="" class="form-control nepdatepicker" autocomplete="off" value="{{$row->quantity}}" disabled="">
                             </td>
-                          
                             <td>
-                                Litre
+                                {{Form::select('',$units,$row->quantity_unit,['class' => 'form-control','disabled'=> 'disabled'])}}
                             </td>
-                          <td></td>
+                            <td>
+                                @if($row->getMunicipality)
+                                    {{$row->getMunicipality->alt_name}}
+                                @endif
+                            </td>
+                            <td></td>
                         </tr>
                         @php $key++; @endphp
                     @endforeach
@@ -155,20 +151,26 @@
                             <input type="text" name="data[{{$key}}][quantity]" class="form-control " required>
                         </td>
                         <td>
-                            Litre
+                            {{Form::select('data['.$key.'][quantity_unit]',$units,null,['class' => 'form-control' , 'id' => 'quantity_unit_action'])}}
                         </td>
-                   
-                  
+                        <td>
+                            @if(auth()->user()->role_id == 2)
+                                {{session('municipality_name') ?? Auth::user()->getUserMunicipality->alt_name}}
+                            @else
+                                {{Auth::user()->getUserMunicipality->alt_name}}
+                            @endif
+                        </td>
+                        
                         <td id='remRow'></td>
                     </tr>
                     </tbody>
                     <tfoot>
                     <tr>
-                        <!-- <td colspan="2">
+                        <td colspan="2">
                             <button class="btn btn-primary btn-sm add" type="button">
                                 <i class="fa fa-plus icon-sm"></i>Add New Row
                             </button>
-                        </td> -->
+                        </td>
                         <td colspan="5"></td>
                         <td colspan="1">
                             <button class="btn btn-success btn-sm" type="submit">
@@ -186,8 +188,7 @@
     <script src="{{asset('js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('plugins/custom/datatables/datatables.bundle.js')}}"></script>
     <script type="text/javascript">
-
-        $("#provience_id option[value='{{session('provience_id')}}']").prop("selected", true);
+                $("#provience_id option[value='{{session('provience_id')}}']").prop("selected", true);
         var selectedValue = $("#provience_id").val();
                 $.ajax({
                     type: "GET",
@@ -273,14 +274,13 @@
                     }
             });
     });
-
         $('.productEntry').addClass("active");
         var table = $('#kt_datatable');
 
-        // table.DataTable({
-        //     responsive: true,
-        //     paging: false
-        // });
+        table.DataTable({
+            responsive: true,
+            paging: false
+        });
 
         var key = {!! $key !!};
 
@@ -321,10 +321,9 @@
                 ndpYearCount: 10
             }*/);
             $(".select_item" + updatedTblCount).on("change", function (e) {
-
                 e.preventDefault();
                 var itemID = $(this).val();
-                
+
                 $.ajax({
                     type: "GET",
                     url: "{{route('getCategoryByItem')}}",
@@ -337,6 +336,7 @@
 
             });
             $(".select_category" + updatedTblCount).on("change", function (e) {
+
                 var catId = $(this).val();
                 $.ajax({
                     type: "GET",
@@ -362,7 +362,6 @@
             ndpYearCount: 10
         }*/);
         $(".select_item").on("change", function (e) {
-
             var itemID = $(this).val();
             $.ajax({
                 type: "GET",
@@ -374,7 +373,7 @@
                 }
             });
         });
-        $(".select_category").on("change", function (e) {            
+        $(".select_category").on("change", function (e) {
             var catId = $(this).val();
             ActionOnQuantityUnit(catId);
             $.ajax({
