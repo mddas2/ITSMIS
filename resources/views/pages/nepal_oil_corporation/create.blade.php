@@ -134,11 +134,8 @@
                         <th rowspan="1">SN</th>
                         <th rowspan="1">Date</th>                        
                         <th rowspan="1">Category</th>
-                        <th rowspan="1">Produced Product</th>
-                        <th rowspan="1">Quantity</th>
-                        <th rowspan="1">Quantity Unit</th>
-                        <th colspan="1">Location</th>
-                        <th colspan="1">Produced By</th>
+                        <th rowspan="1">Oil Name</th>
+                        <th rowspan="1">Quantity</th>                       
                         <th rowspan="1">Actions</th>
                     </tr>
 
@@ -161,15 +158,8 @@
                             <td>
                                 <input type="text" name="" class="form-control nepdatepicker" autocomplete="off" value="{{$row->quantity}}" disabled="">
                             </td>
-                            <td>
-                                {{Form::select('',$units,$row->quantity_unit,['class' => 'form-control','disabled'=> 'disabled'])}}
-                            </td>
-                            <td>
-                              Saptaray,tilathi koiladid
-                            </td>
-                            <td>
-                                <input type="text" name="" class="form-control " autocomplete="off" value="{{$row->produced_by}}" disabled>
-                            </td>
+                   >
+                          
                             <td></td>
                         </tr>
                         @php $key++; @endphp
@@ -190,15 +180,9 @@
                         <td>
                             <input type="text" name="data[{{$key}}][quantity]" class="form-control " required>
                         </td>
-                        <td>
-                            {{Form::select('data['.$key.'][quantity_unit]',$units,null,['class' => 'form-control' , 'id' => 'quantity_unit_action'])}}
-                        </td>
-                        <td>
-                            Saptaray,tilathi koiladid
-                        </td>
-                        <td>
-                            <input type="text" name="data[{{$key}}][produced_by]" class="form-control " autocomplete="off" required>
-                        </td>
+                       
+                      
+                      
                         <td id='remRow'></td>
                     </tr>
                     </tbody>
