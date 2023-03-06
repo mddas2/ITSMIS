@@ -98,9 +98,7 @@
                         <th rowspan="1">Consume Product</th>                     
                         <th rowspan="1">Quantity</th>
                         <th rowspan="1">Quantity Unit</th>
-                   
-                      
-                        <th rowspan="1">Actions</th>
+                     <th rowspan="1">Actions</th>
                     </tr>
 
                     </thead>

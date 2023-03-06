@@ -106,6 +106,7 @@ class ConsumptionController extends Controller
     }
     public function OiladdAction(Request $request)
     {
+        return $request;
    
         if(auth()->user()->role_id == 2 && $request->session()->has('provience_id') && $request->session()->has('district_id') && $request->session()->has('municipality_id')){  //admin        
             $provience_id = $request->session()->get('provience_id');
