@@ -261,6 +261,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('noc_add', 'NepalOilCorporationController@add')->name('noc_add');
     Route::post('noc_add', 'NepalOilCorporationController@addAction');
     Route::get('oil-level-consumption-add', 'ConsumptionController@OilConsusmptionAdd')->name('oil_level_consumption_add');
+    Route::post('oil-level-consumption-add', 'ConsumptionController@OiladdAction')->name('OiladdAction');
+
 
     Route::get('oil_add_production', 'NepalOilCorporationController@addOil')->name('oil_add_production');
 

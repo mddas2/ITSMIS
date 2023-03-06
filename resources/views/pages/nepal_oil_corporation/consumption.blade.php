@@ -87,7 +87,7 @@
                     </div>
                 </div>
             </form>
-            <form class="form" id="kt_form" action="{{route('local_level_consumption_add')}}" method="post">
+            <form class="form" id="kt_form" action="{{route('OiladdAction')}}" method="post">
                 {{csrf_field()}}
                 <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
                     <thead>
@@ -98,7 +98,7 @@
                         <th rowspan="1">Consume Product</th>                     
                         <th rowspan="1">Quantity</th>
                         <th rowspan="1">Quantity Unit</th>
-                        <th colspan="1">Muncipality</th>
+                   
                       
                         <th rowspan="1">Actions</th>
                     </tr>
@@ -125,11 +125,7 @@
                             <td>
                                 {{Form::select('',$units,$row->quantity_unit,['class' => 'form-control','disabled'=> 'disabled'])}}
                             </td>
-                            <td>
-                                @if($row->getMunicipality)
-                                    {{$row->getMunicipality->alt_name}}
-                                @endif
-                            </td>
+                            
                             <td></td>
                         </tr>
                         @php $key++; @endphp
@@ -153,14 +149,7 @@
                         <td>
                             {{Form::select('data['.$key.'][quantity_unit]',$units,null,['class' => 'form-control' , 'id' => 'quantity_unit_action'])}}
                         </td>
-                        <td>
-                            @if(auth()->user()->role_id == 2)
-                                {{session('municipality_name') ?? Auth::user()->getUserMunicipality->alt_name}}
-                            @else
-                                {{Auth::user()->getUserMunicipality->alt_name}}
-                            @endif
-                        </td>
-                        
+                                             
                         <td id='remRow'></td>
                     </tr>
                     </tbody>

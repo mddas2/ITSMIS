@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Models\MeasurementUnit;
 use App\Models\User;
 use App\Models\Item;
+use App\Models\Modulehascategory;
 use Auth;
 use App\Models\Hierarchy;
 use Maatwebsite\Excel\Facades\Excel;
@@ -33,7 +34,11 @@ class ConsumptionController extends Controller
     }
     public function OilConsusmptionAdd(Request $request)
     {
-        $query = Consumption::query();
+        $category_ids = Modulehascategory::where('module_id',4)->first();//oil module is 4
+        $category_ids = unserialize($category_ids->categories);    
+        $category = ItemCategory::whereIn('id',$category_ids)->pluck('name_np', 'id')->toArray();
+
+        $query = Consumption::query()->whereIn('item_category_id',$category_ids);
 
         $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
 
@@ -69,14 +74,13 @@ class ConsumptionController extends Controller
             $data = $query->get();
         } else {
 
-
             $data = $query->latest()->take(20)->get();
         }
 
         //$this->_data['columns'] = Schema::getColumnListing('nepal_oil_corporations');
-        $this->_data['items'] = Item::pluck('name_np', 'id')->toArray();
+        $this->_data['items'] = Item::whereIn('item_category_id',$category_ids)->pluck('name_np', 'id')->toArray();
         $this->_data['units'] = MeasurementUnit::pluck('name_np', 'id')->toArray();
-        $this->_data['category'] = ItemCategory::pluck('name_np', 'id')->toArray();
+        $this->_data['category'] = $category;
         $this->_data['data'] = $data;
         $this->_data['user'] = User::find(Auth::id());
 
@@ -99,6 +103,40 @@ class ConsumptionController extends Controller
         }
         
         return view('pages.nepal_oil_corporation.consumption', $this->_data);
+    }
+    public function OiladdAction(Request $request)
+    {
+   
+        if(auth()->user()->role_id == 2 && $request->session()->has('provience_id') && $request->session()->has('district_id') && $request->session()->has('municipality_id')){  //admin        
+            $provience_id = $request->session()->get('provience_id');
+            $district_id = $request->session()->get('district_id');
+            $municipality_id = $request->session()->get('municipality_id');
+        }
+        else{
+            $provience_id = $request->user()->provience_id;
+            $district_id = $request->user()->district_id;
+            $municipality_id = $request->user()->municipality_id;
+        }
+
+        foreach ($request->data as $key => $data) {
+            
+            $data['provience_id'] = $provience_id;
+            $data['district_id'] = $district_id;
+            $data['municipality_id'] = $municipality_id; 
+
+            $data['user_id'] = Auth::user()->id;
+
+            //$data['locked'] = 1;
+            if (!empty($data['date'])) {
+                // dd($data);
+                Consumption::updateOrCreate(
+                    ['id' => $data['id']],
+                    $data
+                );
+            }
+        }
+
+        return redirect()->route('local_level_consumption_add')->with('success', 'Your Information has been Added .');
     }
 
     public function add(Request $request)
