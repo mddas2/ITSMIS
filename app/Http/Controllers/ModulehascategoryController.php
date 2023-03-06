@@ -83,6 +83,23 @@ class ModulehascategoryController extends Controller
         return $data;      
        
     }
+    public function StoreModuleHasCategory(Request $request)
+    {
+        return $request;
+        $data = $request->except('_token');
+
+        $data['office_id'] = !empty($data['office_id'])?serialize($data['office_id']):"";
+        $data['module_id'] = serialize($data['module_id']);
+
+        $accessLevel = AccessLevel::where('hierarchy_id',$data['hierarchy_id'])->first();
+        $id = !empty($accessLevel)?$accessLevel['id']:0;
+        AccessLevel::updateOrCreate(
+           ['id' => $id],
+           $data
+        );
+
+        return redirect()->back()->with('success', 'Your Information has been Added .');
+    }
     public function getModuleHasCategoryList(Request $request)
     {
         $list = [];

@@ -6,13 +6,12 @@
    			Manage Access Level
   		</h3>
  	</div>
- 	<form class="form" id="kt_form" action="{{route('hierarchies.access_level')}}" method="post" enctype="multipart/form-data">
+ 	<form class="form" id="kt_form" action="{{route('StoreModuleHasCategory')}}" method="post" enctype="multipart/form-data">
  		{{csrf_field()}}
 		<div class="card-body">
 			<div class="form-group row">
 				<div class="col-lg-6">
 					<label>Modules:</label>
-					
                     {{Form::select('module_id',$modules,null,['class'=>'form-control form-control-solid hierarchyList','required'=>true,'size' => 8])}}
 				</div>
 				<div class="col-lg-6">
