@@ -59,7 +59,10 @@
                 </h3>
             </div>
             <div class="card-toolbar">
-                <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_production_excel','production')}}" ><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
+            <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax"
+			   data-src="{{route('noc-excel-insert')}}"><i
+						class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
+                <!-- <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_production_excel','production')}}" ><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a> -->
             </div>
         </div>
         @if(auth()->user()->role_id == 2)

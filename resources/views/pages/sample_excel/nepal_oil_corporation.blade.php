@@ -5,10 +5,7 @@
         <th>Item(Product Description)</th>
         <th>Import Quantity</th>
         <th>Unit</th>
-        <th>Import Cost (Per Unit)</th>
-        <th>Stock Date</th>
-        <th>Stock Quantity (In Liters)</th>
-        <th>Sales Quantity</th>
+      
 
     </tr>
     </thead>
@@ -21,10 +18,7 @@
         echo '<td>'. $item .'</td>';
         echo '<td>6000</td>';
         echo '<td>Liter</td>';
-        echo '<td>8920000</td>';
-        echo '<td>2020-01-'.$count.'</td>';
-        echo '<td>6000</td>';
-        echo '<td>4000</td>';
+     
         echo '</tr>';
         $count++;
     }
