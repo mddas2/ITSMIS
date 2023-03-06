@@ -75,16 +75,24 @@ class ModulehascategoryController extends Controller
     public function getModuleHasCategory(Request $request)
     {
         $query = Modulehascategory::query();
-        // return $query->get();
-        // return $query->get();
         if ($request->has('module_id')) {
             $query->where('module_id',$request->module_id);
         }
 
         $data = $query->where('module_id',$request->module_id)->pluck('category_id')->toArray();
-        return $data;
-      
-        // {"office":["0"],"module":["1","2","3","4","5","6","7","8","9","10","11","12","13"]}
+        return $data;      
+       
+    }
+    public function getModuleHasCategoryList(Request $request)
+    {
+        $query = Modulehascategory::query();
+        if ($request->has('module_id')) {
+            $query->where('module_id',$request->module_id);
+        }
+
+        $data = $query->where('module_id',$request->module_id)->pluck('category_id')->toArray();
+        return $data;      
+       
     }
 
 }

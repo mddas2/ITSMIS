@@ -59,10 +59,10 @@
 			}
 		});
 
-		var route =  "<?php echo URL::to("office_list"); ?>";
+		var route =  '{{route("getModuleHasCategoryList")}}';
 		$.ajax({
 			type: "GET",
-			url: route + '?hierarchy_id=' + module_id,
+			url: route + '?module_id=' + module_id,
 			success: function(response) {
 				var obj = JSON.parse(response);
 				var select = "";
