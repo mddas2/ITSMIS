@@ -93,7 +93,7 @@
                     </div>
                 </div>
             </form>
-            <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('oil_add_production')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
+            <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('salt_new_add')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
                   
             <form class="form" id="kt_form" action="{{route('salt_trading_add',$type)}}" method="post">
                 {{csrf_field()}}

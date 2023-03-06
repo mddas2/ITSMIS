@@ -63,7 +63,7 @@
               </div>
               <div class="form-group">
                 <label for="quantity"  class="title_md">Quantity *</label>
-                <input type="text" value="Liter" class="form-control " disabled>
+                <input type="text" value="Kg" class="form-control " disabled>
               </div>
              
               <div class="text-center">

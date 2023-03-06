@@ -47,7 +47,7 @@ class SaltTradingLimitedController extends Controller
         $category_ids = unserialize($category_ids->categories);    
         $category = ItemCategory::whereIn('id',$category_ids)->pluck('name_np', 'id')->toArray();
 
-        $query = NepalOilCorporation::query();
+        
 
         $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
 
@@ -72,24 +72,13 @@ class SaltTradingLimitedController extends Controller
             $query->where('user_id', auth()->user()->id);
         }
 
-        if ($request->has('from_date')) {
-            if (!empty($this->_data['from_date'])) {
-                $query->where('date', '>=', $this->_data['from_date']);
-            }
-            if (!empty($this->_data['to_date'])) {
-                $query->where('date', '<=', $this->_data['to_date']);
-            }
-
-            $data = $query->get();
-        } else {
-            $data = $query->latest()->take(20)->get();
-        }
+        
 
         //$this->_data['columns'] = Schema::getColumnListing('nepal_oil_corporations');
         $this->_data['items'] = Item::whereIn('item_category_id',$category_ids)->pluck('name_np', 'id')->toArray();
         $this->_data['units'] = MeasurementUnit::pluck('name_np', 'id')->toArray();
         $this->_data['category'] = $category;
-        $this->_data['data'] = $data;
+  
         $this->_data['user'] = User::find(Auth::id());
 
         $hierarchyId = auth()->user()->hierarchy->hierarchy_id;
