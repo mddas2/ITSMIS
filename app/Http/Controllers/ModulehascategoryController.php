@@ -79,24 +79,25 @@ class ModulehascategoryController extends Controller
             $query->where('module_id',$request->module_id);
         }
 
-        $data = $query->where('module_id',$request->module_id)->pluck('category_id')->toArray();
+        $data = $query->where('module_id',$request->module_id)->first();
+        $data = unserialize($data->categories);
+        $data = json_decode($data);
         return $data;      
        
     }
     public function StoreModuleHasCategory(Request $request)
     {
-        return $request;
-        $data = $request->except('_token');
-
-        $data['office_id'] = !empty($data['office_id'])?serialize($data['office_id']):"";
-        $data['module_id'] = serialize($data['module_id']);
-
-        $accessLevel = AccessLevel::where('hierarchy_id',$data['hierarchy_id'])->first();
-        $id = !empty($accessLevel)?$accessLevel['id']:0;
-        AccessLevel::updateOrCreate(
-           ['id' => $id],
-           $data
+        $categories = $request->id;
+        $categories = '["1","2"]';
+        // return $categories;
+        Modulehascategory::updateOrCreate(
+            ['module_id' => $request->module_id],
+            ['categories' => serialize($categories)]
         );
+        // $modulehascategory = Modulehascategory::find(22);
+        // $categories = unserialize($modulehascategory->categories);
+        // return $categories;
+        
 
         return redirect()->back()->with('success', 'Your Information has been Added .');
     }
@@ -107,8 +108,11 @@ class ModulehascategoryController extends Controller
         if ($request->has('module_id')) {
             $query->where('module_id',$request->module_id);
         }
-
-        $datas = $query->where('module_id',$request->module_id)->pluck('category_id')->toArray();
+        
+        $datas = $query->where('module_id',$request->module_id)->first();
+        $datas = unserialize($datas->categories);
+        $datas = json_decode($datas);
+        
         foreach($datas as $dat){
             $cat = ItemCategory::find($dat);
             $list[] = $cat;

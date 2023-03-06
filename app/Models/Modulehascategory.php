@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Modulehascategory extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'categories',
+        'module_id'
+        // other fillable attributes go here...
+    ];
 }
