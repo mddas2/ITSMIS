@@ -35,6 +35,9 @@ class ConsumptionController extends Controller
     public function OilConsusmptionAdd(Request $request)
     {
         $category_ids = Modulehascategory::where('module_id',4)->first();//oil module is 4
+        if($category_ids == NULL){
+            return "There is no any category added to oil module . Please go through Admin.";
+        }
         $category_ids = unserialize($category_ids->categories);    
         $category = ItemCategory::whereIn('id',$category_ids)->pluck('name_np', 'id')->toArray();
 
