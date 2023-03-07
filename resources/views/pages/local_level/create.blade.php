@@ -38,7 +38,7 @@
                             <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Consumption Entry</span>
                         </a>
                 </li>
-                <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
+                <!-- <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
                     <a class="nav-link border py-2 d-flex flex-grow-1 rounded flex-column align-items-center SalesStockPage"
                        href="{{route('local_level_addTraining')}}">
 				<span class="nav-icon py-3 w-auto">
@@ -48,7 +48,7 @@
 				</span>
                         <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Entrepreneurship Promotion Program</span>
                     </a>
-                </li>
+                </li> -->
             </ul>
         </div>
 
