@@ -176,7 +176,7 @@
                                         }                           
                                         $upto_month = round($total_production/$per_month_consumption);
                                         $required_month_to_fulfill_production = round($deficit_surplus/$per_month_consumption);
-                                        $notices = '<li class="text-danger">Production goes upto only'.$upto_month.' months</li>'.'<li class="text-danger"> Deficit '.$required_month_to_fulfill_production.' months</li>'.'<li class="text-danger">'.$deficit_surplus.' Mt need to Import to fulfill this year</li>';
+                                        $notices = '<li class="text-danger">Production goes upto only'.$upto_month.' months</li>'.'<li class="text-danger"> Deficit '.$required_month_to_fulfill_production.' months</li>'.'<li class="text-danger">'.$deficit_surplus.' Kg need to Import to fulfill this year</li>';
                                     }
                                     
                                     echo $notices;
@@ -193,9 +193,9 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>{{$total_production}} mt</td>
-                                                <td>{{$total_consumption}} mt</td>
-                                                <td>{{$total_production-$total_consumption}} mt</td>                                                                                            
+                                                <td>{{$total_production}} Kg</td>
+                                                <td>{{$total_consumption}} Kg</td>
+                                                <td>{{$total_production-$total_consumption}} Kg</td>                                                                                            
                                             </tr>                                     
                                             
                                         </tbody>
@@ -207,15 +207,15 @@
                         <ul class="list-inline m-t-30 text-center mb-1 d-flex">
                                 <li class="list-inline-item p-r-20">
                                     <h5 class="text-muted"><i class="fa fa-circle" style="color: #55ce63;"></i>Production</h5>
-                                    <h4 class="m-b-0">{{$total_production}} mt</h4>
+                                    <h4 class="m-b-0">{{$total_production}} Kg</h4>
                                 </li>
                                 <li class="list-inline-item p-r-20">
                                     <h5 class="text-muted"><i class="fa fa-circle" style="color: #fb9678;"></i>Consumption</h5>
-                                    <h4 class="m-b-0">{{$total_consumption}} mt</h4>
+                                    <h4 class="m-b-0">{{$total_consumption}} Kg</h4>
                                 </li>
                                 <li class="list-inline-item">
                                     <h5 class="text-muted"> <i class="fa fa-circle" style="color: #4F5467;"></i>Deficit/surplus</h5>
-                                    <h4 class="m-b-0">{{$total_production-$total_consumption}} mt</h4>
+                                    <h4 class="m-b-0">{{$total_production-$total_consumption}} Kg</h4>
                                 </li>
                         </ul>
                 </div>
@@ -255,7 +255,7 @@
                                          
                                         $required_month_to_fulfill_production = round($deficit_surplus/$per_month_consumption);
                                       
-                                        $notices = '<li class="text-danger">Production goes upto only '.$upto_month.' months</li>'.'<li class="text-danger"> Deficit '.$required_month_to_fulfill_production.' months</li>'.'<li class="text-danger">'.$deficit_surplus.' Mt need to Import to fulfill this year</li>';
+                                        $notices = '<li class="text-danger">Production goes upto only '.$upto_month.' months</li>'.'<li class="text-danger"> Deficit '.$required_month_to_fulfill_production.' months</li>'.'<li class="text-danger">'.$deficit_surplus.' Kg need to Import to fulfill this year</li>';
                                     }
                                     echo $notices;
                             @endphp
@@ -272,9 +272,9 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>{{$previous_data['prouction']}} mt</td>
-                                        <td>{{$previous_data['consumption']}} mt</td>
-                                        <td>{{$previous_data['prouction'] - $previous_data['consumption']}} mt</td>                                                                                            
+                                        <td>{{$previous_data['prouction']}} Kg</td>
+                                        <td>{{$previous_data['consumption']}} Kg</td>
+                                        <td>{{$previous_data['prouction'] - $previous_data['consumption']}} Kg</td>                                                                                            
                                     </tr>                                     
                                     
                                 </tbody>
@@ -285,15 +285,15 @@
                     <ul class="list-inline m-t-30 text-center mb-1 d-flex">
                                 <li class="list-inline-item p-r-20">
                                     <h5 class="text-muted"><i class="fa fa-circle" style="color: #55ce63;"></i>Production</h5>
-                                    <h4 class="m-b-0">{{$previous_data['prouction']}} mt</h4>
+                                    <h4 class="m-b-0">{{$previous_data['prouction']}} Kg</h4>
                                 </li>
                                 <li class="list-inline-item p-r-20">
                                     <h5 class="text-muted"><i class="fa fa-circle" style="color: #fb9678;"></i>Consumption</h5>
-                                    <h4 class="m-b-0">{{$previous_data['consumption']}} mt</h4>
+                                    <h4 class="m-b-0">{{$previous_data['consumption']}} Kg</h4>
                                 </li>
                                 <li class="list-inline-item">
                                     <h5 class="text-muted"> <i class="fa fa-circle" style="color: #4F5467;"></i>Deficit/surplus</h5>
-                                    <h4 class="m-b-0">{{$previous_data['prouction'] - $previous_data['consumption']}} mt</h4>
+                                    <h4 class="m-b-0">{{$previous_data['prouction'] - $previous_data['consumption']}} Kg</h4>
                                 </li>
                     </ul>
                 </div>
@@ -341,7 +341,7 @@
                             <!-- <tr>
                                 <td>1</td>
                                 <td>{{$monthly_year}}</td>
-                                <td>MT</td>
+                                <td>kg</td>
                                 <td>{{$total_production}}</td>
                                 <td>0</td>
                                 <td>{{$total_production}}</td>
@@ -383,8 +383,8 @@
                  
                     <tr>
                         <td>{{$key}}</td>
-                        <td>{{$data}} mt</td>
-                        <td>{{round($total_consumption/12)}} mt</td>
+                        <td>{{$data}} Kg</td>
+                        <td>{{round($total_consumption/12)}} Kg</td>
                         @if($total_consumption > 0)
                             @php
                                 
@@ -483,7 +483,7 @@
                 $("#tabular_data").append(`<tr>
                                 <td>`+(dat)+`</td>
                                 <td>`+data[dat]['period']+`</td>
-                                <td>MT</td>
+                                <td>Kg</td>
                                 <td>`+data[dat]['Production']+`</td>
                                 <td>`+data[dat]['import']+`</td>
                                 <td>`+(data[dat]['Production']+data[dat]['import'])+`</td>
