@@ -5,7 +5,6 @@
     ajax_production_url = "{{route('AjaxgetMonthlyData')}}"
  
     //Yearly comparision data
-  
 
 </script>
 <div class="card-body">
@@ -159,8 +158,6 @@
             font-size:16px !important;
         }
     </style>
-
-
 <script>
     
      $(".select_category").on("change", function (e) {            
