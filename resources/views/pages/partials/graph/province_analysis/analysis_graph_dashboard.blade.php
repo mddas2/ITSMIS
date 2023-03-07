@@ -131,8 +131,8 @@
                                             <tr>
                                          
                                                 <td>{{$key}}</td>
-                                                <td>{{$data['production']}} mt</td>
-                                                <td>{{$data['consumption']}} mt</td>
+                                                <td>{{$data['production']}} {{$unit_is}}</td>
+                                                <td>{{$data['consumption']}} {{$unit_is}}</td>
                                                 @php                            
                                                     if($data['consumption'] == 0){
                                                         $data['consumption'] = 12;

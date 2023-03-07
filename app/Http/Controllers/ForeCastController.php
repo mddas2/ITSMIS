@@ -42,6 +42,15 @@ class ForeCastController extends Controller
             $request['to_date'] = $date_split[0]."-"."12"."-"."33";
         }
 
+        $unit_is = Item::find($request['item_id'])->itemCategory->id;
+        if($unit_is==3){
+            $unit_is = "Liter";
+        }
+        else{
+            $unit_is = "Kg";
+        }
+        $this->_data['unit_is'] = $unit_is;
+
         $to_date = $request['to_date'];
         $year = explode("-", $to_date)[0];
         $this->_data['monthly_year'] = $year;
@@ -232,6 +241,14 @@ class ForeCastController extends Controller
             $request['to_date'] = $date_split[0]."-"."12"."-"."33";
         }
        
+        $unit_is = Item::find($request['item_id'])->itemCategory->id;
+        if($unit_is==3){
+            $unit_is = "Liter";
+        }
+        else{
+            $unit_is = "Kg";
+        }
+        $this->_data['unit_is'] = $unit_is;
 
         $to_date = $request['to_date'];
         $year = explode("-", $to_date)[0];

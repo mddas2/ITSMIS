@@ -126,7 +126,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Tabular Data</h4>
-                <h6 class="card-subtitle">{{$monthly_year}}<code>All Items</code></h6>
+                <h6 class="card-subtitle">{{$monthly_year}}<code>All Items . for Oil  Measurement unit is Liter and other will be in Kg</code></h6>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
