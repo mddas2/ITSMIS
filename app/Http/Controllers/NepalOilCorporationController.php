@@ -152,7 +152,7 @@ class NepalOilCorporationController extends Controller
         if ($request->has('item_id') && !empty($request->item_id)) {
             $query->where('item_id', $request->item_id);
         }
-
+      
         if ($request->has('item_category_id') && !empty($request->item_category_id)) {
             $query->where('item_category_id', $request->item_category_id);
         }
@@ -161,6 +161,7 @@ class NepalOilCorporationController extends Controller
             $query->where('user_id', auth()->user()->id);
         }
 
+        
         if ($request->has('from_date')) {
             if (!empty($this->_data['from_date'])) {
                 $query->where('date', '>=', $this->_data['from_date']);
@@ -170,12 +171,11 @@ class NepalOilCorporationController extends Controller
             }
 
             $data = $query->get();
+
         } else {
-
-
             $data = $query->latest()->take(20)->get();
         }
-
+        
         //$this->_data['columns'] = Schema::getColumnListing('nepal_oil_corporations');
         $this->_data['items'] = Item::whereIn('item_category_id',$category_ids)->pluck('name_np', 'id')->toArray();
         $this->_data['units'] = MeasurementUnit::pluck('name_np', 'id')->toArray();

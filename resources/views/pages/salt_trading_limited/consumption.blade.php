@@ -55,7 +55,7 @@
         <div class="card-header flex-wrap border-1 pt-6 pb-0">
             <div class="card-title">
                 <h3 class="card-label">
-                    Oil Level - Consumption
+                    Salt Level - Consumption
                 </h3>
             </div>
             <div class="card-toolbar">
