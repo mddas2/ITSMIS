@@ -786,25 +786,49 @@ class ForeCastController extends Controller
         return $data;
     }
     public function AjaxGetYearlyLineChartData(Request $request){ // Production Consumption Export/Import line Chart
-
+        
         $current_year = $request['year'];
 
         $item_id = $request['item_id'];
-   
-
+        $category_id = Item::find($item_id)->itemCategory->id;
+ 
         // $monthly_data = [];
       
         $data = [];
 
         for($year = 0; $year<=6; $year++){
-            $year_sum = LocalProduction::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
-            $consusmption = Consumption::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
 
-            $import = DepartmentOfCustom::where("item",$item_id)->where("type","import")->whereYear('asmt_date', '=', $current_year-$year)->get()->sum("quantity");
-            $export = DepartmentOfCustom::where("item",$item_id)->where("type","export")->whereYear('asmt_date', '=', $current_year-$year)->get()->sum("quantity");
+            if($category_id == 3 || $category_id == 12){
+                $year_sum = 0;
+                $consusmption = Consumption::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
+                if($category_id == 3){ //3 is oil
+                    $import = NepalOilCorporation::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
+                }
+                elseif($category_id == 12){//12 is petroilium
+                    $import = SaltTradingLimitedPurchase::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
+                }
+                else{
+                    $import = 0;
+                }
+                
+               
+                $export = DepartmentOfCustom::where("item",$item_id)->where("type","export")->whereYear('asmt_date', '=', $current_year-$year)->get()->sum("quantity");
+                $data[$year] = array("period"=>strval($current_year-$year),"Production"=>$year_sum,"Consumption"=>$consusmption,"import_export"=>60,"import"=>$import,"export"=>$export);
 
-            $data[$year] = array("period"=>strval($current_year-$year),"Production"=>$year_sum,"Consumption"=>$consusmption,"import_export"=>60,"import"=>$import,"export"=>$export);
+            }
+            else{
+                $year_sum = LocalProduction::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
+                $consusmption = Consumption::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
+
+                $import = DepartmentOfCustom::where("item",$item_id)->where("type","import")->whereYear('asmt_date', '=', $current_year-$year)->get()->sum("quantity");
+                $export = DepartmentOfCustom::where("item",$item_id)->where("type","export")->whereYear('asmt_date', '=', $current_year-$year)->get()->sum("quantity");
+
+                $data[$year] = array("period"=>strval($current_year-$year),"Production"=>$year_sum,"Consumption"=>$consusmption,"import_export"=>60,"import"=>$import,"export"=>$export);
+            }
+
+            
         }
+
         return $data;
     }
     public function AjaxGetYearlyLineChartDataProvinceWise(Request $request){ // Production Consumption Export/Import line Chart
