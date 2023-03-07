@@ -161,7 +161,7 @@
                             </td>
                             <td>
                                 @if($row->getProvince)
-                                    {{$row->getProvince->alt_name}}
+                                    {{$row->getProvince->alt_name ?? ''}}
                                 @endif
                             </td>
                             
@@ -192,7 +192,7 @@
                                 @if(auth()->user()->role_id == 2)
                                     {{session('province_name') ?? Auth::user()->getUserProvience->alt_name}}
                                 @else
-                                    {{Auth::user()->getUserProvience->alt_name}}
+                                    {{Auth::user()->getUserProvience->alt_name ?? ''}}
                                 @endif
                         </td>
                                              
