@@ -93,24 +93,21 @@
                     </div>
                 </div>
             </form>
-            <div class="card-title mdlr">
-                <h3 class="card-label">
-                    Salt Trading Limited - {{$type}}
-                </h3>
-            </div>
-            <div class="card-toolbar mdlr">
-                <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('salt-trading-excel-insert',$type)}}"><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
-            </div>
-            <div class="card-toolbar mdlr">
-                <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('salt_new_add')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
-            </div>
+            <div class="row">
+                <div class="card-title mdlr col-md-4">
+                    <h3 class="card-label">
+                        Salt Trading Limited - {{$type}}
+                    </h3>
+                </div>
+                <div class="card-toolbar mdlr col-md-4">
+                    <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('salt-trading-excel-insert',$type)}}"><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
+                </div>
+                <div class="card-toolbar mdlr col-md-4">
+                    <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('salt_new_add')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
+                </div>
             
-            <style>
-                .mdlr{
-                    float:left;
-                    margin:20px;
-                }
-            </style>    
+            </div>
+             
             <form class="form" id="kt_form" action="{{route('salt_trading_add',$type)}}" method="post">
                 {{csrf_field()}}
                 <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
