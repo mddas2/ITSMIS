@@ -107,7 +107,7 @@
 @section('scripts')
     <script src="{{asset('js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('plugins/custom/datatables/datatables.bundle.js')}}"></script>
-    <script src="{{asset('plugins/custom/datatables/datatables.bundle.js')}}"></script>
+   
     <script type="text/javascript">
 
         $('.saltTrading').addClass("active");

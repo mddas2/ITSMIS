@@ -113,8 +113,8 @@
             </style>    
             <form class="form" id="kt_form" action="{{route('salt_trading_add',$type)}}" method="post">
                 {{csrf_field()}}
-                <!-- <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable"> -->
-                <table class="table table-bordered table-hover table-checkable mt-10">
+                <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
+                <!-- <table class="table table-bordered table-hover table-checkable mt-10"> -->
                     <thead>
                     <tr>
                         <th >SN</th>
@@ -181,6 +181,7 @@
 @section('scripts')
     <script src="{{asset('js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('plugins/custom/datatables/datatables.bundle.js')}}"></script>
+
     <script type="text/javascript">
 
         var type = "{!! $type !!}";
@@ -196,7 +197,7 @@
         var table = $('#kt_datatable');
         table.DataTable({
             responsive: true,
-            paging: false
+            paging: true,
         });
 
         var key = {!! $key !!};
