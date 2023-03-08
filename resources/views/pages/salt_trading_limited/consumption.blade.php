@@ -52,7 +52,7 @@
             </ul>
         </div>
 
-        <div class="card-header flex-wrap border-1 pt-6 pb-0">
+        <!-- <div class="card-header flex-wrap border-1 pt-6 pb-0">
             <div class="card-title">
                 <h3 class="card-label">
                     Salt Level - Consumption
@@ -61,7 +61,7 @@
             <div class="card-toolbar">
                 <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_production_excel','production')}}" ><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
             </div>
-        </div>
+        </div> -->
 
     
         <div class="card-body">

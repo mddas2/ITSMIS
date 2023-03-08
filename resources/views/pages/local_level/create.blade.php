@@ -52,7 +52,7 @@
             </ul>
         </div>
 
-        <div class="card-header flex-wrap border-1 pt-6 pb-0">
+        <!-- <div class="card-header flex-wrap border-1 pt-6 pb-0">
             <div class="card-title">
                 <h3 class="card-label">
                     Local Level - Productions
@@ -61,7 +61,7 @@
             <div class="card-toolbar">
                 <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_production_excel','production')}}" ><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
             </div>
-        </div>
+        </div> -->
         @if(auth()->user()->role_id == 2)
             <form action='{{route("SetLocalLocationSession")}}' method = "post">
                 {{csrf_field()}}
@@ -121,10 +121,25 @@
                 </div>
             </form>
        
-               
+                
+            <div class="card-title mdlr">
+                <h3 class="card-label">
+                    Local Level - Productions
+                </h3>
+            </div>
+            <div class="card-toolbar mdlr">
+                <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_production_excel','production')}}" ><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
+            </div>
+            <div class="card-toolbar mdlr">
                 <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_add_production')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
-                  
-        
+            </div>
+            
+            <style>
+                .mdlr{
+                    float:left;
+                    margin:20px;
+                }
+            </style>  
         
             <form class="form" id="kt_form" action="{{route('local_level_add')}}" method="post">
                 {{csrf_field()}}
@@ -178,53 +193,7 @@
                         </tr>
                         @php $key++; @endphp
                     @endforeach
-                    <tr id="firstRow">
-                        <td class="sn">{{$key+1}}</td>
-                        <td>
-                            <input type="hidden" name="data[{{$key}}][id]">
-                            <input type="text" name="data[{{$key}}][date]"  data-single="true" class="form-control nepdatepicker"
-                                   autocomplete="off" id="nepstart1" required>
-                        </td>
-                        <td>
-                            {{Form::select('data['.$key.'][item_category_id]',$category,null,['class' => 'form-control select_category'])}}
-                        </td>
-                        <td>
-                            {{Form::select('data['.$key.'][item_id]',$items,null,['class' => 'form-control select_item'])}}
-                        </td>                       
-                        <td>
-                            <input type="text" name="data[{{$key}}][quantity]" class="form-control " required>
-                        </td>
-                        <td>
-                            {{Form::select('data['.$key.'][quantity_unit]',$units,null,['class' => 'form-control' , 'id' => 'quantity_unit_action'])}}
-                        </td>
-                        <td>
-                            @if(auth()->user()->role_id == 2)
-                                {{session('municipality_name') ?? Auth::user()->getUserMunicipality->alt_name}}
-                            @else
-                                {{Auth::user()->getUserMunicipality->alt_name}}
-                            @endif
-                        </td>
-                        <td>
-                            <input type="text" name="data[{{$key}}][produced_by]" class="form-control " autocomplete="off" required>
-                        </td>
-                        <td id='remRow'></td>
-                    </tr>
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <!-- <td colspan="2">
-                            <button class="btn btn-primary btn-sm add" type="button">
-                                <i class="fa fa-plus icon-sm"></i>Add New Row
-                            </button>
-                        </td> -->
-                        <td colspan="5"></td>
-                        <td colspan="1">
-                            <button class="btn btn-success btn-sm" type="submit">
-                                <i class="fa fa-plu icon-sm"></i>Save Changes
-                            </button>
-                        </td>
-                    </tr>
-                    </tfoot>
+                
                 </table>
             </form>
         </div>
