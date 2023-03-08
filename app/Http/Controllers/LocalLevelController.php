@@ -17,9 +17,11 @@ use App\Models\Item;
 
 use App\Models\District;
 use App\Models\Municipality;
+use App\Models\Modulehascategory;
 
 use Auth;
 use App\Models\Hierarchy;
+
 use Maatwebsite\Excel\Facades\Excel;
 use DB;
 use Illuminate\Support\Facades\Schema;
@@ -40,6 +42,13 @@ class LocalLevelController extends Controller
 
     public function addProduction(Request $request)
     {
+        $category_ids = Modulehascategory::where('module_id',7)->first();//local level module is 7
+        if($category_ids == NULL){
+            return "There is no any category added to oil module . Please go through Admin.";
+        }
+        $category_ids = unserialize($category_ids->categories);    
+        $category = ItemCategory::whereIn('id',$category_ids)->pluck('name_np', 'id')->toArray();
+
         $query = LocalProduction::query();
 
         $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
@@ -79,9 +88,9 @@ class LocalLevelController extends Controller
         }
 
         //$this->_data['columns'] = Schema::getColumnListing('nepal_oil_corporations');
-        $this->_data['items'] = Item::pluck('name_np', 'id')->toArray();
+        $this->_data['items'] = Item::whereIn('item_category_id',$category_ids)->pluck('name_np', 'id')->toArray();
         $this->_data['units'] = MeasurementUnit::pluck('name_np', 'id')->toArray();
-        $this->_data['category'] = ItemCategory::pluck('name_np', 'id')->toArray();
+        $this->_data['category'] = $category;
         $this->_data['data'] = $data;
         $this->_data['user'] = User::find(Auth::id());
 
@@ -108,6 +117,14 @@ class LocalLevelController extends Controller
 
     public function add(Request $request)
     {
+    
+        $category_ids = Modulehascategory::where('module_id',7)->first();//local level module is 7
+        if($category_ids == NULL){
+            return "There is no any category added to oil module . Please go through Admin.";
+        }
+        $category_ids = unserialize($category_ids->categories);    
+        $category = ItemCategory::whereIn('id',$category_ids)->pluck('name_np', 'id')->toArray();
+
         $query = LocalProduction::query();
 
         $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
@@ -149,9 +166,9 @@ class LocalLevelController extends Controller
         }
 
         //$this->_data['columns'] = Schema::getColumnListing('nepal_oil_corporations');
-        $this->_data['items'] = Item::pluck('name_np', 'id')->toArray();
+        $this->_data['items'] = Item::whereIn('item_category_id',$category_ids)->pluck('name_np', 'id')->toArray();
         $this->_data['units'] = MeasurementUnit::pluck('name_np', 'id')->toArray();
-        $this->_data['category'] = ItemCategory::pluck('name_np', 'id')->toArray();
+        $this->_data['category'] = $category;
         $this->_data['data'] = $data;
         $this->_data['user'] = User::find(Auth::id());
 

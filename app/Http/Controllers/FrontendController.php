@@ -24,6 +24,10 @@ use Illuminate\Support\Facades\Http;
 use DB;
 use NitishRajUprety\NepaliDateConverter\NepaliDateConverter;
 
+use App\Models\ItemCategory;
+use App\Models\Modulehascategory;
+use App\Models\LocalProduction;
+
 class FrontendController extends Controller
 {
     private $_app = "";
@@ -206,7 +210,14 @@ class FrontendController extends Controller
     }
     public function local_level_production_report(Request $request)
     {
-        $query = NepalOilCorporation::query();
+        $category_ids = Modulehascategory::where('module_id',7)->first();//local level module is 7
+        if($category_ids == NULL){
+            return "There is no any category added to oil module . Please go through Admin.";
+        }
+        $category_ids = unserialize($category_ids->categories);    
+        $category = ItemCategory::whereIn('id',$category_ids)->pluck('name_np', 'id')->toArray();
+
+        $query = LocalProduction::query();
 
         $this->_data['to_date'] = $this->_data['from_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
 
@@ -223,9 +234,6 @@ class FrontendController extends Controller
             $this->_data['item_id'] = $request->item_id;
             $query->where('item_id', $request->item_id);
         }
-
-
-
 
 
         if ($request->has('from_date')) {
@@ -245,7 +253,7 @@ class FrontendController extends Controller
 
         $measurementUnit = MeasurementUnit::pluck('name', 'id')->toArray();
         $this->_data['measurementUnit'] = $measurementUnit;
-        $this->_data['items'] = Item::where('item_category_id', 3)->pluck('name', 'id')->toArray();
+        $this->_data['items'] = Item::whereIn('item_category_id',$category_ids)->pluck('name_np', 'id')->toArray();
 
 
         $this->_data['data'] = $data;
