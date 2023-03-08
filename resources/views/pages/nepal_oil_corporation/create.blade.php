@@ -75,14 +75,26 @@
                         <button type="submit" class="btn btn-secondary">Filter</button>
                     </div>
                 </div>
-            </form>
-       
-          
-            <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('oil_add_production')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
-            <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax"
-			   data-src="{{route('noc-excel-insert')}}"><i
-						class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}
-            </a>
+            </form>            
+
+            <div class="card-title mdlr">
+                <h3 class="card-label">
+                    Oil Level - Import
+                </h3>
+            </div>
+            <div class="card-toolbar mdlr">
+                <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('noc-excel-insert')}}"><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}} </a>
+            </div>
+            <div class="card-toolbar mdlr">
+                <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('oil_add_production')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
+            </div>
+            
+            <style>
+                .mdlr{
+                    float:left;
+                    margin:20px;
+                }
+            </style>       
         
         
             <form class="form" id="kt_form" action="{{route('noc_add')}}" method="post">

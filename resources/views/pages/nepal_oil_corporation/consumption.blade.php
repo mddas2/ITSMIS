@@ -24,7 +24,7 @@
                             <i class="fab fa-bitbucket icon-2x"></i>
                         </span>
                     </span>
-                            <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Oil Import Entry</span>
+                            <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Import</span>
                         </a>
                 </li>
                 <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
@@ -35,7 +35,7 @@
                             <i class="fab fa-bitbucket icon-2x"></i>
                         </span>
                     </span>
-                            <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Consumption Entry</span>
+                            <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Consumption</span>
                         </a>
                 </li>
                 <!-- <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
@@ -51,18 +51,6 @@
                 </li> -->
             </ul>
         </div>
-
-        <div class="card-header flex-wrap border-1 pt-6 pb-0">
-            <div class="card-title">
-                <h3 class="card-label">
-                    Oil Level - Consumption
-                </h3>
-            </div>
-            <div class="card-toolbar">
-                <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_production_excel','production')}}" ><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
-            </div>
-        </div>
-
     
         <div class="card-body">
             <form>
@@ -90,7 +78,28 @@
             </form>
             <form class="form" id="kt_form" action="{{route('OiladdAction')}}" method="post">
                 {{csrf_field()}}
-                <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
+                
+       
+            <div class="card-title mdlr">
+                <h3 class="card-label">
+                    Oil Level - Consumption
+                </h3>
+            </div>
+            <div class="card-toolbar mdlr">
+                <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_production_excel','production')}}" ><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
+            </div>
+            <div class="card-toolbar mdlr">
+            <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('oil_add_production')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
+            </div>
+            
+            <style>
+                .mdlr{
+                    float:left;
+                    margin:20px;
+                }
+            </style>            
+       
+                <table class="table table-bordered table-hover table-checkable mt-10">
                     <thead>
                     <tr>
                         <th rowspan="1">SN</th>

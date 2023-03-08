@@ -54,7 +54,7 @@
             </ul>
         </div>
 
-        <div class="card-header flex-wrap border-1 pt-6 pb-0">
+        <!-- <div class="card-header flex-wrap border-1 pt-6 pb-0">
             <div class="card-title">
                 <h3 class="card-label">
                  Salt Trading Limited - {{$type}}
@@ -65,7 +65,7 @@
                    data-src="{{route('salt-trading-excel-insert',$type)}}"><i
                             class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
             </div>
-        </div>
+        </div> -->
 
         <div class="card-body">
             <form>
@@ -93,11 +93,28 @@
                     </div>
                 </div>
             </form>
-            <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('salt_new_add')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
-                  
+            <div class="card-title mdlr">
+                <h3 class="card-label">
+                    Salt Trading Limited - {{$type}}
+                </h3>
+            </div>
+            <div class="card-toolbar mdlr">
+                <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('salt-trading-excel-insert',$type)}}"><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
+            </div>
+            <div class="card-toolbar mdlr">
+                <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('salt_new_add')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
+            </div>
+            
+            <style>
+                .mdlr{
+                    float:left;
+                    margin:20px;
+                }
+            </style>    
             <form class="form" id="kt_form" action="{{route('salt_trading_add',$type)}}" method="post">
                 {{csrf_field()}}
-                <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
+                <!-- <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable"> -->
+                <table class="table table-bordered table-hover table-checkable mt-10">
                     <thead>
                     <tr>
                         <th >SN</th>
@@ -111,8 +128,6 @@
                             <th >Stock Quantity</th>
                             <th >Sales Quantity</th>
                         @endif
-
-
                     </tr>
 
                     </thead>
