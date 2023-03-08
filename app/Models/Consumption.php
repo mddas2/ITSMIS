@@ -35,5 +35,10 @@ class Consumption extends Model
         return $this->belongsTo('App\Models\Province', 'provience_id', 'id');
     }
 
+    public function getItem()
+    {
+        return $this->belongsTo('App\Models\Item','item_id','id');
+    }
+
 }
 
