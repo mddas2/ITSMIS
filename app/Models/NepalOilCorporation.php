@@ -16,4 +16,8 @@ class NepalOilCorporation extends Model
     {
         return $this->belongsTo('App\Models\User','user_id','id');
     }
+    public function getOil()
+    {
+        return $this->belongsTo('App\Models\Item','item_id','id');
+    }
 }

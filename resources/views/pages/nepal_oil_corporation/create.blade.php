@@ -102,14 +102,12 @@
                 }
             </style>
         
-            <form class="form" id="kt_form" action="{{route('noc_add')}}" method="post">
-                {{csrf_field()}}
+            
                 <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
                     <thead>
                     <tr>
                         <th rowspan="1">SN</th>
-                        <th rowspan="1">Date</th>                        
-                        <th rowspan="1">Category</th>
+                        <th rowspan="1">Date</th>                       
                         <th rowspan="1">Oil Name</th>
                         <th rowspan="1">Quantity</th>      
                         <th rowspan="1">Unit</th>                       
@@ -123,23 +121,27 @@
                         <tr>
                             <td>{{$key+1}}</td>
                             <td>
-                                <input type="hidden" value="{{$row->id}}">
-                                <input type="text" class="form-control nepdatepicker"  data-single="true"  autocomplete="off" id="nep{{$key}}" value="{{$row->date}}" disabled="">
-                            </td>
+                                {{$row->date}}
+                            </td>                        
                             <td>
-                                {{Form::select('',$category,$row->item_category_id,['class' => 'form-control  ','disabled'=> 'disabled'])}}
-                            </td>
-                            <td>
-                                {{Form::select('',$items,$row->item_id,['class' => 'form-control  ','disabled'=> 'disabled'])}}
+                                {{$row->getOil->name}}
                             </td>                          
                             <td>
-                                <input type="text" name="" class="form-control nepdatepicker" autocomplete="off" value="{{$row->quantity}}" disabled="">
+                                {{$row->quantity}}
                             </td>
-                          
                             <td>
                                 Litre
                             </td>
-                          <td></td>
+                            <td>
+                                <form action="#" style="display: inline-block;"
+                                        method="get">
+                                        <!-- method "post" -->
+                                        <!-- {{ method_field('DELETE') }} -->
+                                        <!-- {{ csrf_field() }} -->
+                                        <a href="#" class="btn btn-icon btn-danger btn-xs mr-2 deleteBtn" data-toggle="tooltip"
+                                        title="Delete"><i class="fa fa-trash"></i></a>
+                                </form>    
+                            </td>
                         </tr>
                         @php $key++; @endphp
                     @endforeach
@@ -149,7 +151,7 @@
                     
                     </tfoot>
                 </table>
-            </form>
+           
         </div>
     </div>
 @endsection
