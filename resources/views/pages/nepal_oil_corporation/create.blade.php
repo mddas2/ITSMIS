@@ -77,25 +77,30 @@
                 </div>
             </form>            
 
-            <div class="card-title mdlr">
-                <h3 class="card-label">
+           
+            <div class="row">
+                <div class="card-title mdlr col-md-4">
+                    <h3 class="card-label">
                     Oil Level - Import
-                </h3>
-            </div>
-            <div class="card-toolbar mdlr">
-                <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('noc-excel-insert')}}"><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}} </a>
-            </div>
-            <div class="card-toolbar mdlr">
-                <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('oil_add_production')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
-            </div>
+                    </h3>
+                </div>
+                <div class="card-toolbar mdlr col-md-4">
+                    <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('noc-excel-insert')}}"><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}} </a>
+                </div>
+                <div class="card-toolbar mdlr col-md-4">
+                    <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('oil_add_production')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
+                </div>
             
+            </div>
+               
             <style>
-                .mdlr{
-                    float:left;
-                    margin:20px;
+                 #kt_datatable_length{
+                    display:none;
                 }
-            </style>       
-        
+                #kt_datatable_filter{
+                    display:none;
+                }
+            </style>
         
             <form class="form" id="kt_form" action="{{route('noc_add')}}" method="post">
                 {{csrf_field()}}
@@ -243,10 +248,10 @@
         $('.productEntry').addClass("active");
         var table = $('#kt_datatable');
 
-        // table.DataTable({
-        //     responsive: true,
-        //     paging: false
-        // });
+        table.DataTable({
+            responsive: true,
+            paging: true
+        });
 
         var key = {!! $key !!};
 

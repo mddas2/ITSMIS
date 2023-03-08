@@ -121,25 +121,30 @@
                 </div>
             </form>
              
-            <div class="card-title mdlr">
-                <h3 class="card-label">
-                    Local Level - Productions
-                </h3>
-            </div>
-            <div class="card-toolbar mdlr">
-                <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_production_excel','production')}}" ><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
-            </div>
-            <div class="card-toolbar mdlr">
-                <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_add_production')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
-            </div>
-            
-            <style>
-                .mdlr{
-                    float:left;
-                    margin:20px;
-                }
-            </style>  
         
+            <div class="row">
+                <div class="card-title mdlr col-md-4">
+                    <h3 class="card-label">
+                        Local Level - Productions
+                    </h3>
+                </div>
+                <div class="card-toolbar mdlr col-md-4">
+                    <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_production_excel','production')}}" ><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
+                </div>
+                <div class="card-toolbar mdlr col-md-4">
+                    <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_add_production')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
+                </div>
+            
+            </div>
+               
+            <style>
+                 #kt_datatable_length{
+                    display:none;
+                }
+                #kt_datatable_filter{
+                    display:none;
+                }
+            </style> 
             <form class="form" id="kt_form" action="{{route('local_level_add')}}" method="post">
                 {{csrf_field()}}
                 <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
@@ -293,10 +298,10 @@
         $('.productEntry').addClass("active");
         var table = $('#kt_datatable');
 
-        // table.DataTable({
-        //     responsive: true,
-        //     paging: false
-        // });
+        table.DataTable({
+            responsive: true,
+            paging: true
+        });
 
         var key = {!! $key !!};
 
