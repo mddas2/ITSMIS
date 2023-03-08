@@ -107,6 +107,15 @@
                 </div>
             
             </div>
+               
+            <style>
+                 #kt_datatable_length{
+                    display:none;
+                }
+                #kt_datatable_filter{
+                    display:none;
+                }
+            </style>
              
             <form class="form" id="kt_form" action="{{route('salt_trading_add',$type)}}" method="post">
                 {{csrf_field()}}
