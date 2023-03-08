@@ -26,7 +26,7 @@
 						<i class="fab fa-bitbucket icon-2x"></i>
 					</span>
 				</span>
-                        <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Salt Import</span>
+                        <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Import</span>
                     </a>
                 </li>
                 <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
@@ -37,7 +37,7 @@
 						<i class="fab fa-bitbucket icon-2x"></i>
 					</span>
 				</span>
-                        <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Salt Consumption</span>
+                        <span class="nav-text font-size-lg py-2 font-weight-bold text-center">Consumption</span>
                     </a>
                 </li>
                 <!-- <li class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
@@ -134,7 +134,6 @@
                     <tbody id="tb_id">
                     <?php $key = 0; ?>
                     @foreach($data as $row)
-
                         <tr>
                             <td>{{$key+1}}</td>
                             <td>
@@ -171,55 +170,9 @@
                         </tr>
                         @php $key++; @endphp
                     @endforeach
-                    <tr id="firstRow">
-                        <td class="sn">{{$key+1}}</td>
-                        <td>
-                            <input type="hidden" name="data[{{$key}}][id]" value="">
-                            <input type="text" name="data[{{$key}}][date]"   data-single="true" class="form-control nepdatepicker"
-                                   autocomplete="off" id="nepstart1">
-                        </td>
-                        <td>
-                            {{Form::select('data['.$key.'][item_id]',$items,null,['class' => 'form-control'])}}
-                        </td>
-
-                        @if($type == 'purchase')
-                            <td>
-                                <input type="text" name="data[{{$key}}][quantity]" class="form-control ">
-                            </td>
-                        @endif
-
-                        <td>
-                            {{Form::select('data['.$key.'][quantity_unit]',$units,null,['class' => 'form-control'])}}
-                        </td>
-                        @if($type == 'SalesStock')
-                            <td>
-                                <input type="text" name="data[{{$key}}][stock_quantity]" class="form-control"
-                                       autocomplete="off">
-                            </td>
-
-                            <td>
-                                <input type="text" name="data[{{$key}}][sales_quantity]" class="form-control"
-                                       autocomplete="off">
-                            </td>
-                        @endif
-
-                    </tr>
+          
                     </tbody>
-                    <tfoot>
-                    <tr>
-                        <td colspan="2">
-                            <button class="btn btn-primary btn-sm add" type="button">
-                                <i class="fa fa-plus icon-sm"></i>Add New Row
-                            </button>
-                        </td>
-                        @if($type == 'SalesStock') <td colspan="3"></td> @else <td colspan="2"></td> @endif
-                        <td colspan="1">
-                            <button class="btn btn-success btn-sm" type="submit">
-                                <i class="fa fa-plu icon-sm"></i>Save Changes
-                            </button>
-                        </td>
-                    </tr>
-                    </tfoot>
+                   
                 </table>
             </form>
         </div>
