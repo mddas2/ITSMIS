@@ -143,10 +143,18 @@
                             </td>
                             <td>
                                 {{$row->unit->name}}
-                            </td>
-                         
+                            </td>                         
                             
-                            <td></td>
+                            <td>
+                                <form action="#" style="display: inline-block;"
+                                        method="get">
+                                        <!-- method "post" -->
+                                        <!-- {{ method_field('DELETE') }} -->
+                                        <!-- {{ csrf_field() }} -->
+                                        <a href="#" class="btn btn-icon btn-danger btn-xs mr-2 deleteBtn" data-toggle="tooltip"
+                                        title="Delete"><i class="fa fa-trash"></i></a>
+                                </form>  
+                            </td>
                         </tr>
                         @php $key++; @endphp
                     @endforeach

@@ -50,7 +50,7 @@
                     <th >Item(Product Description)</th>
                     <th >Import Quantity</th>
                     <th >Unit</th>
-                    <th >Sales Quantity</th>
+                   
 
                 </tr>
 
@@ -87,9 +87,6 @@
                         <td>
                              {{$row->sales_quantity}}
                         </td>
-
-
-
 
                     </tr>
                     @php $key++; @endphp

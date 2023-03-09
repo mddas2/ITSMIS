@@ -50,8 +50,6 @@
                     <th >Item(Product Description)</th>
                     <th >Import Quantity</th>
                     <th >Unit</th>
-                    <th >Sales Quantity</th>
-
                 </tr>
 
                 </thead>
@@ -78,19 +76,9 @@
                             {{$row->quantity}}
                         </td>
                         <td>
-                            @foreach($measurementUnit as $b => $unit)
-                                @if($row->unit_id == $b)
-                                    {{$unit}}
-                                @endif
-                            @endforeach
+                            {{$row->unit->name}}
                         </td>
-                        <td>
-                             {{$row->sales_quantity}}
-                        </td>
-
-
-
-
+                       
                     </tr>
                     @php $key++; @endphp
                 @endforeach

@@ -124,15 +124,11 @@
                     <tr>
                         <th >SN</th>
                         <th >Date</th>
-                        <th >Item</th>
-                        @if($type == 'purchase')
-                            <th >Quantity</th>
-                        @endif
+                        <th >Item</th>                      
+                        <th >Quantity</th>                       
                         <th >Quantity Unit</th>
-                        @if($type == 'SalesStock')
-                            <th >Stock Quantity</th>
-                            <th >Sales Quantity</th>
-                        @endif
+                        <th> Action </th>
+                        
                     </tr>
                     </thead>
                     <tbody id="tb_id">
@@ -151,6 +147,16 @@
                             </td>                           
                             <td>
                                 {{$row->unit->name}}
+                            </td>
+                            <td>
+                                <form action="#" style="display: inline-block;"
+                                        method="get">
+                                        <!-- method "post" -->
+                                        <!-- {{ method_field('DELETE') }} -->
+                                        <!-- {{ csrf_field() }} -->
+                                        <a href="#" class="btn btn-icon btn-danger btn-xs mr-2 deleteBtn" data-toggle="tooltip"
+                                        title="Delete"><i class="fa fa-trash"></i></a>
+                                </form>  
                             </td>
                         </tr>
                         @php $key++; @endphp
