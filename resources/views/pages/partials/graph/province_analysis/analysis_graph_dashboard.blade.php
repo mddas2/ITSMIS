@@ -3,13 +3,13 @@
                 <div class="form-group row">
                     <div class="col-lg-2">
                         <label>From Date:</label>
-                        <input name="from_date" class="form-control form-control-solid nepdatepicker" data-single="true"
+                        <input name="from_date" class="form-control form-control-solid nepdatepicker text_good" data-single="true"
                                required
                                value="{{$from_date}}">
                     </div>
                     <div class="col-lg-2">
                         <label>To Date:</label>
-                        <input name="to_date" class="form-control form-control-solid nepdatepicker" data-single="true"
+                        <input name="to_date" class="form-control form-control-solid nepdatepicker text_good" data-single="true"
                                required
                                value="{{$to_date}}">
                     </div>
@@ -27,13 +27,25 @@
                         $itemList = ["" => "Select Items"];
                         $itemList = $itemList + $items;
                         ?>
-                        {{Form::select('item_id',$itemList,$item_id,['class' => 'form-control'])}}
+                        {{Form::select('item_id',$itemList,$item_id,['class' => 'form-control select_item text_good'])}}
                     </div>
                     <div class="col-lg-2" style="margin-top: 24px;">
                         <button type="submit" class="btn btn-secondary">Filter</button>
                     </div>
                 </div>
             </form>
+            <style>
+                .text_good_header{
+                    font-size:15px !important;
+                }
+                .text_good{
+                    font-size:13px !important;
+                    weight:100 !important;
+                }
+                .item_red{
+                    color:red
+                }
+            </style> 
         </div>
 
 
@@ -259,6 +271,29 @@
         });
     }
 });
+$(".select_item").on("change", function (e) {
+            var itemID = $(this).val();
+            alert(itemId);
+            $.ajax({
+                type: "GET",
+                url: "{{route('getCategoryByItem')}}",
+                data: {itemID: itemID},
+                success: function (response) {
+                    $(".select_category").val(response.catId);
+                }
+            });
+        });
+        $(".select_category").on("change", function (e) {            
+            var catId = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "{{route('getItemByCategory')}}",
+                data: {catId: catId},
+                success: function (response) {
+                    $(".select_item").find('option').remove().end().append(response.html);
+                }
+            });
+        });
 </script>
 
 

@@ -41,7 +41,7 @@
                         $itemList = ["" => "Select Items"];
                         $itemList = $itemList + $items;
                         ?>
-                        {{Form::select('item_id',$itemList,$item_id,['class' => 'form-control text_good'])}}
+                        {{Form::select('item_id',$itemList,$item_id,['class' => 'form-control select_item text_good'])}}
                     </div>
                     <div class="col-lg-2" style="margin-top: 24px;">
                         <button type="submit" class="btn btn-secondary text_good_header ">Filter</button>
@@ -284,19 +284,7 @@
                                 <td>(A+B)-(C+D)</td>
                                 <td></td>
                             </tr>
-                            <!-- <tr>
-                                <td>1</td>
-                                <td>{{$monthly_year}}</td>
-                                <td>{{$unit_is}}</td>
-                                <td>{{$total_production}}</td>
-                                <td>0</td>
-                                <td>{{$total_production}}</td>
-                                <td>{{$total_consumption}}</td>
-                                <td>0</td>
-                                <td>{{$total_consumption}}</td>
-                                <td>{{($total_production+0)-($total_consumption+0)}}</td>
-                                <td></td>
-                            </tr> -->
+                          
                         </tbody>
                     </table>
                 </div>
@@ -442,6 +430,30 @@
             }
         }
     });
+    $(".select_item").on("change", function (e) {
+            var itemID = $(this).val();
+            alert(itemId);
+            $.ajax({
+                type: "GET",
+                url: "{{route('getCategoryByItem')}}",
+                data: {itemID: itemID},
+                success: function (response) {
+                    $(".select_category").val(response.catId);
+                }
+            });
+        });
+        $(".select_category").on("change", function (e) {            
+            var catId = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "{{route('getItemByCategory')}}",
+                data: {catId: catId},
+                success: function (response) {
+                    $(".select_item").find('option').remove().end().append(response.html);
+                }
+            });
+        });
+
 </script>
 
 
