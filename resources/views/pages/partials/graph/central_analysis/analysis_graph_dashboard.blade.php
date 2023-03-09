@@ -15,13 +15,13 @@
 <div class="card-body">
             <form>
                 <div class="form-group row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-2">
                         <label class="text_good_header">From Date:</label>
                         <input name="from_date" class="form-control form-control-solid nepdatepicker text_good" data-single="true"
                                required
                                value="{{$from_date}}">
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-2">
                         <label class="text_good_header">To Date:</label>
                         <input name="to_date" class="form-control form-control-solid nepdatepicker text_good" data-single="true"
                                required
@@ -59,12 +59,8 @@
                 .item_red{
                     color:red
                 }
-            </style>
-           
-
+            </style>         
         </div>
-
-
 
 
 <link href="/chart/dist/css/style.min.css" rel="stylesheet">

@@ -219,6 +219,7 @@ class ForeCastController extends Controller
         $this->_data['ProvinceAnalysis'] = "active";
         // $this->_data['items'] = Item::pluck('name', 'id')->toArray();
         $items = $this->GetAvailableItems($request);
+        $this->_data['category'] = ItemCategory::pluck('name_np', 'id')->toArray();
         $this->_data['items'] = $items;
         $this->_data['units'] = MeasurementUnit::pluck('name', 'id')->toArray();
         
@@ -247,6 +248,7 @@ class ForeCastController extends Controller
  
 
         $this->_data['DistrictAnalysis'] = "active";
+        $this->_data['category'] = ItemCategory::pluck('name_np', 'id')->toArray();
         $this->_data['items'] = Item::pluck('name', 'id')->toArray();
         $this->_data['units'] = MeasurementUnit::pluck('name', 'id')->toArray();
         
