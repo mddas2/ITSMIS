@@ -100,8 +100,7 @@
                 </div>
                 <div class="card-toolbar mdlr col-md-4">
                     <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('salt_new_add')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
-                </div>
-            
+                </div>            
             </div>
                
             <style>
@@ -120,7 +119,6 @@
                     <tr>
                         <th rowspan="1">SN</th>
                         <th rowspan="1">Date</th>
-                        <th rowspan="1">Category</th>
                         <th rowspan="1">Consume Product</th>                     
                         <th rowspan="1">Quantity</th>
                         <th rowspan="1">Quantity Unit</th>                
@@ -135,20 +133,16 @@
                         <tr>
                             <td>{{$key+1}}</td>
                             <td>
-                                <input type="hidden" value="{{$row->id}}">
-                                <input type="text" class="form-control nepdatepicker"  data-single="true"  autocomplete="off" id="nep{{$key}}" value="{{$row->date}}" disabled="">
-                            </td>
+                                {{$row->date}}
+                            </td>                     
                             <td>
-                                {{Form::select('',$category,$row->item_category_id,['class' => 'form-control  ','disabled'=> 'disabled'])}}
-                            </td>
-                            <td>
-                                {{Form::select('',$items,$row->item_id,['class' => 'form-control  ','disabled'=> 'disabled'])}}
+                                {{$row->getItem->name}}
                             </td>                           
                             <td>
-                                <input type="text" name="" class="form-control nepdatepicker" autocomplete="off" value="{{$row->quantity}}" disabled="">
+                                {{$row->quantity}}
                             </td>
                             <td>
-                                {{Form::select('',$units,$row->quantity_unit,['class' => 'form-control','disabled'=> 'disabled'])}}
+                                {{$row->unit->name}}
                             </td>
                          
                             

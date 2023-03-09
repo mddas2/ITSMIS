@@ -117,8 +117,7 @@
                 }
             </style>
              
-            <form class="form" id="kt_form" action="{{route('salt_trading_add',$type)}}" method="post">
-                {{csrf_field()}}
+         
                 <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
                 <!-- <table class="table table-bordered table-hover table-checkable mt-10"> -->
                     <thead>
@@ -135,7 +134,6 @@
                             <th >Sales Quantity</th>
                         @endif
                     </tr>
-
                     </thead>
                     <tbody id="tb_id">
                     <?php $key = 0; ?>
@@ -143,44 +141,24 @@
                         <tr>
                             <td>{{$key+1}}</td>
                             <td>
-                                <input type="hidden" name="data[{{$key}}][id]" value="{{$row->id}}">
-                                <input type="text" name="data[{{$key}}][date]"   data-single="true" class="form-control nepdatepicker"
-                                       autocomplete="off" id="nep{{$key}}" value="{{$row->date}}">
+                                {{$row->date}}
                             </td>
                             <td>
-                                {{Form::select('data['.$key.'][item_id]',$items,$row->item_id,['class' => 'form-control'])}}
-                            </td>
-                            @if($type == 'purchase')
-                                <td>
-                                    <input type="text" name="data[{{$key}}][quantity]" class="form-control  "
-                                           autocomplete="off" value="{{$row->quantity}}">
-                                </td>
-                            @endif
+                                {{$row->getSalt->name}}
+                            </td>                           
                             <td>
-                                {{Form::select('data['.$key.'][quantity_unit]',$units,$row->quantity_unit,['class' => 'form-control'])}}
+                                {{$row->quantity}}
+                            </td>                           
+                            <td>
+                                {{$row->unit->name}}
                             </td>
-
-
-                            @if($type == 'SalesStock')
-                                <td>
-                                    <input type="text" name="data[{{$key}}][stock_quantity]" class="form-control"
-                                           autocomplete="off" value="{{$row->stock_quantity}}">
-                                </td>
-
-                                <td>
-                                    <input type="text" name="data[{{$key}}][sales_quantity]" class="form-control"
-                                           autocomplete="off" value="{{$row->sales_quantity}}">
-                                </td>
-                            @endif
-
                         </tr>
                         @php $key++; @endphp
                     @endforeach
           
-                    </tbody>
-                   
+                    </tbody>                   
                 </table>
-            </form>
+            
         </div>
     </div>
 @endsection
