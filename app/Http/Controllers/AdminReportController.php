@@ -321,41 +321,8 @@ class AdminReportController extends Controller
         if ($request->has('item_id') && !empty($request->item_id)) {
             $this->_data['item_id'] = $request->item_id;
         }
-
-        if (!empty($request->has('from_date')) && !empty($request->has('to_date')) && !empty($this->_data['item_id'])) {
-            $data = SaltTradingLimitedPurchase::join('salt_trading_limited_sales as sales', 'sales.item_id', '=', 'salt_trading_limited_purchase.item_id')
-                ->join('salt_trading_limited_sales as sDate', 'sDate.date', '=', 'salt_trading_limited_purchase.date')
-                ->select('salt_trading_limited_purchase.*', 'sales.date as salesDate', 'sales.stock_quantity', 'sales.sales_quantity')
-                ->where('salt_trading_limited_purchase.date', '>=', $this->_data['from_date'])
-                ->where('salt_trading_limited_purchase.date', '<=', $this->_data['to_date'])
-                ->where('salt_trading_limited_purchase.item_id', $request->item_id)
-                ->orderBy('salt_trading_limited_purchase.date', 'asc')
-                ->distinct()
-                ->get();
-
-        } elseif (!empty($request->has('from_date')) && !empty($request->has('to_date'))) {
-            $data = SaltTradingLimitedPurchase::join('salt_trading_limited_sales as sales', 'sales.item_id', '=', 'salt_trading_limited_purchase.item_id')
-                ->join('salt_trading_limited_sales as sDate', 'sDate.date', '=', 'salt_trading_limited_purchase.date')
-                ->select('salt_trading_limited_purchase.*', 'sales.date as salesDate', 'sales.stock_quantity', 'sales.sales_quantity')
-                ->where('salt_trading_limited_purchase.date', '>=', $this->_data['from_date'])
-                ->where('salt_trading_limited_purchase.date', '<=', $this->_data['to_date'])
-                ->orderBy('salt_trading_limited_purchase.date', 'asc')
-                ->distinct()
-                ->get();
-
-        } else {
-            $data = SaltTradingLimitedPurchase::join('salt_trading_limited_sales as sales', 'sales.item_id', '=', 'salt_trading_limited_purchase.item_id')
-                ->join('salt_trading_limited_sales as sDate', 'sDate.date', '=', 'salt_trading_limited_purchase.date')
-                ->select('salt_trading_limited_purchase.*', 'sales.date as salesDate', 'sales.stock_quantity', 'sales.sales_quantity')
-                ->orderBy('salt_trading_limited_purchase.date', 'asc')
-                ->distinct()
-                ->latest()
-                ->take(50)
-                ->get();
-
-        }
-
-
+        $data = SaltTradingLimitedPurchase::query()->get();
+        // return $data;
         $this->_data['items'] = Item::pluck('name', 'id')->toArray();
         $this->_data['units'] = MeasurementUnit::pluck('name', 'id')->toArray();
         $this->_data['data'] = $data;

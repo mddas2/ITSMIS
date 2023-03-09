@@ -41,65 +41,40 @@
                     </div>
                 </div>
             </form>
-
-            <table class="table table-bordered table-hover table-checkable mt-10 table-striped" id="kt_datatable">
-                <thead>
-                <tr>
-                    <th>SN</th>
-                    <th>Date</th>
-                    <th>Item</th>
-                    <th>Quantity</th>
-                    <th>Quantity Unit</th>
-                    <th>Stock Quantity</th>
-                    <th>Sales Quantity</th>
-
-                </tr>
-
-                </thead>
-                <tbody>
-                <?php  $key = 0; ?>
-                @foreach($data as $row)
-
-                    @if($row->date == $row->salesDate)
-
+            <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
+                <!-- <table class="table table-bordered table-hover table-checkable mt-10"> -->
+                    <thead>
+                    <tr>
+                        <th >SN</th>
+                        <th >Date</th>
+                        <th >Item</th>                       
+                        <th >Quantity</th>                      
+                        <th >Quantity Unit</th>                   
+                    </tr>
+                    </thead>
+                    <tbody id="tb_id">
+                    <?php $key = 0; ?>
+                    @foreach($data as $row)
                         <tr>
                             <td>{{$key+1}}</td>
-                            <td> {{$row->date}} </td>
                             <td>
-                                @foreach($items as $a => $item)
-                                    @if($row->item_id == $a)
-                                        {{$item}}
-                                    @endif
-                                @endforeach
+                                {{$row->date}}
                             </td>
+                            <td>
+                                {{$row->getSalt->name}}
+                            </td>                           
                             <td>
                                 {{$row->quantity}}
-                            </td>
+                            </td>                           
                             <td>
-                                @foreach($units as $b => $unit)
-                                    @if($row->quantity_unit == $b)
-                                        {{$unit}}
-                                    @endif
-                                @endforeach
+                                {{$row->unit->name}}
                             </td>
-
-
-                            <td>
-                                {{$row->stock_quantity}}
-                            </td>
-
-                            <td>
-                                {{$row->sales_quantity}}
-                            </td>
-
                         </tr>
                         @php $key++; @endphp
-                    @endif
-
-                @endforeach
-                </tbody>
-            </table>
-
+                    @endforeach
+          
+                    </tbody>                   
+                </table>
 
         </div>
     </div>
