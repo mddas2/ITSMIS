@@ -310,8 +310,8 @@
             ndpMonth: true,
             ndpYearCount: 10
         }*/);
-        $(".select_item").on("change", function (e) {
 
+        $(".select_item").on("change", function (e) {
             var itemID = $(this).val();
             $.ajax({
                 type: "GET",

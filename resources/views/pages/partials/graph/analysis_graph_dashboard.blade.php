@@ -7,42 +7,30 @@
     //Yearly comparision data
 
 </script>
-<div class="card-body">
-            <form>
-                <div class="form-group row">
-                    <!-- <div class="col-lg-3">
-                        <label class="text_good_header">From Date:</label>
-                        <input name="from_date" class="form-control form-control-solid nepdatepicker text_good" data-single="true"
-                               required
-                               value="{{$from_date}}">
-                    </div>
-                    <div class="col-lg-3">
-                        <label class="text_good_header">To Date:</label>
-                        <input name="to_date" class="form-control form-control-solid nepdatepicker text_good" data-single="true"
-                               required
-                               value="{{$to_date}}">
-                    </div> -->
-                    <div class="col-lg-3">
-                        <label class="text_good_header" >Category:</label>
-                        <?php
-                        $itemList = ["" => "Select Items"];
-                        $itemList = $itemList + $items;
-                        ?>
-                        {{Form::select('item_category_id',$category,null,['class' => 'form-control select_category text_good'])}}
-                    </div>
-                    <div class="col-lg-3">
-                        <label class="text_good_header" >Items:</label>
-                            <?php
-                                $itemList = ["" => "Select Items"];
-                                $itemList = $itemList + $items;
-                            ?>
-                        {{Form::select('item_id',$itemList,$item_id,['class' => 'form-control select_item text_good'])}}
-                    </div>
-                    <!-- <div class="col-lg-2" style="margin-top: 24px;">
-                        <button type="submit" class="btn btn-secondary text_good_header ">Filter</button>
-                    </div> -->
-                </div>
-            </form>
+<div class="card-body">        
+    <div class="form-group row">
+        <div class="col-lg-3">
+            <label class="text_good_header" >Category:</label>
+            <?php
+            $itemList = ["" => "Select Items"];
+            $itemList = $itemList + $items;
+            ?>
+            {{Form::select('item_category_id',$category,null,['class' => 'form-control select_category text_good'])}}
+        </div>
+        <div class="col-lg-3">
+            <label class="text_good_header" >Items:</label>
+                <?php
+                    $itemList = ["" => "Select Items"];
+                    $itemList = $itemList + $items;
+                ?>
+            {{Form::select('item_id',$itemList,$item_id,['class' => 'form-control select_item text_good'])}}
+        </div>
+        <div class="col-lg-2" style="margin-top: 24px;">
+            <button type="submit" class="btn btn-secondary text_good_header" id="filterItem">Filter</button>
+        </div>
+    </div>
+</div>
+          
             <style>
                 .text_good_header{
                     font-size:15px !important;
@@ -55,11 +43,9 @@
                     color:red
                 }
             </style>
-        </div>
 
 
 <link href="/chart/dist/css/style.min.css" rel="stylesheet">
-
 
 <div class="col-lg-12">
         <div class="card">
@@ -119,7 +105,6 @@
             success: function (response) {
                 // console.log(response);
                 for (var dat in response) {
-                    console.log(response[dat]['id'])
                     $("#view_available_item").append(`<tr>
                                 <!----<td>1</td> --->
                                 <td>`+response[dat]['obj']['name_np']+`</td>
@@ -144,7 +129,6 @@
             success: function (response) {
                 // console.log(response);
                 for (var dat in response) {
-                    console.log(response[dat])
                     $("#view_available_item").append(`<tr>
                                 <!----<td>1</td> --->
                                 <td>`+response[dat]['obj']['name_np']+`</td>
@@ -160,6 +144,45 @@
                 }
             }
         });
-</script>
 
-<!-- <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date=2079-01-33&to_date=2079-12-33&item_id=$data['obj']->id" style=" text-decoration: none;  color: inherit;">View</a></button></td>                                               -->
+        $(".select_item").on("change", function (e) {
+            var itemID = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "{{route('getCategoryByItem')}}",
+                data: {itemID: itemID},
+                success: function (response) {
+                    $(".select_category").val(response.catId);
+                }
+            });
+        });
+        $(".select_category").on("change", function (e) {            
+            var catId = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "{{route('getItemByCategory')}}",
+                data: {catId: catId},
+                success: function (response) {
+                    $(".select_item").find('option').remove().end().append(response.html);
+                }
+            });
+        });
+
+
+        $("#filterItem").on("click",function (e){
+            alert("hello")
+            var catId = $(this).val();
+            var ItemId = $("#select_item").val();
+            alert(ItemId);
+            $.ajax({
+                type: "GET",
+                url: "{{route('FilterItem')}}",
+                data: {catId: catId},
+                success: function (response) {
+                  
+                }
+            });
+        });
+
+
+</script>

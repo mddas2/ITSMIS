@@ -440,3 +440,4 @@ Route::get('/ajax-get-comparision-yearly-production-line-chart-data', 'ForeCastC
 Route::get('/ajax-get-comparision-yearly-production-with-provience-line-chart-data', 'ForeCastController@AjaxGetYearlyLineChartDataProvinceWise')->name('AjaxGetYearlyLineChartDataProvinceWise'); // comparision yearly based with provision data
 
 Route::get('/ajax-get-view-all-item-according-to-category', 'ForeCastController@putAll_ItemProductionConsumptionCategory')->name('putAll_ItemProductionConsumptionCategory'); // Get view all data in which there is item inside category
+Route::get('/ajax-get-view-all-item-according-to-item', 'ForeCastController@FilterItem')->name('FilterItem'); // Get view all data in which there is item inside category
