@@ -28,6 +28,14 @@
                                value="{{$to_date}}">
                     </div>
                     <div class="col-lg-3">
+                        <label class="text_good_header" >Category:</label>
+                        <?php
+                        $itemList = ["" => "Select Items"];
+                        $itemList = $itemList + $items;
+                        ?>
+                        {{Form::select('item_category_id',$category,null,['class' => 'form-control select_category text_good'])}}
+                    </div>
+                    <div class="col-lg-3">
                         <label class="text_good_header" >Items:</label>
                         <?php
                         $itemList = ["" => "Select Items"];
@@ -52,65 +60,7 @@
                     color:red
                 }
             </style>
-            @if($data->count()>0)
-                <table class="table table-bordered table-hover table-checkable mt-10 table-striped" id="kt_datatable">
-                    <thead>
-                    <tr>
-                        <th>SN</th>
-                        <th>Date</th>
-                        <th>Item</th>
-                        <th>Quantity</th>
-                        <th>Quantity Unit</th>
-                        <th>Stock Quantity</th>
-                        <th>Sales Quantity</th>
-                    </tr>
-
-                    </thead>
-                    <tbody>
-                    <?php  $key = 0; ?>
-                    @foreach($data as $row)
-
-                        @if($row->date == $row->salesDate)
-
-                        <tr>
-                            <td>{{$key+1}}</td>
-                            <td> {{$row->date}} </td>
-                            <td>
-                                @foreach($items as $a => $item)
-                                    @if($row->item_id == $a)
-                                        {{$item}}
-                                    @endif
-                                @endforeach
-                            </td>
-                            <td>
-                                {{$row->quantity}}
-                            </td>
-                            <td>
-                                @foreach($units as $b => $unit)
-                                    @if($row->quantity_unit == $b)
-                                        {{$unit}}
-                                    @endif
-                                @endforeach
-                            </td>
-
-
-                                <td>
-                                    {{$row->stock_quantity}}
-                                </td>
-
-                                <td>
-                                    {{$row->sales_quantity}}
-                                </td>
-
-                        </tr>
-                        @php $key++; @endphp
-                        @endif
-
-                    @endforeach
-                    </tbody>
-                </table>
-            @endif
-
+           
 
         </div>
 

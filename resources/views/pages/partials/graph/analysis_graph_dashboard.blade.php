@@ -30,14 +30,14 @@
                         ?>
                         {{Form::select('item_category_id',$category,null,['class' => 'form-control select_category text_good'])}}
                     </div>
-                    <!-- <div class="col-lg-3">
+                    <div class="col-lg-3">
                         <label class="text_good_header" >Items:</label>
-                        ?php
-                        $itemList = ["" => "Select Items"];
-                        $itemList = $itemList + $items;
-                        ?
+                            <?php
+                                $itemList = ["" => "Select Items"];
+                                $itemList = $itemList + $items;
+                            ?>
                         {{Form::select('item_id',$itemList,$item_id,['class' => 'form-control select_item text_good'])}}
-                    </div> -->
+                    </div>
                     <!-- <div class="col-lg-2" style="margin-top: 24px;">
                         <button type="submit" class="btn btn-secondary text_good_header ">Filter</button>
                     </div> -->
