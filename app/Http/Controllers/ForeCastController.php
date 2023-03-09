@@ -643,9 +643,10 @@ class ForeCastController extends Controller
         return $all_data_p_c;
     }
     public function FilterItem(Request $request){
-        return $request;
+ 
         $year =  $request['year'];
         $category_id = $request['catId'];
+        $item_id = $request['item_id'];
         // return $category_id;
         // return $request;
         // $converter = new NepaliDateConverter("en");
@@ -654,36 +655,29 @@ class ForeCastController extends Controller
      
         
         $all_data_p_c = [];
-        if($category_id == 3 || $category_id == 12){
-            $all_items = ItemCategory::where('id',$category_id)->first()->getItems()->get();
-            foreach($all_items as $item){           
+        if($category_id == 3 || $category_id == 12){            
                 
-                $import = NepalOilCorporation::where("item_id",$item->id)->whereYear('date', '=', $year)->get()->sum("quantity");
-                
-                if($import > 0){
-                    $production = 0;
-                    $consumption = Consumption::where("item_id",$item->id)->whereYear('date', '=', $year)->get()->sum("quantity");   
-                    $export = DepartmentOfCustom::where("item",$item->id)->where("type","export")->whereYear('asmt_date', '=', $year)->get()->sum("quantity");
-    
-                    $record = array("obj" => $item,"production"=>$production,"consumption"=>$consumption,"import"=>$import,"export"=>$export);
-                    $all_data_p_c[] = $record;
-                }           
-            }
+            $import = NepalOilCorporation::where("item_id",$item_id)->whereYear('date', '=', $year)->get()->sum("quantity");            
+            if($import > 0){
+                $production = 0;
+                $consumption = Consumption::where("item_id",$item_id)->whereYear('date', '=', $year)->get()->sum("quantity");   
+                $export = 0;
+                $record = array("obj" =>Item::find($item_id),"production"=>$production,"consumption"=>$consumption,"import"=>$import,"export"=>$export);
+                $all_data_p_c[] = $record;
+            }           
+           
         }
         else{
-            $all_items = ItemCategory::where('id',$category_id)->first()->getItems()->get();
-            foreach($all_items as $item){           
-                $production = LocalProduction::where("item_id",$item->id)->whereYear('date', '=', $year)->get()->sum("quantity");
-                if($production > 0){
-                    $consumption = Consumption::where("item_id",$item->id)->whereYear('date', '=', $year)->get()->sum("quantity");
-                    
-                    $import = DepartmentOfCustom::where("item",$item->id)->where("type","import")->whereYear('asmt_date', '=', $year)->get()->sum("quantity");
-                    $export = DepartmentOfCustom::where("item",$item->id)->where("type","export")->whereYear('asmt_date', '=', $year)->get()->sum("quantity");
-    
-                    $record = array("obj" => $item,"production"=>$production,"consumption"=>$consumption,"import"=>$import,"export"=>$export);
-                    $all_data_p_c[] = $record;
-                }           
-            }
+            $production = LocalProduction::where("item_id",$item_id)->whereYear('date', '=', $year)->get()->sum("quantity");
+            if($production > 0){
+                $consumption = Consumption::where("item_id",$item_id)->whereYear('date', '=', $year)->get()->sum("quantity");
+                
+                $import = DepartmentOfCustom::where("item",$item_id)->where("type","import")->whereYear('asmt_date', '=', $year)->get()->sum("quantity");
+                $export = DepartmentOfCustom::where("item",$item_id)->where("type","export")->whereYear('asmt_date', '=', $year)->get()->sum("quantity");
+
+                $record = array("obj" =>Item::find($item_id),"production"=>$production,"consumption"=>$consumption,"import"=>$import,"export"=>$export);
+                $all_data_p_c[] = $record;
+            }         
         }
   
         return $all_data_p_c;

@@ -170,16 +170,32 @@
 
 
         $("#filterItem").on("click",function (e){
-            alert("hello")
-            var catId = $(this).val();
-            var ItemId = $("#select_item").val();
-            alert(ItemId);
+            var catId = $(".select_category").val();
+            var ItemId = $(".select_item").val();
+            $("#view_available_item").empty();
             $.ajax({
                 type: "GET",
                 url: "{{route('FilterItem')}}",
-                data: {catId: catId},
+                data: {catId: catId,item_id:ItemId,year:'{{$monthly_year}}'},
                 success: function (response) {
-                  
+                    if(response == ''){
+                        alert("there is no any data belongs to this item.");
+                    }
+                    for (var dat in response) {
+                    $("#view_available_item").append(`<tr>
+                                <!----<td>1</td> --->
+                                <td>`+response[dat]['obj']['name_np']+`</td>
+                                <td>`+response[dat]['production']+`</td>
+                                <td>`+response[dat]['import']+`</td>
+                                <td>`+(response[dat]['production']+response[dat]['import'])+`</td>
+                                <td>`+response[dat]['consumption']+`</td>
+                                <td>`+response[dat]['export']+`</td>
+                                <td>`+(response[dat]['consumption']+response[dat]['export'])+`</td>
+                                <td>`+((response[dat]['production']+response[dat]['import'])-(response[dat]['consumption']+response[dat]['export']))+`</td>
+                                <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date=2079-01-33&to_date=2079-12-33&item_id=`+response[dat]['obj']['id']+`" style=" text-decoration: none;  color: inherit;">View</a></button></td>
+                                </tr>`
+                            )
+                    }              
                 }
             });
         });
