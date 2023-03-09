@@ -16,7 +16,10 @@ class LocalProduction extends Model
     {
         return $this->belongsTo('App\Models\ItemCategory', 'item_category_id', 'id');
     }
-
+    public function getItem()
+    {
+        return $this->belongsTo('App\Models\Item','item_id','id');
+    }
     public function unit()
     {
         return $this->belongsTo('App\Models\MeasurementUnit', 'quantity_unit', 'id');

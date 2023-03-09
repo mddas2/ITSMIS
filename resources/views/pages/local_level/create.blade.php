@@ -145,8 +145,7 @@
                     display:none;
                 }
             </style> 
-            <form class="form" id="kt_form" action="{{route('local_level_add')}}" method="post">
-                {{csrf_field()}}
+           
                 <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
                     <thead>
                     <tr>
@@ -157,8 +156,7 @@
                         <th rowspan="1">Quantity</th>
                         <th rowspan="1">Quantity Unit</th>
                         <th colspan="1">Location</th>
-                        <th colspan="1">Produced By</th>
-                        <th rowspan="1">Actions</th>
+                        <th>Action</th>                       
                     </tr>
 
                     </thead>
@@ -168,20 +166,19 @@
                         <tr>
                             <td>{{$key+1}}</td>
                             <td>
-                                <input type="hidden" value="{{$row->id}}">
-                                <input type="text" class="form-control nepdatepicker"  data-single="true"  autocomplete="off" id="nep{{$key}}" value="{{$row->date}}" disabled="">
+                                {{$row->date}}
                             </td>
                             <td>
-                                {{Form::select('',$category,$row->item_category_id,['class' => 'form-control  ','disabled'=> 'disabled'])}}
+                                {{$row->itemCategory->name}}
                             </td>
                             <td>
-                                {{Form::select('',$items,$row->item_id,['class' => 'form-control  ','disabled'=> 'disabled'])}}
+                                {{$row->getItem->name}}
                             </td>                          
                             <td>
-                                <input type="text" name="" class="form-control nepdatepicker" autocomplete="off" value="{{$row->quantity}}" disabled="">
+                                {{$row->quantity}}
                             </td>
                             <td>
-                                {{Form::select('',$units,$row->quantity_unit,['class' => 'form-control','disabled'=> 'disabled'])}}
+                                {{$row->unit->name}}
                             </td>
                             <td>
                                 @if($row->getMunicipality)
@@ -191,15 +188,20 @@
                                 @endif
                             </td>
                             <td>
-                                <input type="text" name="" class="form-control " autocomplete="off" value="{{$row->produced_by}}" disabled>
+                                <form action="#" style="display: inline-block;"
+                                        method="get">
+                                        <!-- method "post" -->
+                                        <!-- {{ method_field('DELETE') }} -->
+                                        <!-- {{ csrf_field() }} -->
+                                        <a href="#" class="btn btn-icon btn-danger btn-xs mr-2 deleteBtn" data-toggle="tooltip"
+                                        title="Delete"><i class="fa fa-trash"></i></a>
+                                </form>  
                             </td>
-                            <td></td>
+                            
                         </tr>
                         @php $key++; @endphp
-                    @endforeach
-                
+                    @endforeach                
                 </table>
-            </form>
         </div>
     </div>
 @endsection
@@ -283,7 +285,6 @@
                     data: { district_id: selectedValue },
                     success: function(data) {
                         $("#muncipality_id").empty()
-                        console.log(data)
                         for(da in data){
                             console.log(da)
                             var muncipality = data[da]['alt_name']
@@ -303,79 +304,6 @@
             paging: true
         });
 
-        var key = {!! $key !!};
-
-        var tableCnt = $('#tb_id tr').length;
-        var tb_id = $('#tb_id');
-
-        $('.add').click(function (e) {
-            var rowClone = $("#firstRow").clone();
-            var updatedTblCount = tableCnt + 1;
-
-            $("[name='data[" + key + "][date]']", rowClone).val("");
-            $("[name='data[" + key + "][date]']", rowClone).attr('id', "nepstart" + updatedTblCount);
-            $("[name='data[" + key + "][item_id]']", rowClone).val("");
-            $("[name='data[" + key + "][item_id]']", rowClone).attr("class", "form-control select_item" + updatedTblCount);
-            $("[name='data[" + key + "][item_category_id]']", rowClone).attr("class", "form-control select_category" + updatedTblCount);
-
-            $("[name='data[" + key + "][quantity]']", rowClone).val("");
-            $("[name='data[" + key + "][quantity_unit]']", rowClone).val("");
-            $("[name='data[" + key + "][produced_by]']", rowClone).val("");
-
-
-            $("[name='data[" + key + "][id]']", rowClone).attr('name', 'data[' + tableCnt + '][id]');
-            $("[name='data[" + key + "][date]']", rowClone).attr('name', 'data[' + tableCnt + '][date]');
-            $("[name='data[" + key + "][item_id]']", rowClone).attr('name', 'data[' + tableCnt + '][item_id]');
-            $("[name='data[" + key + "][item_category_id]']", rowClone).attr('name', 'data[' + tableCnt + '][item_category_id]');
-            $("[name='data[" + key + "][quantity]']", rowClone).attr('name', 'data[' + tableCnt + '][quantity]');
-            $("[name='data[" + key + "][quantity_unit]']", rowClone).attr('name', 'data[' + tableCnt + '][quantity_unit]');
-            $("[name='data[" + key + "][produced_by]']", rowClone).attr('name', 'data[' + tableCnt + '][produced_by]');
-
-            $("td#remRow", rowClone).html('<a href="#" id="remRow" class="btn btn-icon btn-danger btn-xs mr-2 deleteBtn" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>');
-            $('.sn', rowClone).html(tableCnt + 1);
-            tb_id.append(rowClone);
-            tableCnt++;
-            $('#nepstart' + updatedTblCount).nepaliDatePicker(/*{
-                language: "english",
-                ndpYear: true,
-                ndpMonth: true,
-                ndpYearCount: 10
-            }*/);
-            $(".select_item" + updatedTblCount).on("change", function (e) {
-
-                e.preventDefault();
-                var itemID = $(this).val();
-                
-                $.ajax({
-                    type: "GET",
-                    url: "{{route('getCategoryByItem')}}",
-                    data: {itemID: itemID},
-                    success: function (response) {
-
-                        $(".select_category" + updatedTblCount).val(response.catId);
-                    }
-                });
-
-            });
-            $(".select_category" + updatedTblCount).on("change", function (e) {
-                var catId = $(this).val();
-                $.ajax({
-                    type: "GET",
-                    url: "{{route('getItemByCategory')}}",
-                    data: {catId: catId},
-                    success: function (response) {
-                        $(".select_item" + updatedTblCount ).find('option').remove().end().append(response.html);
-                    }
-                });
-            });
-        });
-        $(document).on('click', '#remRow', function () {
-            if (tableCnt > 1) {
-                $(this).closest('tr').remove();
-                tableCnt--;
-            }
-            return false;
-        });
         $('.nepdatepicker').nepaliDatePicker(/*{
             language: "english",
             ndpYear: true,

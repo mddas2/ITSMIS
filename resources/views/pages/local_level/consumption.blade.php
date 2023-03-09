@@ -155,8 +155,7 @@
                         <th rowspan="1">Consume Product</th>                     
                         <th rowspan="1">Quantity</th>
                         <th rowspan="1">Quantity Unit</th>
-                        <th colspan="1">Muncipality</th>
-                      
+                        <th colspan="1">Muncipality</th>                      
                         <th rowspan="1">Actions</th>
                     </tr>
 
@@ -167,27 +166,35 @@
                         <tr>
                             <td>{{$key+1}}</td>
                             <td>
-                                <input type="hidden" value="{{$row->id}}">
-                                <input type="text" class="form-control nepdatepicker"  data-single="true"  autocomplete="off" id="nep{{$key}}" value="{{$row->date}}" disabled="">
+                                {{$row->date}}
                             </td>
                             <td>
-                                {{Form::select('',$category,$row->item_category_id,['class' => 'form-control  ','disabled'=> 'disabled'])}}
+                                {{$row->itemCategory->name}}
                             </td>
                             <td>
-                                {{Form::select('',$items,$row->item_id,['class' => 'form-control  ','disabled'=> 'disabled'])}}
+                                {{$row->getItem->name}}
                             </td>                           
                             <td>
-                                <input type="text" name="" class="form-control nepdatepicker" autocomplete="off" value="{{$row->quantity}}" disabled="">
+                                {{$row->quantity}}
                             </td>
                             <td>
-                                {{Form::select('',$units,$row->quantity_unit,['class' => 'form-control','disabled'=> 'disabled'])}}
+                                {{$row->unit->name}}
                             </td>
                             <td>
                                 @if($row->getMunicipality)
                                     {{$row->getMunicipality->alt_name}}
                                 @endif
                             </td>
-                            <td></td>
+                            <td>   
+                                <form action="#" style="display: inline-block;"
+                                        method="get">
+                                        <!-- method "post" -->
+                                        <!-- {{ method_field('DELETE') }} -->
+                                        <!-- {{ csrf_field() }} -->
+                                        <a href="#" class="btn btn-icon btn-danger btn-xs mr-2 deleteBtn" data-toggle="tooltip"
+                                        title="Delete"><i class="fa fa-trash"></i></a>
+                                </form>
+                            </td>
                         </tr>
                         @php $key++; @endphp
                     @endforeach
