@@ -52,16 +52,6 @@
             </ul>
         </div>
 
-        <!-- <div class="card-header flex-wrap border-1 pt-6 pb-0">
-            <div class="card-title">
-                <h3 class="card-label">
-                    Local Level - Productions
-                </h3>
-            </div>
-            <div class="card-toolbar">
-                <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_production_excel','production')}}" ><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
-            </div>
-        </div> -->
         @if(auth()->user()->role_id == 2)
             <form action='{{route("SetLocalLocationSession")}}' method = "post">
                 {{csrf_field()}}
@@ -91,7 +81,6 @@
                     <div class="col-lg-2" style="margin-top: 24px;">
                         <button type="submit" class="btn btn-secondary">SET</button>
                     </div>
-            
                 </div>
             </form>
         @endif
@@ -162,14 +151,20 @@
                     </thead>
                     <tbody id="tb_id">
                     <?php $key = 0; ?>
+                   
                     @foreach($data as $row)
-                        <tr>
-                            <td>{{$key+1}}</td>
+                        <tr  @if(Session::has($row->id)) class = "redflash" @endif>
+                            <td>{{$key+1}},{{$row->id}}</td>
                             <td>
                                 {{$row->date}}
                             </td>
                             <td>
                                 {{$row->itemCategory->name}}
+                                @if(Session::has("success"))
+                                    {{Session::get('82')}} , id
+                                @else
+                                    Null
+                                @endif
                             </td>
                             <td>
                                 {{$row->getItem->name}}
@@ -204,6 +199,11 @@
                 </table>
         </div>
     </div>
+    <style>
+        .redflash{
+            background-color:#c6f5d4;
+        }
+    </style>
 @endsection
 @section('scripts')
     <script src="{{asset('js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>

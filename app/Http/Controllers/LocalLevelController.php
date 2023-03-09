@@ -27,6 +27,7 @@ use DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use GuzzleHttp\Client;
+use Session;
 
 class LocalLevelController extends Controller
 {
@@ -158,12 +159,15 @@ class LocalLevelController extends Controller
                 $query->where('date', '<=', $this->_data['to_date']);
             }
 
-            $data = $query->get();
+            $data = $query;
+            // $data = $data->get();
         } else {
-
-
-            $data = $query->latest()->take(20)->get();
+            $data = $query;
+            // $data = $query->latest()->take(60)->get();
         }
+  
+        
+        $data = $data->OrderBy('updated_at','desc')->take(20)->get();
 
         //$this->_data['columns'] = Schema::getColumnListing('nepal_oil_corporations');
         $this->_data['items'] = Item::whereIn('item_category_id',$category_ids)->pluck('name_np', 'id')->toArray();
@@ -196,7 +200,6 @@ class LocalLevelController extends Controller
     
     public function addAction(Request $request)
     {
-        
         if(auth()->user()->role_id == 2 && $request->session()->has('provience_id') && $request->session()->has('district_id') && $request->session()->has('municipality_id')){  //admin        
             $provience_id = $request->session()->get('provience_id');
             $district_id = $request->session()->get('district_id');
@@ -218,11 +221,13 @@ class LocalLevelController extends Controller
             
             //$data['locked'] = 1;
             if (!empty($data['date'])) {
-                LocalProduction::updateOrCreate(
+             $obj = LocalProduction::updateOrCreate(
                     ['id' => $data['id']],
                     $data
                 );
             }
+            Session::flash($obj->id,$obj->id);
+            
         }
 
         return redirect()->route('local_level_add')->with('success', 'Your Information has been Added .');
