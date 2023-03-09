@@ -134,6 +134,10 @@
                     display:none;
                 }
             </style> 
+               @php
+                    $flash_ids = Session::get('ids');
+                   
+                @endphp
            
                 <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
                     <thead>
@@ -153,21 +157,17 @@
                     <?php $key = 0; ?>
                    
                     @foreach($data as $row)
-                        <tr  @if(Session::has($row->id)) class = "redflash" @endif>
+                        <tr  @if (!is_null($flash_ids) && in_array($row->id, $flash_ids)) class = "redflash" @endif>
                             <td>{{$key+1}},{{$row->id}}</td>
                             <td>
                                 {{$row->date}}
                             </td>
                             <td>
                                 {{$row->itemCategory->name}}
-                                @if(Session::has("success"))
-                                    {{Session::get('82')}} , id
-                                @else
-                                    Null
-                                @endif
                             </td>
                             <td>
                                 {{$row->getItem->name}}
+                           
                             </td>                          
                             <td>
                                 {{$row->quantity}}

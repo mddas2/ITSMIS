@@ -210,7 +210,7 @@ class LocalLevelController extends Controller
             $district_id = $request->user()->district_id;
             $municipality_id = $request->user()->municipality_id;
         }
-       
+        $array_id =  array();
         foreach ($request->data as $key => $data) {
         
             $data['provience_id'] = $provience_id;
@@ -226,10 +226,10 @@ class LocalLevelController extends Controller
                     $data
                 );
             }
-            Session::flash($obj->id,$obj->id);
+            $array_id[] = $obj->id;            
             
         }
-
+        Session::flash('ids',$array_id);
         return redirect()->route('local_level_add')->with('success', 'Your Information has been Added .');
     }
 
@@ -237,6 +237,7 @@ class LocalLevelController extends Controller
     public function addActionImportProduction(Request $request)
     {
         // return $request;
+        $array_id = [];
         foreach ($request->data as $key => $data) {
 
 
@@ -253,13 +254,14 @@ class LocalLevelController extends Controller
            
             //$data['locked'] = 1;
             if (!empty($data['date'])) {
-                LocalProduction::updateOrCreate(
+              $obj = LocalProduction::updateOrCreate(
                     ['id' => $data['id']],
                     $data
                 );
+                $array_id[] = $obj->id;           
             }
         }
-
+        Session::flash('ids',$array_id); 
         return redirect()->route('local_level_add')->with('success', 'Your Information has been Added .');
     }
 
