@@ -218,7 +218,6 @@ class NepalOilCorporationController extends Controller
 
     public function addAction(Request $request)
     {
-   
         $array_id = [];
     	foreach($request->data as $key=>$data) {
             $data['user_id'] = Auth::user()->id;

@@ -117,7 +117,9 @@
                 }
             </style>
              
-         
+                @php
+                    $flash_ids = Session::get('ids');                   
+                @endphp
                 <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
                 <!-- <table class="table table-bordered table-hover table-checkable mt-10"> -->
                     <thead>
@@ -134,7 +136,7 @@
                     <tbody id="tb_id">
                     <?php $key = 0; ?>
                     @foreach($data as $row)
-                        <tr>
+                        <tr  @if (!is_null($flash_ids) && in_array($row->id, $flash_ids)) class = "redflash" @endif>
                             <td>{{$key+1}}</td>
                             <td>
                                 {{$row->date}}
@@ -163,10 +165,14 @@
                     @endforeach
           
                     </tbody>                   
-                </table>
-            
+                </table>            
         </div>
     </div>
+<style>
+    .redflash{
+        background-color:#c6f5d4;
+    }
+</style>
 @endsection
 @section('scripts')
     <script src="{{asset('js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>

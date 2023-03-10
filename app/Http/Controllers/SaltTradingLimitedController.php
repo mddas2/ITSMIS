@@ -23,6 +23,7 @@ use DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use GuzzleHttp\Client;
+use Session;
 
 class SaltTradingLimitedController extends Controller
 {
@@ -153,12 +154,13 @@ class SaltTradingLimitedController extends Controller
                 $query->where('date', '<=', $this->_data['to_date']);
             }
 
+            // $data = $query->get();
             $data = $query->get();
         } else {
-
-
-            $data = $query->latest()->take(20)->get();
+            $data = $query;
+            // $data = $query->latest()->take(20)->get();
         }
+        $data = $query->OrderBy('updated_at','desc')->take(20)->get();
 
         //$this->_data['columns'] = Schema::getColumnListing('nepal_oil_corporations');
         $this->_data['items'] = Item::whereIn('item_category_id',$category_ids)->pluck('name_np', 'id')->toArray();
@@ -189,27 +191,21 @@ class SaltTradingLimitedController extends Controller
 
     public function addAction(Request $request, $type)
     {
+        $array_id = [];
         foreach ($request->data as $key => $data) {
             $data['user_id'] = Auth::user()->id;
             $data['type'] = $type;
+            $data['quantity_unit'] = 1;//1 is Killogram unit
             //$data['locked'] = 1;
-            if (!empty($data['date'])) {
-                // dd($data);
-                if ($type == 'purchase'){
-                    SaltTradingLimitedPurchase::updateOrCreate(
-                        ['id' => $data['id']],
-                        $data
-                    );
-                }else{
-                    SaltTradingLimitedSales::updateOrCreate(
-                        ['id' => $data['id']],
-                        $data
-                    );
-                }
-
+            if (!empty($data['date'])) {              
+                $obj = SaltTradingLimitedPurchase::updateOrCreate(
+                    ['id' => $data['id']],
+                    $data
+                );
+                $array_id[] = $obj->id;       
             }
         }
-
+        Session::flash('ids',$array_id);
         return redirect()->route('salt_trading_add', $type)->with('success', 'Your Information has been Added .');
     }
 
