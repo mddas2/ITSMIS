@@ -92,7 +92,7 @@
             <div class="row">
                 <div class="card-title mdlr col-md-4">
                     <h3 class="card-label">
-                        Salt Trading Limited Consumption
+                        Salt Consumption
                     </h3>
                 </div>
                 <div class="card-toolbar mdlr col-md-4">
