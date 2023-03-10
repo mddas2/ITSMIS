@@ -85,23 +85,6 @@ class SaltTradingLimitedController extends Controller
   
         $this->_data['user'] = User::find(Auth::id());
 
-        $hierarchyId = auth()->user()->hierarchy->hierarchy_id;
-        $parentHierarchy = Hierarchy::ancestorsAndSelf($hierarchyId)->toArray();
-        $this->_data['hierarchyTitle'][0] = "";
-        $this->_data['hierarchyTitle'][1] = "";
-        if (count($parentHierarchy) > 1) {
-            foreach ($parentHierarchy as $key => $parent) {
-                if ($key > 0) {
-                    if ($key != count($parentHierarchy) - 1) {
-                        $this->_data['hierarchyTitle'][0] .= $parent['name'];
-                        $this->_data['hierarchyTitle'][0] .= ($key != count($parentHierarchy) - 2) ? ' -> ' : ' -> ';
-                    } else {
-                        $this->_data['hierarchyTitle'][1] .= $parent['name'];
-                    }
-
-                }
-            }
-        }
         
         return view($this->_page . 'add_new_salt', $this->_data);
     }

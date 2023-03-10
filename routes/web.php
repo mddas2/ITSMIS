@@ -286,8 +286,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('salt_add/{type}', 'SaltTradingLimitedController@addAction');
 
     Route::get('salt-consumption-add', 'ConsumptionController@SaltConsusmptionAdd')->name('salt_consumption');
-    Route::post('salt-consumption-add', 'ConsumptionController@SaltConsumptionAddAction')->name('SaltAddAction');
-    Route::get('salt-new-add-consumption', 'SaltTradingLimitedController@AddSaltNewConsumption')->name('AddSaltNewConsumption');
+    Route::post('salt-consumption-add', 'ConsumptionController@SaltConsumptionAddAction')->name('SaltConsumptionAddAction');
+    Route::get('salt-new-add-consumption', 'ConsumptionController@AddSaltNewConsumption')->name('AddSaltNewConsumption');
     Route::get('salt-new-add', 'SaltTradingLimitedController@AddSaltNew')->name('salt_new_add');
     
 

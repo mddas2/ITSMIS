@@ -149,6 +149,50 @@ class ConsumptionController extends Controller
         return redirect()->back()->with('success', 'Your Information has been Added .');
         // return redirect()->route('local_level_consumption_add')->with('success', 'Your Information has been Added .');
     }
+    public function AddSaltNewConsumption(Request $request){
+    
+        $category_ids = Modulehascategory::where('module_id',6)->first();//salt module is 4
+        if($category_ids == NULL){
+            return "There is no any category added to salt module . Please go through Admin.";
+        }
+        $category_ids = unserialize($category_ids->categories);    
+        $category = ItemCategory::whereIn('id',$category_ids)->pluck('name_np', 'id')->toArray();
+
+        
+
+        $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
+
+        if ($request->has('from_date')) {
+            $this->_data['from_date'] = $request->from_date;
+        }
+
+        if ($request->has('to_date')) {
+            $this->_data['to_date'] = $request->to_date;
+        }
+
+
+        if ($request->has('item_id') && !empty($request->item_id)) {
+            $query->where('item_id', $request->item_id);
+        }
+
+        if ($request->has('item_category_id') && !empty($request->item_category_id)) {
+            $query->where('item_category_id', $request->item_category_id);
+        }
+
+        if (auth()->user()->role_id == 3) {
+            $query->where('user_id', auth()->user()->id);
+        }
+
+        //$this->_data['columns'] = Schema::getColumnListing('nepal_oil_corporations');
+        $this->_data['items'] = Item::whereIn('item_category_id',$category_ids)->pluck('name_np', 'id')->toArray();
+        $this->_data['units'] = MeasurementUnit::pluck('name_np', 'id')->toArray();
+        $this->_data['category'] = $category;
+  
+        $this->_data['user'] = User::find(Auth::id());
+
+        
+        return view('pages.salt_trading_limited.add_new_salt_consmption', $this->_data);
+    }
     public function SaltConsusmptionAdd(Request $request)
     {
         $category_ids = Modulehascategory::where('module_id',6)->first();//salt module is 6
@@ -226,7 +270,6 @@ class ConsumptionController extends Controller
     }
     public function SaltConsumptionAddAction(Request $request)
     {
-        // return $request;
    
         if(auth()->user()->role_id == 2 && $request->session()->has('provience_id') && $request->session()->has('district_id') && $request->session()->has('municipality_id')){  //admin        
             $provience_id = $request->session()->get('provience_id');
@@ -246,6 +289,7 @@ class ConsumptionController extends Controller
             $data['municipality_id'] = $municipality_id; 
 
             $data['user_id'] = Auth::user()->id;
+            $data['quantity_unit'] = 1;//1 is kg unit
 
             //$data['locked'] = 1;
             if (!empty($data['date'])) {

@@ -99,7 +99,7 @@
                     <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_production_excel','production')}}" ><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
                 </div>
                 <div class="card-toolbar mdlr col-md-4">
-                    <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('salt_new_add')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
+                    <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('AddSaltNewConsumption')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
                 </div>            
             </div>
                
