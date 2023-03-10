@@ -19,6 +19,7 @@ use DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use GuzzleHttp\Client;
+use Session;
 
 
 class NepalOilCorporationController extends Controller
@@ -207,20 +208,22 @@ class NepalOilCorporationController extends Controller
 
     public function addAction(Request $request)
     {
-        // return $request;
+   
+        $array_id = [];
     	foreach($request->data as $key=>$data) {
             $data['user_id'] = Auth::user()->id;
             $data['unit_id'] = 2;//2 is liter unit
            
             if (!empty($data['date'])) {
                // dd($data);
-                NepalOilCorporation::updateOrCreate(
+               $obj = NepalOilCorporation::updateOrCreate(
                    ['id' => $data['id']],
                    $data
                 ); 
+                $array_id[] = $obj->id;  
             }
         }
-
+        Session::flash('ids',$array_id); 
         return redirect()->route('noc_add')->with('success', 'Your Information has been Added .');
     }
 

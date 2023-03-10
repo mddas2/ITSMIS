@@ -240,7 +240,6 @@ class LocalLevelController extends Controller
         $array_id = [];
         foreach ($request->data as $key => $data) {
 
-
             $district = $data['district'];
             $district_obj = District::where('id',$district)->first();
             $district_id = $district_obj->id;

@@ -137,8 +137,7 @@
                @php
                     $flash_ids = Session::get('ids');
                    
-                @endphp
-           
+                @endphp           
                 <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
                     <thead>
                     <tr>
@@ -158,7 +157,7 @@
                    
                     @foreach($data as $row)
                         <tr @if (!is_null($flash_ids) && in_array($row->id, $flash_ids)) class = "redflash" @endif>
-                            <td>{{$key+1}},{{$row->id}}</td>
+                            <td>{{$key+1}}</td>
                             <td>
                                 {{$row->date}}
                             </td>
