@@ -52,8 +52,8 @@ class NepalOilCorporationController extends Controller
         });
         return redirect()->back()->with('success', 'New Column has been Added .');
     }
-    public function addOil(Request $request){
-    
+    public function addNewOilConsumption(Request $request){
+        
         $category_ids = Modulehascategory::where('module_id',4)->first();//oil module is 4
         if($category_ids == NULL){
             return "There is no any category added to oil module . Please go through Admin.";
@@ -61,7 +61,7 @@ class NepalOilCorporationController extends Controller
         $category_ids = unserialize($category_ids->categories);    
         $category = ItemCategory::whereIn('id',$category_ids)->pluck('name_np', 'id')->toArray();
 
-        $query = NepalOilCorporation::query();
+
 
         $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
 
@@ -86,43 +86,53 @@ class NepalOilCorporationController extends Controller
             $query->where('user_id', auth()->user()->id);
         }
 
-        if ($request->has('from_date')) {
-            if (!empty($this->_data['from_date'])) {
-                $query->where('date', '>=', $this->_data['from_date']);
-            }
-            if (!empty($this->_data['to_date'])) {
-                $query->where('date', '<=', $this->_data['to_date']);
-            }
+        //$this->_data['columns'] = Schema::getColumnListing('nepal_oil_corporations');
+        $this->_data['items'] = Item::whereIn('item_category_id',$category_ids)->pluck('name_np', 'id')->toArray();
+        $this->_data['units'] = MeasurementUnit::pluck('name_np', 'id')->toArray();
+        $this->_data['category'] = $category;
+   
+        $this->_data['user'] = User::find(Auth::id());
+        
+        return view($this->_page . 'add_new_oil_consumption', $this->_data);
+    }
+    public function addOil(Request $request){
+        
+        $category_ids = Modulehascategory::where('module_id',4)->first();//oil module is 4
+        if($category_ids == NULL){
+            return "There is no any category added to oil module . Please go through Admin.";
+        }
+        $category_ids = unserialize($category_ids->categories);    
+        $category = ItemCategory::whereIn('id',$category_ids)->pluck('name_np', 'id')->toArray();
 
-            $data = $query->get();
-        } else {
-            $data = $query->latest()->take(20)->get();
+        $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
+
+        if ($request->has('from_date')) {
+            $this->_data['from_date'] = $request->from_date;
+        }
+
+        if ($request->has('to_date')) {
+            $this->_data['to_date'] = $request->to_date;
+        }
+
+
+        if ($request->has('item_id') && !empty($request->item_id)) {
+            $query->where('item_id', $request->item_id);
+        }
+
+        if ($request->has('item_category_id') && !empty($request->item_category_id)) {
+            $query->where('item_category_id', $request->item_category_id);
+        }
+
+        if (auth()->user()->role_id == 3) {
+            $query->where('user_id', auth()->user()->id);
         }
 
         //$this->_data['columns'] = Schema::getColumnListing('nepal_oil_corporations');
         $this->_data['items'] = Item::whereIn('item_category_id',$category_ids)->pluck('name_np', 'id')->toArray();
         $this->_data['units'] = MeasurementUnit::pluck('name_np', 'id')->toArray();
         $this->_data['category'] = $category;
-        $this->_data['data'] = $data;
+   
         $this->_data['user'] = User::find(Auth::id());
-
-        $hierarchyId = auth()->user()->hierarchy->hierarchy_id;
-        $parentHierarchy = Hierarchy::ancestorsAndSelf($hierarchyId)->toArray();
-        $this->_data['hierarchyTitle'][0] = "";
-        $this->_data['hierarchyTitle'][1] = "";
-        if (count($parentHierarchy) > 1) {
-            foreach ($parentHierarchy as $key => $parent) {
-                if ($key > 0) {
-                    if ($key != count($parentHierarchy) - 1) {
-                        $this->_data['hierarchyTitle'][0] .= $parent['name'];
-                        $this->_data['hierarchyTitle'][0] .= ($key != count($parentHierarchy) - 2) ? ' -> ' : ' -> ';
-                    } else {
-                        $this->_data['hierarchyTitle'][1] .= $parent['name'];
-                    }
-
-                }
-            }
-        }
         
         return view($this->_page . 'add_new_oil', $this->_data);
     }

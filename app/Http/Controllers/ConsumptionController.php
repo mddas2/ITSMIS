@@ -123,8 +123,11 @@ class ConsumptionController extends Controller
             $municipality_id = $request->user()->municipality_id;
         }
 
+        $array_id = [];
         foreach ($request->data as $key => $data) {
-            
+
+            $data['quantity_unit'] = 2;//2 is liter unit
+
             $data['provience_id'] = $provience_id;
             $data['district_id'] = $district_id;
             $data['municipality_id'] = $municipality_id; 
@@ -134,13 +137,15 @@ class ConsumptionController extends Controller
             //$data['locked'] = 1;
             if (!empty($data['date'])) {
                 // dd($data);
-                Consumption::updateOrCreate(
+                $obj = Consumption::updateOrCreate(
                     ['id' => $data['id']],
                     $data
                 );
+                $array_id[] = $obj->id;
             }
         }
 
+        Session::flash('ids',$array_id); 
         return redirect()->back()->with('success', 'Your Information has been Added .');
         // return redirect()->route('local_level_consumption_add')->with('success', 'Your Information has been Added .');
     }

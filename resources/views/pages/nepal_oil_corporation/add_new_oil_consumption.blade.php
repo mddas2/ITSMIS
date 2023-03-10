@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Bootstrap Form</title>
+  <title>Add Oil Consumption</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
  
   <!-- <link href="{{asset('plugins/nepali-datepicker/nepali-datepicker.min.css')}}" rel="stylesheet" type="text/css" /> -->
@@ -38,10 +38,10 @@
       <div class="col-lg-6 col-md-8">
         <div class="card">
           <div class="card-header bg-primary text-white text-center">
-            <h4>Oil Level Entry</h4>
+            <h4>Oil Consumption Entry</h4>
           </div>
           <div class="card-body">
-            <form class="form" id="kt_form" action="{{route('noc_add')}}" method="post">
+            <form class="form" id="kt_form" action="{{route('OiladdAction')}}" method="post">
               {{csrf_field()}}
               <input type="hidden" name="data[0][id]" value="0">
               <div class="form-group">

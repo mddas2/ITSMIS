@@ -86,7 +86,7 @@
                     <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_production_excel','production')}}" ><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
                 </div>
                 <div class="card-toolbar mdlr col-md-4">
-                    <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('oil_add_production')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
+                    <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('addNewOilConsumption')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
                 </div>
             
             </div>
@@ -98,9 +98,10 @@
                 #kt_datatable_filter{
                     display:none;
                 }
-            </style>
-           
-                      
+            </style>           
+                 @php
+                    $flash_ids = Session::get('ids');                   
+                @endphp
                 <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
                     <thead>
                     <tr>
@@ -117,7 +118,7 @@
                     <tbody id="tb_id">
                     <?php $key = 0; ?>
                     @foreach($data as $row)
-                        <tr>
+                        <tr  @if (!is_null($flash_ids) && in_array($row->id, $flash_ids)) class = "redflash" @endif >
                             <td>{{$key+1}}</td>
                             <td>
                                 {{$row->date}}
@@ -153,6 +154,11 @@
            
         </div>
     </div>
+    <style>
+        .redflash{
+                background-color:#c6f5d4;
+            }
+    </style>
 @endsection
 @section('scripts')
     <script src="{{asset('js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>
