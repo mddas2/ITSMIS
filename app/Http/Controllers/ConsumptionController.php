@@ -21,6 +21,7 @@ use DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use GuzzleHttp\Client;
+use Session;
 
 class ConsumptionController extends Controller
 {
@@ -327,8 +328,6 @@ class ConsumptionController extends Controller
 
     public function addAction(Request $request)
     {
-       
-
         if(auth()->user()->role_id == 2 && $request->session()->has('provience_id') && $request->session()->has('district_id') && $request->session()->has('municipality_id')){  //admin        
             $provience_id = $request->session()->get('provience_id');
             $district_id = $request->session()->get('district_id');
@@ -340,6 +339,7 @@ class ConsumptionController extends Controller
             $municipality_id = $request->user()->municipality_id;
         }
 
+        $array_id = [];
         foreach ($request->data as $key => $data) {
             
             $data['provience_id'] = $provience_id;
@@ -351,19 +351,66 @@ class ConsumptionController extends Controller
             //$data['locked'] = 1;
             if (!empty($data['date'])) {
                 // dd($data);
-                Consumption::updateOrCreate(
+                $obj = Consumption::updateOrCreate(
                     ['id' => $data['id']],
                     $data
                 );
+                $array_id[] = $obj->id; 
             }
         }
-
+        Session::flash('ids',$array_id); 
         return redirect()->route('local_level_consumption_add')->with('success', 'Your Information has been Added .');
+    }
+    
+    public function addnewConsumption(Request $request)
+    {
+        $category_ids = Modulehascategory::where('module_id',7)->first();//local level module is 7
+        if($category_ids == NULL){
+            return "There is no any category added to oil module . Please go through Admin.";
+        }
+        $category_ids = unserialize($category_ids->categories);    
+        $category = ItemCategory::whereIn('id',$category_ids)->pluck('name_np', 'id')->toArray();
+
+    
+
+        $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
+
+        if ($request->has('from_date')) {
+            $this->_data['from_date'] = $request->from_date;
+        }
+
+        if ($request->has('to_date')) {
+            $this->_data['to_date'] = $request->to_date;
+        }
+
+
+        if ($request->has('item_id') && !empty($request->item_id)) {
+            $query->where('item_id', $request->item_id);
+        }
+
+        if ($request->has('item_category_id') && !empty($request->item_category_id)) {
+            $query->where('item_category_id', $request->item_category_id);
+        }
+
+        if (auth()->user()->role_id == 3) {
+            $query->where('user_id', auth()->user()->id);
+        }
+
+      
+
+        //$this->_data['columns'] = Schema::getColumnListing('nepal_oil_corporations');
+        $this->_data['items'] = Item::whereIn('item_category_id',$category_ids)->pluck('name_np', 'id')->toArray();
+        $this->_data['units'] = MeasurementUnit::pluck('name_np', 'id')->toArray();
+        $this->_data['category'] = $category;
+
+        $this->_data['user'] = User::find(Auth::id());
+
+        return view("pages.local_level.add_new_consumption", $this->_data);
     }
 
     public function productionExcel(Request $request)
     {
-        return view($this->_page.'production_excel',$this->_data);
+        return view($this->_page.'consumption_excel',$this->_data);
     }
 
     public function getProductionSample(Request $request,$type)

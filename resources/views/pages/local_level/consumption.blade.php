@@ -127,10 +127,10 @@
                     </h3>
                 </div>
                 <div class="card-toolbar mdlr col-md-4">
-                    <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_production_excel','production')}}" ><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
+                    <a class="btn btn-success btn-sm" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_consumption_excel')}}" ><i class="fa fa-plus icon-sm"></i>{{ __('Import Excel')}}</a>
                 </div>
                 <div class="card-toolbar mdlr col-md-4">
-                    <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('local_level_add_production')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
+                    <a class="btn btn-primary btn-sm" style="float:right;" href="javascript:;" data-fancybox data-type="ajax" data-src="{{route('addnewConsumption')}}" ><i class="fa fa-plus icon-sm"></i>Add new Production</a>
                 </div>
             
             </div>
@@ -143,8 +143,9 @@
                     display:none;
                 }
             </style>
-            <form class="form" id="kt_form" action="{{route('local_level_consumption_add')}}" method="post">
-                {{csrf_field()}}
+                @php
+                    $flash_ids = Session::get('ids');                   
+                @endphp
                 <table class="table table-bordered table-hover table-checkable mt-10" id="kt_datatable">
                 <!-- <table class="table table-bordered table-hover table-checkable mt-10"> -->
                     <thead>
@@ -155,7 +156,7 @@
                         <th rowspan="1">Consume Product</th>                     
                         <th rowspan="1">Quantity</th>
                         <th rowspan="1">Quantity Unit</th>
-                        <th colspan="1">Muncipality</th>                      
+                        <th colspan="1">Province</th>                      
                         <th rowspan="1">Actions</th>
                     </tr>
 
@@ -163,16 +164,16 @@
                     <tbody id="tb_id">
                     <?php $key = 0; ?>
                     @foreach($data as $row)
-                        <tr>
+                        <tr @if (!is_null($flash_ids) && in_array($row->id, $flash_ids)) class = "redflash" @endif>
                             <td>{{$key+1}}</td>
                             <td>
                                 {{$row->date}}
                             </td>
                             <td>
-                                {{$row->itemCategory->name}}
+                                {{$row->itemCategory->name_np}}
                             </td>
                             <td>
-                                {{$row->getItem->name}}
+                                {{$row->getItem->name_np}}
                             </td>                           
                             <td>
                                 {{$row->quantity}}
@@ -181,8 +182,8 @@
                                 {{$row->unit->name}}
                             </td>
                             <td>
-                                @if($row->getMunicipality)
-                                    {{$row->getMunicipality->alt_name}}
+                                @if($row->getProvince)
+                                    {{$row->getProvince->alt_name}}
                                 @endif
                             </td>
                             <td>   
@@ -200,9 +201,14 @@
                     @endforeach
                
                 </table>
-            </form>
+         
         </div>
     </div>
+    <style>
+        .redflash{
+            background-color:#c6f5d4;
+        }
+    </style>
 @endsection
 @section('scripts')
     <script src="{{asset('js/pages/crud/forms/widgets/bootstrap-datepicker.js')}}"></script>

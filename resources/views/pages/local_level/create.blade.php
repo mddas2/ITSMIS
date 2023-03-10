@@ -157,7 +157,7 @@
                     <?php $key = 0; ?>
                    
                     @foreach($data as $row)
-                        <tr  @if (!is_null($flash_ids) && in_array($row->id, $flash_ids)) class = "redflash" @endif>
+                        <tr @if (!is_null($flash_ids) && in_array($row->id, $flash_ids)) class = "redflash" @endif>
                             <td>{{$key+1}},{{$row->id}}</td>
                             <td>
                                 {{$row->date}}
