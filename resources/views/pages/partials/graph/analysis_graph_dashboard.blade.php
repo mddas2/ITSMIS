@@ -41,8 +41,7 @@
                 }
                 .item_red{
                     color:red
-                }
-               
+                }               
                 .supply_total{
                     background-color: #e6fbea !important;
                 }
@@ -59,6 +58,11 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Tabular Data</h4>
+               
+                <button style="float:right; background-color: transparent; border: none; color: transparent;" class="svg-icon svg-icon-3x">
+                    <i class="fa fa-print icon-2x"></i>
+                </button>
+           
                 <h6 class="card-subtitle">{{$monthly_year}}<code>All Items . for Oil  Measurement unit is Liter and other will be in Kg</code></h6>
                 <div class="table-responsive">
                     <table class="table">

@@ -63,7 +63,12 @@
 
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Provience chart of {{$item_name->name_np}}</h4>
+            <h4 class="card-title">Provience chart of {{$item_name->name_np}}
+                <button style="float:right; background-color: transparent; border: none; color: transparent;" class="svg-icon svg-icon-3x">
+                            <i class="fa fa-print icon-2x"></i>
+                </button>
+            </h4>
+         
             <div class="row">
                 <div class="col-6">
                     <div id="morris-donut-chart"></div>

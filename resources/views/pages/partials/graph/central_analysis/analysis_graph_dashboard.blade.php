@@ -83,7 +83,12 @@
 
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title"><span class="item_red">Item name {{$item_name->name_np}}<span> (वर्ष {{$monthly_year}}) </h4>
+            <h4 class="card-title"><span class="item_red">Item name {{$item_name->name_np}}<span> (वर्ष {{$monthly_year}}) 
+                <button onclick="printWithStyles()" style="float:right; background-color: transparent; border: none; color: transparent;" class="svg-icon svg-icon-3x">
+                        <i class="fa fa-print icon-2x"></i>
+                </button>
+            </h4>
+            
             <div class="row">
                 <div class="col-4">
                     <div id="morris-donut-chart"></div>
@@ -459,6 +464,50 @@
                 }
             });
         });
+        function printWithStyles() {
+        // Get the original document HTML
+        const originalHtml = document.documentElement.outerHTML;
+
+        // Get all elements with inline styles
+        const elements = document.querySelectorAll('[style]');
+
+        // Loop through each element and add its inline style to a string
+        let styles = '';
+        elements.forEach(element => {
+            styles += element.getAttribute('style') + '\n';
+        });
+        console.log(styles);
+
+        // Create the modified document HTML with the added styles
+        const modifiedHtml = `
+            <html>
+            <head>
+                <style>${styles}</style>
+            </head>
+            <body>
+                ${document.body.innerHTML}
+            </body>
+            </html>
+        `;
+        window.document.innerHtml = modifiedHtml;
+        window.print();
+
+        // // Create a new window with the modified HTML
+        // const printWindow = window.open('', '_blank', 'height=1100,width=1500');
+        // printWindow.document.write(modifiedHtml);
+        // printWindow.document.close();
+
+        // // Wait for the window to load before printing
+        // printWindow.onload = () => {
+        //     printWindow.print();
+        //     printWindow.close();
+        // };
+}
+
+
+
+
+
 
 </script>
 
