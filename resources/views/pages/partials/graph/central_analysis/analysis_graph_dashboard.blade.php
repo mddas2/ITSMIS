@@ -59,6 +59,12 @@
                 .item_red{
                     color:red
                 }
+                .supply_total{
+                    background-color: #e6fbea !important;
+                }
+                .demand_total{
+                    background-color: #f3d2ca !important;
+                }
             </style>         
         </div>
 
@@ -418,12 +424,12 @@
                                 <td>`+(dat)+`</td>
                                 <td>`+data[dat]['period']+`</td>
                                 <td>{{$unit_is}}</td>
-                                <td>`+data[dat]['Production']+`</td>
-                                <td>`+data[dat]['import']+`</td>
-                                <td>`+(data[dat]['Production']+data[dat]['import'])+`</td>
-                                <td>`+data[dat]['Consumption']+`</td>
-                                <td>`+data[dat]['export']+`</td>
-                                <td>`+(data[dat]['Consumption']+data[dat]['export'])+`</td>
+                                <td class="supply_total">`+data[dat]['Production']+`</td>
+                                <td class="supply_total">`+data[dat]['import']+`</td>
+                                <td class="supply_total">`+(data[dat]['Production']+data[dat]['import'])+`</td>
+                                <td class="demand_total">`+data[dat]['Consumption']+`</td>
+                                <td class="demand_total">`+data[dat]['export']+`</td>
+                                <td class="demand_total">`+(data[dat]['Consumption']+data[dat]['export'])+`</td>
                                 <td>`+(data[dat]['Production']+data[dat]['import']-(data[dat]['Consumption']+data[dat]['export']))+`</td>
                          
                             </tr>`)

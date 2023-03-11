@@ -21,7 +21,7 @@
         <th>3000</th>
         <th>3000</th>
         <th>3000</th>
-        <th>MT</th>
+        <th>Kilogram</th>
         <th>Thakali Samaj</th>
     </tr>
     <?php
