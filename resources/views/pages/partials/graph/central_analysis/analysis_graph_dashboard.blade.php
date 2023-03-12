@@ -12,7 +12,7 @@
     yearly_url = "{{route('AjaxGetYearlyData')}}"
     line_chart = "{{route('AjaxGetYearlyLineChartData')}}" 
 </script>
-<div class="card-body">
+<div class="card-body block_print">
             <form>
                 <div class="form-group row">
                     <div class="col-lg-2">
@@ -48,7 +48,7 @@
                     </div>
                 </div>
             </form>        
-        </div>
+</div>
 
 
 <link href="/chart/dist/css/style.min.css" rel="stylesheet">

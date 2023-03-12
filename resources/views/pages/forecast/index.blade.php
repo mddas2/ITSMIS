@@ -4,14 +4,13 @@
     <link href="{{asset('plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
-    <div class="card card-custom gutter-b">
-
+    <div class="card card-custom gutter-b block_print">
         <div class="card-header flex-wrap border-0 pt-6 pb-0">
             <div class="card-title">
-                <h3 class="card-label">Report</h3>
+                <h3 class="card-label block_print">Reports</h3>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body block_print">
             @include('pages.partials.graph.report_front_tiles')
         </div>
     </div>

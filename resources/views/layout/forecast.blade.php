@@ -51,12 +51,9 @@
  
          /* Media query for printing */
     @media print {
-      h1 {
-        color: black;
-      }
-      p {
-        font-size: 12pt;
-      }
+        .block_print{
+            display:none;
+        }
     }
     </style>
     @yield('styles')
