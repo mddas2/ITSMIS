@@ -27,7 +27,37 @@
         }
         .dt-buttons.btn-group.flex-wrap {
             float: left;
-        }`
+        }
+        .text_good_header{
+                font-size:15px !important;
+        }
+        .text_good{
+            font-size:13px !important;
+            weight:100 !important;
+        }
+        .item_red{
+            color:red
+        }
+        .supply_total{
+            background-color: #e6fbea !important;
+        }
+        .demand_total{
+            background-color: #f3d2ca !important;
+        }
+      
+        .md5md{
+            font-size:16px !important;
+        }
+ 
+         /* Media query for printing */
+    @media print {
+      h1 {
+        color: black;
+      }
+      p {
+        font-size: 12pt;
+      }
+    }
     </style>
     @yield('styles')
     @foreach(config('layout.resources.js') as $script)

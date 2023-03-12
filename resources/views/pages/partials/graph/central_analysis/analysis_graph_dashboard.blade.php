@@ -47,25 +47,7 @@
                         <button type="submit" class="btn btn-secondary text_good_header ">Filter</button>
                     </div>
                 </div>
-            </form>
-            <style>
-                .text_good_header{
-                    font-size:15px !important;
-                }
-                .text_good{
-                    font-size:13px !important;
-                    weight:100 !important;
-                }
-                .item_red{
-                    color:red
-                }
-                .supply_total{
-                    background-color: #e6fbea !important;
-                }
-                .demand_total{
-                    background-color: #f3d2ca !important;
-                }
-            </style>         
+            </form>        
         </div>
 
 
@@ -81,7 +63,7 @@
         
     <!-- Donute Chart open-->
 
-    <div class="card">
+    <div id="print_md1" class="card">
         <div class="card-body">
             <h4 class="card-title"><span class="item_red">Item name {{$item_name->name_np}}<span> (वर्ष {{$monthly_year}}) 
                 <button onclick="printWithStyles()" style="float:right; background-color: transparent; border: none; color: transparent;" class="svg-icon svg-icon-3x">
@@ -302,11 +284,7 @@
             </div>
         </div>
     </div>
-    <style>
-        .md5md{
-            font-size:16px !important;
-        }
-    </style>
+
     <div class="card-body">
     <h4 class="card-title">{{$monthly_year}} Monthly data of {{$item_name->name_np}}</h4>
     <!-- <h6 class="card-subtitle">Add<code>.table-striped</code>for borders on all sides of the table and cells.</h6> -->
@@ -465,49 +443,8 @@
             });
         });
         function printWithStyles() {
-        // Get the original document HTML
-        const originalHtml = document.documentElement.outerHTML;
-
-        // Get all elements with inline styles
-        const elements = document.querySelectorAll('[style]');
-
-        // Loop through each element and add its inline style to a string
-        let styles = '';
-        elements.forEach(element => {
-            styles += element.getAttribute('style') + '\n';
-        });
-        console.log(styles);
-
-        // Create the modified document HTML with the added styles
-        const modifiedHtml = `
-            <html>
-            <head>
-                <style>${styles}</style>
-            </head>
-            <body>
-                ${document.body.innerHTML}
-            </body>
-            </html>
-        `;
-        window.document.innerHtml = modifiedHtml;
-        window.print();
-
-        // // Create a new window with the modified HTML
-        // const printWindow = window.open('', '_blank', 'height=1100,width=1500');
-        // printWindow.document.write(modifiedHtml);
-        // printWindow.document.close();
-
-        // // Wait for the window to load before printing
-        // printWindow.onload = () => {
-        //     printWindow.print();
-        //     printWindow.close();
-        // };
-}
-
-
-
-
-
+            window.print();
+        }
 
 </script>
 
