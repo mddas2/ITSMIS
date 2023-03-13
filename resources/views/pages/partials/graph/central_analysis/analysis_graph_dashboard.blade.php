@@ -194,7 +194,7 @@
                                          
                                         $required_month_to_fulfill_production = round($deficit_surplus/$per_month_consumption);
                                       
-                                        $notices = '<li class="text-danger">Production goes upto only '.$upto_month.' months</li>'.'<li class="text-danger"> Deficit '.$required_month_to_fulfill_production.' months</li>'.'<li class="text-danger">'.$deficit_surplus.' {{$unit_is}} need to Import to fulfill this year</li>';
+                                        $notices = '<li class="text-danger">Production goes upto only '.$upto_month.' months</li>'.'<li class="text-danger"> Deficit '.$required_month_to_fulfill_production.' months</li>'.'<li class="text-danger">'.$deficit_surplus." ".$unit_is.' need to Import to fulfill this year</li>';
                                     }
                                     echo $notices;
                             @endphp
