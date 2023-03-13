@@ -70,6 +70,7 @@
                             <tr>
                                 <!-- <th class="md5md">#</th> -->
                                 <th class="md5md">Item</th>
+                                <th class="md5md">Opening</th>
                                 <th class="md5md">Production</th>
                                 <th class="md5md">Import</th>
                                 <th class="md5md">Total Supply</th>
@@ -84,6 +85,7 @@
                         </thead>
                         <tbody style="font-size: 15px; font-weight: bolder;" id="view_available_item">                            
                             <tr>
+                                <td></td>
                                 <td></td>
                                 <td>A</td>
                                 <td>B</td>
@@ -120,6 +122,7 @@
                     $("#view_available_item").append(`<tr>
                                 <!----<td>1</td> --->
                                 <td>`+response[dat]['obj']['name_np']+`</td>
+                                <td>0</td>
                                 <td supply_total>`+response[dat]['production']+`</td>
                                 <td supply_total>`+response[dat]['import']+`</td>
                                 <td supply_total>`+(response[dat]['production']+response[dat]['import'])+`</td>
@@ -144,6 +147,7 @@
                     $("#view_available_item").append(`<tr>
                                 <!----<td>1</td> --->
                                 <td>`+response[dat]['obj']['name_np']+`</td>
+                                <td>`+response[dat]['opening']+`</td>
                                 <td class="supply_total">`+response[dat]['production']+`</td>
                                 <td class="supply_total">`+response[dat]['import']+`</td>
                                 <td class="supply_total">`+(response[dat]['production']+response[dat]['import'])+`</td>
@@ -197,6 +201,7 @@
                     $("#view_available_item").append(`<tr>
                                 <!----<td>1</td> --->
                                 <td>`+response[dat]['obj']['name_np']+`</td>
+                                <td>0</td>
                                 <td class="supply_total">`+response[dat]['production']+`</td>
                                 <td class="supply_total">`+response[dat]['import']+`</td>
                                 <td class="supply_total">`+(response[dat]['production']+response[dat]['import'])+`</td>

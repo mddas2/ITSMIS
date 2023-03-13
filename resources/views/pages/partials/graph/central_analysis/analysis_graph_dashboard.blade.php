@@ -248,16 +248,16 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th class="md5md">#</th>
                                 <th class="md5md">Year</th>
                                 <th class="md5md">Unit</th>
+                                <th class="md5md">Opening</th>
                                 <th class="md5md">Production</th>
                                 <th class="md5md">Import</th>
                                 <th class="md5md">Total Supply</th>
                                 <th class="md5md">Consumption</th>
                                 <th class="md5md">Export</th>
                                 <th class="md5md">Total Demand</th>
-                                <th class="md5md">Stock</th>
+                                <th class="md5md">Closing Stock</th>
                                 <!-- <th class="md5md">Demand Fulfilment</th> -->
                                 <!-- <th class="md5md">Remarks<th> -->
                             </tr>
@@ -401,11 +401,10 @@
         data: {'item_id':ajax_production_item_fetch_id,'year':ajax_production_year},
         success: function(data) {
             for (var dat in data) {
-                console.log(data[0])
                 $("#tabular_data").append(`<tr>
-                                <td>`+(dat)+`</td>
                                 <td>`+data[dat]['period']+`</td>
                                 <td>{{$unit_is}}</td>
+                                <td class="supply_total">0</td>
                                 <td class="supply_total">`+data[dat]['Production']+`</td>
                                 <td class="supply_total">`+data[dat]['import']+`</td>
                                 <td class="supply_total">`+(data[dat]['Production']+data[dat]['import'])+`</td>

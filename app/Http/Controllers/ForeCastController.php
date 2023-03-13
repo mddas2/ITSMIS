@@ -629,7 +629,7 @@ class ForeCastController extends Controller
     }
 
     public function putAll_ItemProductionConsumptionCategory(Request $request){
-    
+
         $from_year =  $request['year'];
         $split_year =  explode("-",$from_year);
         $to_year = (intval($split_year[0])+1)."-"."03"."-"."32";
@@ -663,8 +663,8 @@ class ForeCastController extends Controller
                     
                     $import = DepartmentOfCustom::where("item",$item->id)->where("type","import")->whereBetween('asmt_date', [$from_year, $to_year])->get()->sum("quantity");
                     $export = DepartmentOfCustom::where("item",$item->id)->where("type","export")->whereBetween('asmt_date', [$from_year, $to_year])->get()->sum("quantity");
-    
-                    $record = array("obj" => $item,"production"=>$production,"consumption"=>$consumption,"import"=>$import,"export"=>$export);
+                    $opening = $this->OpeningLocalProduction($from_year,$item->id);
+                    $record = array("obj" => $item,"opening"=>$opening,"production"=>$production,"consumption"=>$consumption,"import"=>$import,"export"=>$export);
                     $all_data_p_c[] = $record;
                 }           
             }
@@ -763,6 +763,27 @@ class ForeCastController extends Controller
             $yearly_data[$year-$i] = $data;
         }
         return $yearly_data;
+    }
+
+    public function OpeningLocalProduction($from_year,$item_id){
+        $split_year =  intval(explode("-", $from_year)[0]);
+        $previous_year = $split_year-1;
+        $previous_from_year = $previous_year."-04-01";
+        $previous_to_year = $split_year."-03-32";
+        
+        $production = LocalProduction::where("item_id",$item_id)->whereBetween('date', [$previous_from_year, $previous_to_year])->get()->sum("quantity");
+        if($production > 0){
+            $consumption = Consumption::where("item_id",$item_id)->whereBetween('date', [$previous_from_year, $previous_to_year])->get()->sum("quantity");
+            
+            $import = DepartmentOfCustom::where("item",$item_id)->where("type","import")->whereBetween('asmt_date', [$previous_from_year, $previous_to_year])->get()->sum("quantity");
+            $export = DepartmentOfCustom::where("item",$item_id)->where("type","export")->whereBetween('asmt_date', [$previous_from_year, $previous_to_year])->get()->sum("quantity");
+    
+            $profit_loss = ($production + $import) - ($consumption+$export);
+            return $profit_loss;
+            
+        } 
+        return 0;
+
     }
     
 }
