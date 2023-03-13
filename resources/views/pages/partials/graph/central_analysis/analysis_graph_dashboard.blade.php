@@ -2,7 +2,7 @@
     //Monthly report
     ajax_production_item_fetch_id = "{{$item_name->id}}"
     ajax_production_url = "{{route('AjaxgetMonthlyData')}}"
-    ajax_production_year = "{{$from_date}}"
+    ajax_production_year = "{{$year}}"
     pmc_v = "{{round($total_consumption/12)}}" //per_month_consumption
     pmc = []
     pmc.length = 12
@@ -244,7 +244,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Tabular Data</h4>
-                <h6 class="card-subtitle">2079 Data of<code> {{$item_name->name_np}}</code></h6>
+                <h6 class="card-subtitle">yearly Data of <code> {{$item_name->name_np}}</code></h6>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>

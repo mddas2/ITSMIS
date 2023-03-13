@@ -80,7 +80,6 @@ class ForeCastController extends Controller
         if ($request->has('item_id') && !empty($request->item_id)) {
             $this->_data['item_id'] = $request->item_id;
         }
-
   
         $this->_data['ForecastIndex'] = "active";
         $items = $this->GetAvailableItems($request);
@@ -103,10 +102,14 @@ class ForeCastController extends Controller
             $year = $nepali_date['year'];
             $request['from_date'] = $year."-"."04"."-"."01";
             $request['to_date'] = (intval($year)+1)."-"."03"."-"."32";
-        }      
-        
-        
-        
+        }
+       else {
+            $converter = new NepaliDateConverter("en");
+            $nepali_date = $converter->toNepali(date('20y'), date('m'), date('d'));
+            $year = $nepali_date['year'];
+       }
+       $this->_data['year'] = $year; 
+
         $unit_is = Item::find($request['item_id'])->itemCategory->id;
         if($unit_is==3){
             $unit_is = "Liter";
@@ -548,31 +551,41 @@ class ForeCastController extends Controller
         for($year = 0; $year<=6; $year++){
 
             if($category_id == 3 || $category_id == 12){
+
                 $year_sum = 0;
-                $consusmption = Consumption::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
+
+                $start_year = intval($current_year)-$year;
+                $start_date = $start_year."-04-03";
+                $end_date = ($start_year+1)."-03-32";
+
+                $consusmption = Consumption::where("item_id",$item_id)->whereBetween('date', [$start_date, $end_date])->get()->sum("quantity");
                 if($category_id == 3){ //3 is oil
-                    $import = NepalOilCorporation::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
+                    $import = NepalOilCorporation::where("item_id",$item_id)->whereBetween('date', [$start_date, $end_date])->get()->sum("quantity");
                 }
                 elseif($category_id == 12){//12 is petroilium
-                    $import = SaltTradingLimitedPurchase::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
+                    $import = SaltTradingLimitedPurchase::where("item_id",$item_id)->whereBetween('date', [$start_date, $end_date])->get()->sum("quantity");
                 }
                 else{
                     $import = 0;
-                }
-                
+                }                
                
-                $export = DepartmentOfCustom::where("item",$item_id)->where("type","export")->whereYear('asmt_date', '=', $current_year-$year)->get()->sum("quantity");
+                $export = DepartmentOfCustom::where("item",$item_id)->where("type","export")->whereBetween('asmt_date', [$start_date, $end_date])->get()->sum("quantity");
                 $data[$year] = array("period"=>strval($current_year-$year),"Production"=>$year_sum,"Consumption"=>$consusmption,"import_export"=>60,"import"=>$import,"export"=>$export);
 
             }
             else{
-                $year_sum = LocalProduction::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
-                $consusmption = Consumption::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
 
-                $import = DepartmentOfCustom::where("item",$item_id)->where("type","import")->whereYear('asmt_date', '=', $current_year-$year)->get()->sum("quantity");
-                $export = DepartmentOfCustom::where("item",$item_id)->where("type","export")->whereYear('asmt_date', '=', $current_year-$year)->get()->sum("quantity");
+                $start_year = intval($current_year)-$year;
+                $start_date = $start_year."-04-03";
+                $end_date = ($start_year+1)."-03-32";
 
-                $data[$year] = array("period"=>strval($current_year-$year),"Production"=>$year_sum,"Consumption"=>$consusmption,"import_export"=>60,"import"=>$import,"export"=>$export);
+                $year_sum = LocalProduction::where("item_id",$item_id)->whereBetween('date', [$start_date, $end_date])->get()->sum("quantity");
+                $consusmption = Consumption::where("item_id",$item_id)->whereBetween('date', [$start_date, $end_date])->get()->sum("quantity");
+
+                $import = DepartmentOfCustom::where("item",$item_id)->where("type","import")->whereBetween('asmt_date', [$start_date, $end_date])->get()->sum("quantity");
+                $export = DepartmentOfCustom::where("item",$item_id)->where("type","export")->whereBetween('asmt_date', [$start_date, $end_date])->get()->sum("quantity");
+
+                $data[$year] = array("period"=>strval($current_year-$year),"from_date"=>$start_date,"end_date"=>$end_date,"Production"=>$year_sum,"Consumption"=>$consusmption,"import_export"=>60,"import"=>$import,"export"=>$export);
             }
 
             
