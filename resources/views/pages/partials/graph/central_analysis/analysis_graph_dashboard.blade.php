@@ -205,8 +205,7 @@
                                     <tr>
                                         <th>Production</th>
                                         <th>Consumption</th>  
-                                        <th>Surplus/Deficit</th>                                             
-                                        
+                                        <th>Surplus/Deficit</th>
                                     </tr>
                                 </thead>
                                 <tbody>

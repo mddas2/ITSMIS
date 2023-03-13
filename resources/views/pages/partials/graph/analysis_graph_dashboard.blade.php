@@ -7,7 +7,7 @@
     //Yearly comparision data
 
 </script>
-<div class="card-body">        
+<div class="card-body block_print">        
     <div class="form-group row">
         <div class="col-lg-3">
             <label class="text_good_header" >Category:</label>
@@ -59,8 +59,8 @@
             <div class="card-body">
                 <h4 class="card-title">Tabular Data</h4>
                
-                <button style="float:right; background-color: transparent; border: none; color: transparent;" class="svg-icon svg-icon-3x">
-                    <i class="fa fa-print icon-2x"></i>
+                <button onclick="printWithStyles()" style="float:right; background-color: transparent; border: none; color: transparent;" class="svg-icon svg-icon-3x">
+                        <i class="fa fa-print icon-2x"></i>
                 </button>
            
                 <h6 class="card-subtitle">{{$from_date}} to {{$to_date}}<code>All Items . for Oil  Measurement unit is Liter and other will be in Kg</code></h6>
@@ -77,7 +77,7 @@
                                 <th class="md5md">Export</th>
                                 <th class="md5md">Total Demand</th>
                                 <th class="md5md">Stock</th>
-                                <th class="md5md">View</th>
+                                <th class="md5md block_print">View</th>
                                 <!-- <th class="md5md">Demand Fulfilment</th> -->
                                 <!-- <th class="md5md">Remarks<th> -->
                             </tr>
@@ -127,7 +127,7 @@
                                 <td class="demand_total">`+response[dat]['export']+`</td>
                                 <td class="demand_total">`+(response[dat]['consumption']+response[dat]['export'])+`</td>
                                 <td>`+((response[dat]['production']+response[dat]['import'])-(response[dat]['consumption']+response[dat]['export']))+`</td>
-                                <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date={{$from_date}}&to_date={{$to_date}}&item_id=`+response[dat]['obj']['id']+`" style=" text-decoration: none;  color: inherit;">View</a></button></td>
+                                <td class="block_print"> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date={{$from_date}}&to_date={{$to_date}}&item_id=`+response[dat]['obj']['id']+`" style=" text-decoration: none;  color: inherit;">View</a></button></td>
                     </tr>`)
                 }
                 
@@ -151,7 +151,7 @@
                                 <td class="demand_total">`+response[dat]['export']+`</td>
                                 <td class="demand_total">`+(response[dat]['consumption']+response[dat]['export'])+`</td>
                                 <td>`+((response[dat]['production']+response[dat]['import'])-(response[dat]['consumption']+response[dat]['export']))+`</td>
-                                <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date={{$from_date}}&to_date={{$to_date}}&item_id=`+response[dat]['obj']['id']+`" style=" text-decoration: none;  color: inherit;">View</a></button></td>
+                                <td class="block_print"> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date={{$from_date}}&to_date={{$to_date}}&item_id=`+response[dat]['obj']['id']+`" style=" text-decoration: none;  color: inherit;">View</a></button></td>
                     </tr>`)
                 }
             }
@@ -204,12 +204,16 @@
                                 <td class="demand_total">`+response[dat]['export']+`</td>
                                 <td class="demand_total">`+(response[dat]['consumption']+response[dat]['export'])+`</td>
                                 <td class="demand_total">`+((response[dat]['production']+response[dat]['import'])-(response[dat]['consumption']+response[dat]['export']))+`</td>
-                                <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date={{$from_date}}&to_date={{$to_date}}&item_id=`+response[dat]['obj']['id']+`" style=" text-decoration: none;  color: inherit;">View</a></button></td>
+                                <td class="block_print"> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date={{$from_date}}&to_date={{$to_date}}&item_id=`+response[dat]['obj']['id']+`" style=" text-decoration: none;  color: inherit;">View</a></button></td>
                                 </tr>`
                             )
                     }              
                 }
             });
         });
+    function printWithStyles() {
+        window.print();
+    }
+
 </script>
 
