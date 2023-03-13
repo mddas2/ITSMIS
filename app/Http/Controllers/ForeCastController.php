@@ -177,13 +177,19 @@ class ForeCastController extends Controller
         if (!isset($request['item_id'])){
             $itm_obj = LocalProduction::all()->first();
             $request['item_id'] = $itm_obj->item_id;
-
-            $date_c =  $itm_obj->date;
-            $date_split = explode("-",$date_c);
-      
-            $request['from_date'] = $date_split[0]."-"."01"."-"."33";
-            $request['to_date'] = $date_split[0]."-"."12"."-"."33";
+            $converter = new NepaliDateConverter("en");
+            $nepali_date = $converter->toNepali(date('20y'), date('m'), date('d'));
+            $year = $nepali_date['year'];
+            $request['from_date'] = $year."-"."04"."-"."01";
+            $request['to_date'] = (intval($year)+1)."-"."03"."-"."32";
         }
+       else {
+            $converter = new NepaliDateConverter("en");
+            $nepali_date = $converter->toNepali(date('20y'), date('m'), date('d'));
+            $year = $nepali_date['year'];
+       }
+
+       $this->_data['year'] = $year; 
        
         $unit_is = Item::find($request['item_id'])->itemCategory->id;
         if($unit_is==3){
@@ -199,7 +205,7 @@ class ForeCastController extends Controller
         $this->_data['monthly_year'] = $year;
         $this->_data["item_name"] = Item::find($request['item_id']);
 
-        $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
+        // $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
         
         if ($request->has('from_date')) {
             $this->_data['from_date'] = $request->from_date;
@@ -221,8 +227,6 @@ class ForeCastController extends Controller
         if ($request->has('item_id') && !empty($request->item_id)) {
             $this->_data['item_id'] = $request->item_id;
         }
-
- 
 
         $this->_data['ProvinceAnalysis'] = "active";
         // $this->_data['items'] = Item::pluck('name', 'id')->toArray();
@@ -630,8 +634,7 @@ class ForeCastController extends Controller
         $split_year =  explode("-",$from_year);
         $to_year = (intval($split_year[0])+1)."-"."03"."-"."32";
 
-        $category_id = $request['catId'];
-   
+        $category_id = $request['catId'];  
      
         
         $all_data_p_c = [];

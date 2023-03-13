@@ -83,16 +83,14 @@
                                         <thead>
                                             <tr>
                                                 <th>Provience Name</th>
-                                                <th>produce</th>
-                                                <th>consume</th>
-                                                <th>Surplus/Deficit Progress</th>
-                  
+                                                <th>Production</th>
+                                                <th>Consumption</th>
+                                                <th>Surplus/Deficit Progress</th>                  
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($provience_data as $key=>$data)
                                             <tr>
-                                         
                                                 <td>{{$key}}</td>
                                                 <td>{{$data['production']}} {{$unit_is}}</td>
                                                 <td>{{$data['consumption']}} {{$unit_is}}</td>
@@ -144,39 +142,36 @@
     <!-- Donute Chart close-->  
      <!-- Monthly Report Chart open-->
      <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Yearly comparision with provience of item {{$item_name->name_np}}</h4>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>year</th>
-                                    <th>Provience-1</th>
-                                    <th>Provience-2</th>
-                                    <th>Provience-3</th>
-                                    <th>Provience-4</th>
-                                    <th>Provience-5</th>
-                                    <th>Provience-6</th>
-                                    <th>Provience-7</th>
-                                
-                                    <!-- <th>Consumption</th> -->
-                                    
+        <div class="card-body">
+                <h4 class="card-title">Yearly comparision with provience of item {{$item_name->name_np}}</h4>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>year</th>
+                                <th>Provience-1</th>
+                                <th>Provience-2</th>
+                                <th>Provience-3</th>
+                                <th>Provience-4</th>
+                                <th>Provience-5</th>
+                                <th>Provience-6</th>
+                                <th>Provience-7</th>                                
+                            </tr>
+                        </thead>
+                        <tbody>                        
+                            @foreach($yearly_provience_data as $key=>$data)
+                                <tr>                                       
+                                    <td>{{$key}}</td>
+                                    @foreach($data as $keyp=>$datap)                                        
+                                        <td>P:{{$datap['production']}},C:{{$datap['consumption']}}</td>
+                                    @endforeach                                                                                                                       
                                 </tr>
-                            </thead>
-                            <tbody>                        
-                                @foreach($yearly_provience_data as $key=>$data)
-                                    <tr>                                       
-                                        <td>{{$key}}</td>
-                                        @foreach($data as $keyp=>$datap)                                        
-                                            <td>P:{{$datap['production']}},C:{{$datap['consumption']}}</td>
-                                        @endforeach                                                                                                                       
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-            </div>
+        </div>
+    </div>
 
                 <!-- Chart JS -->
                 <script src="/chart/node_modules/echarts/echarts-all.js"></script>
@@ -218,16 +213,7 @@
             <!-- Monthly Report Chart close-->
 
       
-    <!-- Bar Chart open-->
-
-        <!-- <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Bar Chart</h4>
-                <div id="morris-bar-chart"></div>
-            </div>
-        </div> -->
-
-     <!-- Bar Chart close-->
+   
 
 
     <!-- Line Bar chart -->
@@ -299,6 +285,8 @@ $(".select_item").on("change", function (e) {
                 }
             });
         });
+
+
 
 function printWithStyles() {
     window.print();
