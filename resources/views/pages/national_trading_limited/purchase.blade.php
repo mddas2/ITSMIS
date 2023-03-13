@@ -46,7 +46,7 @@
         <div class="card-header flex-wrap border-1 pt-6 pb-0">
             <div class="card-title">
                 <h3 class="card-label">
-                    Salt Trading Limited - {{$type}}
+                    Salt Trading Corporation - {{$type}}
                 </h3>
             </div>
             <div class="card-toolbar">

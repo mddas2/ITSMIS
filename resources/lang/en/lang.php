@@ -33,7 +33,7 @@ return [
     'department_of_industry'=>'Department of Industry',
     'nepal_oil_corporation'=>'Nepal Oil Corporation',
     'food_management_and_trading_company'=>'Food Management and Trading Company',
-    'salt_trading_limited'=>'Salt Trading Limited',
+    'salt_trading_limited'=>'Salt Trading Corporation',
     'local_level'=>'Local Level',
     'district_administration_office'=>'District Administration Office',
     'province_level_home_and_small_industrial_office'=>'Province Level - Home And Small Industrial Office',

@@ -32,7 +32,7 @@ class SaltTradingLimitedController extends Controller
 
     public function __construct()
     {
-        $this->_data['page_title'] = 'Salt Trading Limited';
+        $this->_data['page_title'] = 'Salt Trading Corporation';
         $this->_data['header'] = true;
     }
 

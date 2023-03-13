@@ -2,7 +2,7 @@
     //Monthly report
     ajax_production_item_fetch_id = "{{$item_name->id}}"
     ajax_production_url = "{{route('AjaxgetMonthlyData')}}"
-    ajax_production_year = "{{$monthly_year}}"
+    ajax_production_year = "{{$from_date}}"
     pmc_v = "{{round($total_consumption/12)}}" //per_month_consumption
     pmc = []
     pmc.length = 12
@@ -65,7 +65,7 @@
 
     <div id="print_md1" class="card">
         <div class="card-body">
-            <h4 class="card-title"><span class="item_red">Item name {{$item_name->name_np}}<span> (वर्ष {{$monthly_year}}) 
+            <h4 class="card-title"><span class="item_red">Item name {{$item_name->name_np}}<span> (वर्ष {{$from_date}}/{{$to_date}}) 
                 <button onclick="printWithStyles()" style="float:right; background-color: transparent; border: none; color: transparent;" class="svg-icon svg-icon-3x">
                         <i class="fa fa-print icon-2x"></i>
                 </button>
@@ -92,7 +92,7 @@
                 <div class="col-md-4">
                         <div class="card border-info">
                             <div class="card-header bg-info">
-                                <h4 class="m-b-0 text-white">Item name {{$item_name->name_np}} (वर्ष {{$monthly_year}})</h4></div>
+                                <h4 class="m-b-0 text-white">Item name {{$item_name->name_np}} (वर्ष {{$from_date}} to {{$to_date}})</h4></div>
                             <div class="card-body">
                                 
                                 @php
@@ -161,7 +161,7 @@
                 <div class="col-md-4">
                     <div class="card border-info">
                         <div class="card-header bg-info">
-                            <h4 class="m-b-0 text-white">Item name {{$item_name->name_np}} (वर्ष {{$monthly_year-1}})</h4>
+                            <h4 class="m-b-0 text-white">Item name {{$item_name->name_np}} (वर्ष {{$from_date}})</h4>
                         </div>
                         <div class="card-body">
     
@@ -286,7 +286,7 @@
     </div>
 
     <div class="card-body">
-    <h4 class="card-title">{{$monthly_year}} Monthly data of {{$item_name->name_np}}</h4>
+    <h4 class="card-title">{{$from_date}}/{{$to_date}} Monthly data of {{$item_name->name_np}}</h4>
     <!-- <h6 class="card-subtitle">Add<code>.table-striped</code>for borders on all sides of the table and cells.</h6> -->
     <div class="table-responsive">
         <table class="table table-striped">

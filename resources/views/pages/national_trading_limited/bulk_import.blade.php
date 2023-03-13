@@ -1,6 +1,6 @@
 <div class="card card-custom" style="min-width: 70% !important;">
     <div class="card-header">
-        <h3 class="card-label">Excel Import Of  Salt Trading Limited - {{$type}}</h3>
+        <h3 class="card-label">Excel Import Of  Salt Trading Corporation - {{$type}}</h3>
     </div>
     <div class="card-body">
         <div class="row">

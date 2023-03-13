@@ -6,7 +6,7 @@
 	<div class="card card-custom">
 		<div class="card-header flex-wrap border-1">
 			<div class="card-title">
-				<h3 class="card-label">Salt Trading Limited </h3>
+				<h3 class="card-label">Salt Trading Corporation </h3>
 			</div>
 		</div>
 		<div class="card-body">

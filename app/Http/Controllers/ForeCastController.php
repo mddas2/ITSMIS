@@ -34,13 +34,16 @@ class ForeCastController extends Controller
         if (!isset($request['item_id'])){
             $itm_obj = LocalProduction::all()->first();
             $request['item_id'] = $itm_obj->item_id;
+            
+            $currentDate = date('Y-m-d'); // current date in 'YYYY-MM-DD' format
+            // return $currentDate; // output: current date in 'YYYY-MM-DD' format       
 
-            $date_c =  $itm_obj->date;
-            $date_split = explode("-",$date_c);
-      
-            $request['from_date'] = $date_split[0]."-"."01"."-"."33";
-            $request['to_date'] = $date_split[0]."-"."12"."-"."33";
         }
+        $converter = new NepaliDateConverter("en");
+        $nepali_date = $converter->toNepali(date('20y'), date('m'), date('d'));
+        $year = $nepali_date['year'];
+        $request['from_date'] = $year."-"."04"."-"."01";
+        $request['to_date'] = (intval($year)+1)."-"."03"."-"."32";
 
         $unit_is = Item::find($request['item_id'])->itemCategory->id;
         if($unit_is==3){
@@ -53,7 +56,7 @@ class ForeCastController extends Controller
 
         $to_date = $request['to_date'];
         $year = explode("-", $to_date)[0];
-        $this->_data['monthly_year'] = $year;
+ 
         $this->_data["item_name"] = Item::find($request['item_id']);
         $this->_data['category'] = ItemCategory::pluck('name_np', 'id')->toArray();
     
@@ -95,13 +98,15 @@ class ForeCastController extends Controller
             $itm_obj = LocalProduction::all()->first();
             $request['item_id'] = $itm_obj->item_id;
 
-            $date_c =  $itm_obj->date;
-            $date_split = explode("-",$date_c);
-      
-            $request['from_date'] = $date_split[0]."-"."01"."-"."33";
-            $request['to_date'] = $date_split[0]."-"."12"."-"."33";
-        }
-
+            $converter = new NepaliDateConverter("en");
+            $nepali_date = $converter->toNepali(date('20y'), date('m'), date('d'));
+            $year = $nepali_date['year'];
+            $request['from_date'] = $year."-"."04"."-"."01";
+            $request['to_date'] = (intval($year)+1)."-"."03"."-"."32";
+        }      
+        
+        
+        
         $unit_is = Item::find($request['item_id'])->itemCategory->id;
         if($unit_is==3){
             $unit_is = "Liter";
@@ -113,10 +118,8 @@ class ForeCastController extends Controller
 
         $monthly_data = $this->putMonthlyData($request);
         $this->_data['monthly_data'] = $monthly_data;
+        // return $monthly_data;
 
-        $to_date = $request['to_date'];
-        $year = explode("-", $to_date)[0];
-        $this->_data['monthly_year'] = $year;
         $this->_data["item_name"] = Item::find($request['item_id']);
                 
 
@@ -136,7 +139,8 @@ class ForeCastController extends Controller
 
         // return $consumption;
 
-        $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
+        // $this->_data['from_date'] = $this->_data['to_date'] = DB::table('nepali_calendar')->where('edate', date('Y-m-d'))->pluck('ndate')->first();
+       
 
         if ($request->has('from_date')) {
             $this->_data['from_date'] = $request->from_date;
@@ -444,12 +448,15 @@ class ForeCastController extends Controller
     public function putMonthlyData($request){
         $from_date = $request['from_date'];
         $to_date = $request['to_date'];
-        $year = explode("-", $to_date)[0];
+        $year = explode("-", $from_date)[0];
+        // return $year;
 
         $item_id = $request['item_id'];
         $item_obj = Consumption::all()->where("item_id",$item_id)->sum("quantity"); 
 
-        $year_obj = Consumption::where("item_id",$item_id)->whereYear('date', '=', $year);
+        // $year_obj = Consumption::where("item_id",$item_id)->whereYear('date', '=', $year);
+     
+        $year_obj = Consumption::where("item_id",$item_id)->whereBetween('date', [$from_date, $from_date]);
 
         $monthly_data = [];
         $month_name = [
@@ -467,11 +474,13 @@ class ForeCastController extends Controller
             12=>"Chaitra",
         ];
 
-        for($month = 1; $month<=12; $month++){
-            // $variable = "month_".$month;
+        for($month = 4; $month<=12; $month++){
             $monthly_data[$month_name[$month]] = LocalProduction::where("item_id",$item_id)->whereYear('date', '=', $year)->whereMonth('date','=',$month)->get()->sum("quantity");
         }
-        
+        $year = intval($year)+1;
+        for($month = 1; $month<=3;$month++){
+            $monthly_data[$month_name[$month]] = LocalProduction::where("item_id",$item_id)->whereYear('date', '=', $year)->whereMonth('date','=',$month)->get()->sum("quantity");
+        }
         return $monthly_data;
     }
     public function AjaxgetMonthlyData(Request $request){ //Monthly Report

@@ -182,7 +182,7 @@ class HierarchyController extends Controller
                 '3' => 'Department Of Industry',
                 '4' => 'Nepal Oil Corporation',
                 '5' => 'Food Management and Trading Company',
-                '6' => 'Salt Trading Limited',
+                '6' => 'Salt Trading Corporation',
                 '7' => 'Local Level',
                 '8' => 'District Administration Office',
                 '9' => 'Province Level - Home And Small Industrial Office',

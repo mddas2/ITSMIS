@@ -63,7 +63,7 @@
                     <i class="fa fa-print icon-2x"></i>
                 </button>
            
-                <h6 class="card-subtitle">{{$monthly_year}}<code>All Items . for Oil  Measurement unit is Liter and other will be in Kg</code></h6>
+                <h6 class="card-subtitle">{{$from_date}} to {{$to_date}}<code>All Items . for Oil  Measurement unit is Liter and other will be in Kg</code></h6>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -113,7 +113,7 @@
         $.ajax({
             type: "GET",
             url: "{{route('putAll_ItemProductionConsumptionCategory')}}",
-            data: {catId: catId,year: '{{$monthly_year}}'},
+            data: {catId: catId,year: '{{$from_date}}'},
             success: function (response) {
                 // console.log(response);
                 for (var dat in response) {
@@ -137,7 +137,7 @@
     $.ajax({
             type: "GET",
             url: "{{route('putAll_ItemProductionConsumptionCategory')}}",
-            data: {catId: '1',year: '{{$monthly_year}}'},
+            data: {catId: '1',year: '{{$from_date}}'},
             success: function (response) {
                 // console.log(response);
                 for (var dat in response) {
@@ -188,7 +188,7 @@
             $.ajax({
                 type: "GET",
                 url: "{{route('FilterItem')}}",
-                data: {catId: catId,item_id:ItemId,year:'{{$monthly_year}}'},
+                data: {catId: catId,item_id:ItemId,year:'{{$from_date}}'},
                 success: function (response) {
                     if(response == ''){
                         alert("there is no any data belongs to this item.");
