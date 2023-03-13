@@ -132,6 +132,7 @@ class ForeCastController extends Controller
         $previous_data = $this->getDataPreviousYear($request);
         $this->_data['previous_data'] = $previous_data;
 
+
         // $total_privious_year_production = $this->getTotalProductionPreviousYear($request);
         // $total_privious_year_consumption = $this->getTotalConsumptionPreviousYear($request);
  
@@ -420,13 +421,17 @@ class ForeCastController extends Controller
     }
 
     public function getDataPreviousYear($request){
-        $to_date = $request['to_date'];
-        $to_date = explode("-",$to_date);
+        $from_date = $request['from_date'];
+        $from_date = explode("-",$from_date);
+
+        $previous_year = intval($from_date[0])-1;
+        $start_date = $previous_year."-04-01";
+        $end_date = ($previous_year+1)."-03-32";
   
         $item_id = $request['item_id'];
-        $production = LocalProduction::where("item_id",$item_id)->whereYear('date',$to_date[0]-1)->sum("quantity"); 
-        $consumption = Consumption::where("item_id",$item_id)->whereYear('date',$to_date[0]-1)->sum("quantity");
-        $previous_data = array("previous_year"=>$to_date[0]-1,"prouction"=>$production,"consumption"=>$consumption);
+        $production = LocalProduction::where("item_id",$item_id)->whereBetween('date', [$start_date, $end_date])->sum("quantity"); 
+        $consumption = Consumption::where("item_id",$item_id)->whereBetween('date', [$start_date, $end_date])->sum("quantity");
+        $previous_data = array("previous_year"=>$previous_year,"prouction"=>$production,"consumption"=>$consumption);
         return $previous_data;
     }
 
