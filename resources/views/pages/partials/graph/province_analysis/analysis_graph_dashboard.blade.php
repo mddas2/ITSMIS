@@ -1,5 +1,5 @@
 <div class="card-body">
-            <form>
+            <form class="block_print">
                 <div class="form-group row">
                     <div class="col-lg-2">
                         <label>From Date:</label>
@@ -64,8 +64,8 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Provience chart of {{$item_name->name_np}}
-                <button style="float:right; background-color: transparent; border: none; color: transparent;" class="svg-icon svg-icon-3x">
-                            <i class="fa fa-print icon-2x"></i>
+                <button onclick="printWithStyles()" style="float:right; background-color: transparent; border: none; color: transparent;" class="svg-icon svg-icon-3x">
+                        <i class="fa fa-print icon-2x"></i>
                 </button>
             </h4>
          
@@ -299,6 +299,10 @@ $(".select_item").on("change", function (e) {
                 }
             });
         });
+
+function printWithStyles() {
+    window.print();
+}
 </script>
 
 
