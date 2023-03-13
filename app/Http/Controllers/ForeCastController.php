@@ -648,8 +648,10 @@ class ForeCastController extends Controller
                     $production = 0;
                     $consumption = Consumption::where("item_id",$item->id)->whereBetween('date', [$from_year, $to_year])->get()->sum("quantity");   
                     $export = DepartmentOfCustom::where("item",$item->id)->where("type","export")->whereBetween('asmt_date', [$from_year, $to_year])->get()->sum("quantity");
-    
-                    $record = array("obj" => $item,"production"=>$production,"consumption"=>$consumption,"import"=>$import,"export"=>$export);
+
+                    $opening = $this->OpeningLocalProduction($from_year,$item->id);//opening for this should be from Oil model and Salt::model
+
+                    $record = array("obj" => $item,"production"=>$production,"opening"=>$opening,"consumption"=>$consumption,"import"=>$import,"export"=>$export);
                     $all_data_p_c[] = $record;
                 }           
             }
@@ -674,7 +676,11 @@ class ForeCastController extends Controller
     }
     public function FilterItem(Request $request){
  
-        $year =  $request['year'];
+        $from_year =  $request['year'];
+        $split_year =  explode("-",$from_year);
+        $to_year = (intval($split_year[0])+1)."-"."03"."-"."32";
+
+
         $category_id = $request['catId'];
         $item_id = $request['item_id'];
         // return $category_id;
@@ -687,25 +693,26 @@ class ForeCastController extends Controller
         $all_data_p_c = [];
         if($category_id == 3 || $category_id == 12){            
                 
-            $import = NepalOilCorporation::where("item_id",$item_id)->whereYear('date', '=', $year)->get()->sum("quantity");            
+            $import = NepalOilCorporation::where("item_id",$item_id)->whereBetween('date', [$from_year, $to_year])->get()->sum("quantity");            
             if($import > 0){
                 $production = 0;
-                $consumption = Consumption::where("item_id",$item_id)->whereYear('date', '=', $year)->get()->sum("quantity");   
+                $consumption = Consumption::where("item_id",$item_id)->whereBetween('date', [$from_year, $to_year])->get()->sum("quantity");   
                 $export = 0;
-                $record = array("obj" =>Item::find($item_id),"production"=>$production,"consumption"=>$consumption,"import"=>$import,"export"=>$export);
+                $opening = $this->OpeningLocalProduction($from_year,$item_id);//opening for this should be from Oil model and Salt::model
+                $record = array("obj" =>Item::find($item_id),"opening"=>$opening,"production"=>$production,"consumption"=>$consumption,"import"=>$import,"export"=>$export);
                 $all_data_p_c[] = $record;
             }           
            
         }
         else{
-            $production = LocalProduction::where("item_id",$item_id)->whereYear('date', '=', $year)->get()->sum("quantity");
+            $production = LocalProduction::where("item_id",$item_id)->whereBetween('date', [$from_year, $to_year])->get()->sum("quantity");
             if($production > 0){
-                $consumption = Consumption::where("item_id",$item_id)->whereYear('date', '=', $year)->get()->sum("quantity");
+                $consumption = Consumption::where("item_id",$item_id)->whereBetween('date', [$from_year, $to_year])->get()->sum("quantity");
                 
-                $import = DepartmentOfCustom::where("item",$item_id)->where("type","import")->whereYear('asmt_date', '=', $year)->get()->sum("quantity");
-                $export = DepartmentOfCustom::where("item",$item_id)->where("type","export")->whereYear('asmt_date', '=', $year)->get()->sum("quantity");
-
-                $record = array("obj" =>Item::find($item_id),"production"=>$production,"consumption"=>$consumption,"import"=>$import,"export"=>$export);
+                $import = DepartmentOfCustom::where("item",$item_id)->where("type","import")->whereBetween('asmt_date', [$from_year, $to_year])->get()->sum("quantity");
+                $export = DepartmentOfCustom::where("item",$item_id)->where("type","export")->whereBetween('asmt_date', [$from_year, $to_year])->get()->sum("quantity");
+                $opening = $this->OpeningLocalProduction($from_year,$item_id);
+                $record = array("obj" =>Item::find($item_id),"opening"=>$opening,"production"=>$production,"consumption"=>$consumption,"import"=>$import,"export"=>$export);
                 $all_data_p_c[] = $record;
             }         
         }

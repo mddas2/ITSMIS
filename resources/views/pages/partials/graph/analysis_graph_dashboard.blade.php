@@ -122,14 +122,14 @@
                     $("#view_available_item").append(`<tr>
                                 <!----<td>1</td> --->
                                 <td>`+response[dat]['obj']['name_np']+`</td>
-                                <td>`+response[dat]['opening']+`</td>
-                                <td supply_total>`+response[dat]['production']+`</td>
-                                <td supply_total>`+response[dat]['import']+`</td>
-                                <td supply_total>`+(response[dat]['production']+response[dat]['import'])+`</td>
+                                <td class="supply_total">`+response[dat]['opening']+`</td>
+                                <td class="supply_total">`+response[dat]['production']+`</td>
+                                <td class="supply_total">`+response[dat]['import']+`</td>
+                                <td class="supply_total">`+(response[dat]['opening']+response[dat]['production']+response[dat]['import'])+`</td>
                                 <td class="demand_total">`+response[dat]['consumption']+`</td>
                                 <td class="demand_total">`+response[dat]['export']+`</td>
                                 <td class="demand_total">`+(response[dat]['consumption']+response[dat]['export'])+`</td>
-                                <td>`+((response[dat]['production']+response[dat]['import'])-(response[dat]['consumption']+response[dat]['export']))+`</td>
+                                <td>`+((response[dat]['opening']+response[dat]['production']+response[dat]['import'])-(response[dat]['consumption']+response[dat]['export']))+`</td>
                                 <td class="block_print"> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date={{$from_date}}&to_date={{$to_date}}&item_id=`+response[dat]['obj']['id']+`" style=" text-decoration: none;  color: inherit;">View</a></button></td>
                     </tr>`)
                 }
@@ -147,14 +147,14 @@
                     $("#view_available_item").append(`<tr>
                                 <!----<td>1</td> --->
                                 <td>`+response[dat]['obj']['name_np']+`</td>
-                                <td>`+response[dat]['opening']+`</td>
+                                <td class="supply_total">`+response[dat]['opening']+`</td>
                                 <td class="supply_total">`+response[dat]['production']+`</td>
                                 <td class="supply_total">`+response[dat]['import']+`</td>
-                                <td class="supply_total">`+(response[dat]['production']+response[dat]['import'])+`</td>
+                                <td class="supply_total">`+(response[dat]['opening']+response[dat]['production']+response[dat]['import'])+`</td>
                                 <td class="demand_total">`+response[dat]['consumption']+`</td>
                                 <td class="demand_total">`+response[dat]['export']+`</td>
                                 <td class="demand_total">`+(response[dat]['consumption']+response[dat]['export'])+`</td>
-                                <td>`+((response[dat]['production']+response[dat]['import'])-(response[dat]['consumption']+response[dat]['export']))+`</td>
+                                <td>`+((response[dat]['opening']+response[dat]['production']+response[dat]['import'])-(response[dat]['consumption']+response[dat]['export']))+`</td>
                                 <td class="block_print"> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date={{$from_date}}&to_date={{$to_date}}&item_id=`+response[dat]['obj']['id']+`" style=" text-decoration: none;  color: inherit;">View</a></button></td>
                     </tr>`)
                 }
@@ -201,14 +201,14 @@
                     $("#view_available_item").append(`<tr>
                                 <!----<td>1</td> --->
                                 <td>`+response[dat]['obj']['name_np']+`</td>
-                                <td>`+response[dat]['opening']+`</td>
+                                <td class="supply_total">`+response[dat]['opening']+`</td>
                                 <td class="supply_total">`+response[dat]['production']+`</td>
                                 <td class="supply_total">`+response[dat]['import']+`</td>
-                                <td class="supply_total">`+(response[dat]['production']+response[dat]['import'])+`</td>
-                                <td> class="demand_total"`+response[dat]['consumption']+`</td>
+                                <td class="supply_total">`+(response[dat]['opening']+response[dat]['production']+response[dat]['import'])+`</td>
+                                <td class="demand_total">`+response[dat]['consumption']+`</td>
                                 <td class="demand_total">`+response[dat]['export']+`</td>
                                 <td class="demand_total">`+(response[dat]['consumption']+response[dat]['export'])+`</td>
-                                <td class="demand_total">`+((response[dat]['production']+response[dat]['import'])-(response[dat]['consumption']+response[dat]['export']))+`</td>
+                                <td>`+((response[dat]['opening']+response[dat]['production']+response[dat]['import'])-(response[dat]['consumption']+response[dat]['export']))+`</td>
                                 <td class="block_print"> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date={{$from_date}}&to_date={{$to_date}}&item_id=`+response[dat]['obj']['id']+`" style=" text-decoration: none;  color: inherit;">View</a></button></td>
                                 </tr>`
                             )
