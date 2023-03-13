@@ -127,7 +127,7 @@
                                 <td class="demand_total">`+response[dat]['export']+`</td>
                                 <td class="demand_total">`+(response[dat]['consumption']+response[dat]['export'])+`</td>
                                 <td>`+((response[dat]['production']+response[dat]['import'])-(response[dat]['consumption']+response[dat]['export']))+`</td>
-                                <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date=2079-01-33&to_date=2079-12-33&item_id=`+response[dat]['obj']['id']+`" style=" text-decoration: none;  color: inherit;">View</a></button></td>
+                                <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date={{$from_date}}&to_date={{$to_date}}&item_id=`+response[dat]['obj']['id']+`" style=" text-decoration: none;  color: inherit;">View</a></button></td>
                     </tr>`)
                 }
                 
@@ -151,7 +151,7 @@
                                 <td class="demand_total">`+response[dat]['export']+`</td>
                                 <td class="demand_total">`+(response[dat]['consumption']+response[dat]['export'])+`</td>
                                 <td>`+((response[dat]['production']+response[dat]['import'])-(response[dat]['consumption']+response[dat]['export']))+`</td>
-                                <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date=2079-01-33&to_date=2079-12-33&item_id=`+response[dat]['obj']['id']+`" style=" text-decoration: none;  color: inherit;">View</a></button></td>
+                                <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date={{$from_date}}&to_date={{$to_date}}&item_id=`+response[dat]['obj']['id']+`" style=" text-decoration: none;  color: inherit;">View</a></button></td>
                     </tr>`)
                 }
             }
@@ -204,7 +204,7 @@
                                 <td class="demand_total">`+response[dat]['export']+`</td>
                                 <td class="demand_total">`+(response[dat]['consumption']+response[dat]['export'])+`</td>
                                 <td class="demand_total">`+((response[dat]['production']+response[dat]['import'])-(response[dat]['consumption']+response[dat]['export']))+`</td>
-                                <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date=2079-01-33&to_date=2079-12-33&item_id=`+response[dat]['obj']['id']+`" style=" text-decoration: none;  color: inherit;">View</a></button></td>
+                                <td> <button class="btn btn-primary"><a href="{{route('central_analysis')}}?from_date={{$from_date}}&to_date={{$to_date}}&item_id=`+response[dat]['obj']['id']+`" style=" text-decoration: none;  color: inherit;">View</a></button></td>
                                 </tr>`
                             )
                     }              
