@@ -122,7 +122,7 @@
                     $("#view_available_item").append(`<tr>
                                 <!----<td>1</td> --->
                                 <td>`+response[dat]['obj']['name_np']+`</td>
-                                <td>0</td>
+                                <td>`+response[dat]['opening']+`</td>
                                 <td supply_total>`+response[dat]['production']+`</td>
                                 <td supply_total>`+response[dat]['import']+`</td>
                                 <td supply_total>`+(response[dat]['production']+response[dat]['import'])+`</td>
@@ -201,7 +201,7 @@
                     $("#view_available_item").append(`<tr>
                                 <!----<td>1</td> --->
                                 <td>`+response[dat]['obj']['name_np']+`</td>
-                                <td>0</td>
+                                <td>`+response[dat]['opening']+`</td>
                                 <td class="supply_total">`+response[dat]['production']+`</td>
                                 <td class="supply_total">`+response[dat]['import']+`</td>
                                 <td class="supply_total">`+(response[dat]['production']+response[dat]['import'])+`</td>
