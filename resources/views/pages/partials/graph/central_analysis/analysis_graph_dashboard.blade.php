@@ -161,7 +161,7 @@
                 <div class="col-md-4">
                     <div class="card border-info">
                         <div class="card-header bg-info">
-                            <h4 class="m-b-0 text-white">Item name {{$item_name->name_np}} (वर्ष {{$from_date}})</h4>
+                            <h4 class="m-b-0 text-white">Item name {{$item_name->name_np}} (आर्थिक वर्ष {{$previous_data['previous_year']}})</h4>
                         </div>
                         <div class="card-body">
     
