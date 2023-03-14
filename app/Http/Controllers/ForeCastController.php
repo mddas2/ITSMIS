@@ -14,6 +14,7 @@ use App\Models\IEERelated;
 use App\Models\IpRegistration;
 use App\Models\Item;
 use App\Models\ItemCategory;
+use App\Models\Modulehascategory;
 use App\Models\Province;
 use App\Models\MeasurementUnit;
 use App\Models\NepalOilCorporation;
@@ -628,29 +629,53 @@ class ForeCastController extends Controller
         return $data;
     }
 
+    // '1' => 'भन्सार विभाग',
+    // '2' => 'वाणिज्य, आपूर्ति र उपभोक्ता अधिकार संरक्षण विभाग',
+    // '3' => 'उद्योग विभाग',
+    // '4' => 'नेपाल आयल निगम',
+    // '5' => 'खाद्य व्यवस्थापन र व्यापार कम्पनी',
+    // '6' => 'साल्ट ट्रेडिङ लिमिटेड',
+    // '7' => 'स्थानीय तह',
+    // '8' => 'जिल्ला प्रशासन कार्यालय',
+    // '9' => 'प्रदेश स्तर - घर तथा साना उद्योग कार्यालय',
+    // '10' => 'प्रदेश स्तर - उद्योग, वाणिज्य तथा उपभोक्ता संरक्षण निर्देशनालय',
+    // '11' => 'गृह उद्योग प्रवर्द्धन केन्द्र',
+    // '12' => 'उद्योग र निजी क्षेत्र',
+    // '13' => 'कम्पनी रजिष्‍ट्रारको कार्यालय',
+
     public function putAll_ItemProductionConsumptionCategory(Request $request){
 
         $from_year =  $request['year'];
         $split_year =  explode("-",$from_year);
         $to_year = (intval($split_year[0])+1)."-"."03"."-"."32";
 
-        $category_id = $request['catId'];  
-     
-        
+        $category_id = $request['catId'];    
         $all_data_p_c = [];
+
+        // $modules_obj = Modulehascategory::all();
+        // foreach($modules_obj as $module){
+        //     $module_has_categories = unserialize($module->categories);
+        // } 
+
         if($category_id == 3 || $category_id == 12){
             $all_items = ItemCategory::where('id',$category_id)->first()->getItems()->get();
             foreach($all_items as $item){           
                 
-                $import = NepalOilCorporation::where("item_id",$item->id)->whereBetween('date', [$from_year, $to_year])->get()->sum("quantity");
+                if($category_id == 3){
+                    $import = NepalOilCorporation::where("item_id",$item->id)->whereBetween('date', [$from_year, $to_year])->get()->sum("quantity");
+                    $opening = $this->OpeningLocalProductionCorpotation($from_year,$item->id);//opening for this should be from Oil model and Salt::model
+
+                }
+                elseif($category_id == 12){
+                    $import = SaltTradingLimitedPurchase::where("item_id",$item->id)->whereBetween('date', [$from_year, $to_year])->get()->sum("quantity");
+                    $opening = $this->OpeningLocalProductionCorpotation($from_year,$item->id);//opening for this should be from Oil model and Salt::model
+
+                }
                 
                 if($import > 0){
                     $production = 0;
                     $consumption = Consumption::where("item_id",$item->id)->whereBetween('date', [$from_year, $to_year])->get()->sum("quantity");   
                     $export = DepartmentOfCustom::where("item",$item->id)->where("type","export")->whereBetween('asmt_date', [$from_year, $to_year])->get()->sum("quantity");
-
-                    $opening = $this->OpeningLocalProduction($from_year,$item->id);//opening for this should be from Oil model and Salt::model
-
                     $record = array("obj" => $item,"production"=>$production,"opening"=>$opening,"consumption"=>$consumption,"import"=>$import,"export"=>$export);
                     $all_data_p_c[] = $record;
                 }           
@@ -693,7 +718,12 @@ class ForeCastController extends Controller
         $all_data_p_c = [];
         if($category_id == 3 || $category_id == 12){            
                 
-            $import = NepalOilCorporation::where("item_id",$item_id)->whereBetween('date', [$from_year, $to_year])->get()->sum("quantity");            
+            if($category_id == 3){
+                $import = NepalOilCorporation::where("item_id",$item_id)->whereBetween('date', [$from_year, $to_year])->get()->sum("quantity");
+            }
+            elseif($category_id == 12){
+                $import = SaltTradingLimitedPurchase::where("item_id",$item_id)->whereBetween('date', [$from_year, $to_year])->get()->sum("quantity");
+            }          
             if($import > 0){
                 $production = 0;
                 $consumption = Consumption::where("item_id",$item_id)->whereBetween('date', [$from_year, $to_year])->get()->sum("quantity");   
