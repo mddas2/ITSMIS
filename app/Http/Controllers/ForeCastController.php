@@ -548,7 +548,7 @@ class ForeCastController extends Controller
         return $data;
     }
     public function AjaxGetYearlyLineChartData(Request $request){ // Production Consumption Export/Import line Chart
-        
+
         $current_year = $request['year'];
 
         $item_id = $request['item_id'];
@@ -591,11 +591,11 @@ class ForeCastController extends Controller
 
                 $year_sum = LocalProduction::where("item_id",$item_id)->whereBetween('date', [$start_date, $end_date])->get()->sum("quantity");
                 $consusmption = Consumption::where("item_id",$item_id)->whereBetween('date', [$start_date, $end_date])->get()->sum("quantity");
-
+                $opening = $this->OpeningLocalProduction($start_date,$item_id);
                 $import = DepartmentOfCustom::where("item",$item_id)->where("type","import")->whereBetween('asmt_date', [$start_date, $end_date])->get()->sum("quantity");
                 $export = DepartmentOfCustom::where("item",$item_id)->where("type","export")->whereBetween('asmt_date', [$start_date, $end_date])->get()->sum("quantity");
-
-                $data[$year] = array("period"=>strval($current_year-$year),"from_date"=>$start_date,"end_date"=>$end_date,"Production"=>$year_sum,"Consumption"=>$consusmption,"import_export"=>60,"import"=>$import,"export"=>$export);
+        
+                $data[$year] = array("period"=>strval($current_year-$year),"opening"=>$opening,"from_date"=>$start_date,"end_date"=>$end_date,"Production"=>$year_sum,"Consumption"=>$consusmption,"import_export"=>60,"import"=>$import,"export"=>$export);
             }
 
             
