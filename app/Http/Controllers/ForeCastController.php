@@ -663,15 +663,12 @@ class ForeCastController extends Controller
                 
                 if($category_id == 3){
                     $import = NepalOilCorporation::where("item_id",$item->id)->whereBetween('date', [$from_year, $to_year])->get()->sum("quantity");
-                    $opening = $this->OpeningLocalProductionCorpotation($from_year,$item->id);//opening for this should be from Oil model and Salt::model
-
+                    $opening = $this->OpeningLocalProductionCorpotation($from_year,$category_id,$item->id);//opening for this should be from Oil model and Salt::model
                 }
                 elseif($category_id == 12){
                     $import = SaltTradingLimitedPurchase::where("item_id",$item->id)->whereBetween('date', [$from_year, $to_year])->get()->sum("quantity");
-                    $opening = $this->OpeningLocalProductionCorpotation($from_year,$item->id);//opening for this should be from Oil model and Salt::model
-
-                }
-                
+                    $opening = $this->OpeningLocalProductionCorpotation($from_year,$category_id,$item->id);//opening for this should be from Oil model and Salt::model
+                }                
                 if($import > 0){
                     $production = 0;
                     $consumption = Consumption::where("item_id",$item->id)->whereBetween('date', [$from_year, $to_year])->get()->sum("quantity");   
@@ -820,7 +817,30 @@ class ForeCastController extends Controller
             
         } 
         return 0;
+    }    
+    public function OpeningLocalProductionCorpotation($from_year,$category_id,$item_id){
+        $split_year =  intval(explode("-", $from_year)[0]);
+        $previous_year = $split_year-1;
+        $previous_from_year = $previous_year."-04-01";
+        $previous_to_year = $split_year."-03-32";        
+
+        if($category_id == 3){
+            $import = NepalOilCorporation::where("item_id",$item_id)->whereBetween('date', [$previous_from_year, $previous_to_year])->get()->sum("quantity");
+        }
+        elseif($category_id == 12){
+            $import = SaltTradingLimitedPurchase::where("item_id",$item_id)->whereBetween('date', [$previous_from_year, $previous_to_year])->get()->sum("quantity");
+        }
+        
+        if($import > 0){
+            $consumption = Consumption::where("item_id",$item_id)->whereBetween('date', [$previous_from_year, $previous_to_year])->get()->sum("quantity");
+            $export = DepartmentOfCustom::where("item",$item_id)->where("type","export")->whereBetween('asmt_date', [$previous_from_year, $previous_to_year])->get()->sum("quantity");
+            $production = 0;
+            $profit_loss = ($production + $import) - ($consumption+$export);
+            return $profit_loss;            
+        } 
+        return 0;
 
     }
+    
     
 }
