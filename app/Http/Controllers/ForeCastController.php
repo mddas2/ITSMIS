@@ -521,14 +521,17 @@ class ForeCastController extends Controller
         $item_id = $request['item_id'];
         $item_obj = Consumption::all()->where("item_id",$item_id)->sum("quantity"); 
 
-
         // $monthly_data = [];
       
         $data = [];
         for($year = 0; $year<=6; $year++){
-            
-            $year_sum = LocalProduction::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
-            $consusmption = Consumption::where("item_id",$item_id)->whereYear('date', '=', $current_year-$year)->get()->sum("quantity");
+            $year_status = $current_year-$year;
+
+            $from_year = $year_status."-04-1";
+            $to_year = ($year_status+1)."-03-32";
+
+            $year_sum = LocalProduction::where("item_id",$item_id)->whereBetween('date', [$from_year, $to_year])->get()->sum("quantity");
+            $consusmption = Consumption::where("item_id",$item_id)->whereBetween('date', [$from_year, $to_year])->get()->sum("quantity");
 
             $data[$year] = array("y"=>$current_year-$year,"a"=>$year_sum,"b"=>$consusmption,"c"=>60);
         }
