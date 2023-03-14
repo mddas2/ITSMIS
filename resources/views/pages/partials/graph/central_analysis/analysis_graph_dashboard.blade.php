@@ -301,8 +301,7 @@
             </thead>
             <tbody>
                
-                @foreach($monthly_data as $key=>$data)
-                 
+                @foreach($monthly_data as $key=>$data)                 
                     <tr>
                         <td>{{$key}}</td>
                         <td>{{$data}} {{$unit_is}}</td>
@@ -335,9 +334,7 @@
                             <td>
                                 0
                             </td>
-                        @endif 
-
-                                                               
+                        @endif                                                                
                     </tr>
                 @endforeach
             </tbody>

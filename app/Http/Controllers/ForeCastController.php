@@ -121,6 +121,7 @@ class ForeCastController extends Controller
         $this->_data['unit_is'] = $unit_is;
 
         $monthly_data = $this->putMonthlyData($request);
+        
         $this->_data['monthly_data'] = $monthly_data;
         // return $monthly_data;
 
@@ -440,23 +441,6 @@ class ForeCastController extends Controller
         return $previous_data;
     }
 
-    // public function getTotalProductionPreviousYear($request){
-    //     $from_date = $request['from_date'];
-    //     $from_date = explode("-",$from_date);
-    //     // $from_date = $from_date[0]-1."-".$from_date[1]."-".$from_date[2];
-    //     // dd($from_date);
-    //     $to_date = $request['to_date'];
-    //     $item_id = $request['item_id'];
-    //     $item_obj = LocalProduction::all()->where("item_id",$item_id)->whereBetween('date', [$from_date, $to_date])->sum("quantity"); 
-    //     return $item_obj;
-    // }
-    // public function getTotalConsumptionPreviousYear($request){ //Monthly Report table
-    //     $item_id = $request['item_id'];
-    //     $from_date = $request['from_date'];
-    //     $to_date = $request['to_date'];
-    //     $item_obj = Consumption::all()->where("item_id",$item_id)->whereBetween('date', [$from_date, $to_date])->sum("quantity"); 
-    //     return $item_obj;
-    // }
 
     public function putMonthlyData($request){
         $from_date = $request['from_date'];
@@ -521,10 +505,13 @@ class ForeCastController extends Controller
             12=>"Chaitra",
         ];
 
-        for($month = 1; $month<=12; $month++){
-            // $variable = "month_".$month;
-            $monthly_data[$month] = LocalProduction::where("item_id",$item_id)->whereYear('date', '=', $year)->whereMonth('date','=',$month)->get()->sum("quantity");
+        for($month = 4; $month<=12; $month++){
+            $monthly_data[$month-3] = LocalProduction::where("item_id",$item_id)->whereYear('date', '=', $year)->whereMonth('date','=',$month)->get()->sum("quantity");
         }
+        $year = intval($year)+1;
+        for($month = 1; $month<=3;$month++){
+            $monthly_data[$month+9] = LocalProduction::where("item_id",$item_id)->whereYear('date', '=', $year)->whereMonth('date','=',$month)->get()->sum("quantity");
+        }        
         return $monthly_data;
     }
     public function AjaxGetYearlyData(Request $request){
