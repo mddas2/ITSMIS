@@ -262,21 +262,7 @@
                                 <!-- <th class="md5md">Remarks<th> -->
                             </tr>
                         </thead>
-                        <tbody style="font-size: 15px; font-weight: bolder;" id="tabular_data">
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>A</td>
-                                <td>B</td>
-                                <td>A+B</td>
-                                <td>C</td>
-                                <td>D</td>
-                                <td>C+D</td>
-                                <td>(A+B)-(C+D)</td>
-                                <td></td>
-                            </tr>
-                          
+                        <tbody style="font-size: 15px; font-weight: bolder;" id="tabular_data">                          
                         </tbody>
                     </table>
                 </div>
@@ -404,11 +390,11 @@
                                 <td class="supply_total">`+data[dat]['opening']+`</td>
                                 <td class="supply_total">`+data[dat]['Production']+`</td>
                                 <td class="supply_total">`+data[dat]['import']+`</td>
-                                <td class="supply_total">`+(data[dat]['Production']+data[dat]['import'])+`</td>
+                                <td class="supply_total">`+(data[dat]['opening']+data[dat]['Production']+data[dat]['import'])+`</td>
                                 <td class="demand_total">`+data[dat]['Consumption']+`</td>
                                 <td class="demand_total">`+data[dat]['export']+`</td>
                                 <td class="demand_total">`+(data[dat]['Consumption']+data[dat]['export'])+`</td>
-                                <td>`+(data[dat]['Production']+data[dat]['import']-(data[dat]['Consumption']+data[dat]['export']))+`</td>
+                                <td>`+((data[dat]['opening']+data[dat]['Production']+data[dat]['import'])-(data[dat]['Consumption']+data[dat]['export']))+`</td>
                          
                             </tr>`)
             }

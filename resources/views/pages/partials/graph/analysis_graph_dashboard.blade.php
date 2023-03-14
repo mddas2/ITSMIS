@@ -84,18 +84,7 @@
                             </tr>
                         </thead>
                         <tbody style="font-size: 15px; font-weight: bolder;" id="view_available_item">                            
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>A</td>
-                                <td>B</td>
-                                <td>A+B</td>
-                                <td>C</td>
-                                <td>D</td>
-                                <td>C+D</td>
-                                <td>(A+B)-(C+D)</td>
-                                <td></td>
-                            </tr>
+                          
                         </tbody>
                     </table>
                 </div>
