@@ -571,16 +571,18 @@ class ForeCastController extends Controller
                 $consusmption = Consumption::where("item_id",$item_id)->whereBetween('date', [$start_date, $end_date])->get()->sum("quantity");
                 if($category_id == 3){ //3 is oil
                     $import = NepalOilCorporation::where("item_id",$item_id)->whereBetween('date', [$start_date, $end_date])->get()->sum("quantity");
+                    $opening = $this->OpeningLocalProductionCorpotation($from_year,$category_id,$item_id);
                 }
                 elseif($category_id == 12){//12 is petroilium
                     $import = SaltTradingLimitedPurchase::where("item_id",$item_id)->whereBetween('date', [$start_date, $end_date])->get()->sum("quantity");
+                    $opening = $this->OpeningLocalProductionCorpotation($start_date,$category_id,$item_id);
                 }
                 else{
                     $import = 0;
                 }                
                
                 $export = DepartmentOfCustom::where("item",$item_id)->where("type","export")->whereBetween('asmt_date', [$start_date, $end_date])->get()->sum("quantity");
-                $data[$year] = array("period"=>strval($current_year-$year),"Production"=>$year_sum,"Consumption"=>$consusmption,"import_export"=>60,"import"=>$import,"export"=>$export);
+                $data[$year] = array("period"=>strval($current_year-$year),"opening"=>$opening,"Production"=>$year_sum,"Consumption"=>$consusmption,"import_export"=>60,"import"=>$import,"export"=>$export);
 
             }
             else{

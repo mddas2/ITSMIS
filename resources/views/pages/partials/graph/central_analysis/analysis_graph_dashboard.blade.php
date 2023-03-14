@@ -404,7 +404,7 @@
                 $("#tabular_data").append(`<tr>
                                 <td>`+data[dat]['period']+`</td>
                                 <td>{{$unit_is}}</td>
-                                <td class="supply_total">`+data[dat]['Production']+`</td>
+                                <td class="supply_total">`+data[dat]['opening']+`</td>
                                 <td class="supply_total">`+data[dat]['Production']+`</td>
                                 <td class="supply_total">`+data[dat]['import']+`</td>
                                 <td class="supply_total">`+(data[dat]['Production']+data[dat]['import'])+`</td>
