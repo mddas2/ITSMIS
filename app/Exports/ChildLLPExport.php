@@ -75,7 +75,7 @@ class ChildLLPExport implements FromView, WithEvents, WithTitle
                 $items = Item::pluck('name', 'id')->toArray();
                 $itemList = implode(",", $items);
 
-                $units = MeasurementUnit::pluck('name', 'id')->toArray();
+                $units = MeasurementUnit::where('id',1)->pluck('name', 'id')->toArray();
                 $unitList = implode(",", $units);
 
                 /** @var Sheet $sheet */
